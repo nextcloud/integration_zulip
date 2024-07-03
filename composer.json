@@ -2,8 +2,8 @@
 	"name": "nextcloud/integration_zulip",
 	"authors": [
 		{
-			"name": "Anupam Kumar",
-			"email": "kyteinsky@gmail.com"
+			"name": "Edward Ly",
+			"email": "contact@edward.ly"
 		}
 	],
 	"require": {

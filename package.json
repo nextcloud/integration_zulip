@@ -18,7 +18,7 @@
 	"keywords": [
 		"zulip"
 	],
-	"author": "Anupam Kumar",
+	"author": "Edward Ly",
 	"license": "AGPL-3.0",
 	"bugs": {
 		"url": "https://github.com/nextcloud/integration_zulip/issues"
