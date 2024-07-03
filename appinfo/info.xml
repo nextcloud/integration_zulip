@@ -4,7 +4,7 @@
 	<name>Zulip Integration</name>
 	<summary>Integration of Zulip</summary>
 	<description><![CDATA[Zulip integration lets you send files to Zulip from Nextcloud Files.]]></description>
-	<version>1.1.0</version>
+	<version>1.0.0</version>
 	<licence>agpl</licence>
 	<author>Edward Ly</author>
 	<namespace>Zulip</namespace>
