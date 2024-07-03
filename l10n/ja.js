@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Error during OAuth exchanges" : "OAuth 通信中のエラー",
     "Bad credentials" : "不正な資格情報",

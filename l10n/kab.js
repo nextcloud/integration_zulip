@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Type" : "Anaw",
     "Comment" : "Commentaire",

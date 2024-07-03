@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -11,12 +11,12 @@
  * @copyright Anupam Kumar 2023
  */
 
-namespace OCA\Slack\Service;
+namespace OCA\Zulip\Service;
 
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use OCA\Slack\AppInfo\Application;
+use OCA\Zulip\AppInfo\Application;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
@@ -47,16 +47,16 @@ class NetworkService {
 	 * @param array $params
 	 * @param string $method
 	 * @param bool $jsonResponse
-	 * @param bool $slackApiRequest
+	 * @param bool $zulipApiRequest
 	 * @return array|mixed|resource|string|string[]
 	 * @throws PreConditionNotMetException
 	 */
 	public function request(string $userId, string $endPoint, array $params = [], string $method = 'GET',
-		bool $jsonResponse = true, bool $slackApiRequest = true) {
+		bool $jsonResponse = true, bool $zulipApiRequest = true) {
 		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
 
 		try {
-			$url = ($slackApiRequest ? Application::SLACK_API_URL : '') . $endPoint;
+			$url = ($zulipApiRequest ? Application::ZULIP_API_URL : '') . $endPoint;
 			$options = [
 				'headers' => [
 					'Authorization' => 'Bearer ' . $accessToken,
@@ -108,10 +108,10 @@ class NetworkService {
 			return $body;
 		} catch (ServerException | ClientException $e) {
 			$body = $e->getResponse()->getBody();
-			$this->logger->warning('Slack API error : ' . $body, ['app' => Application::APP_ID]);
+			$this->logger->warning('Zulip API error : ' . $body, ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		} catch (Exception | Throwable $e) {
-			$this->logger->warning('Slack API error', ['exception' => $e, 'app' => Application::APP_ID]);
+			$this->logger->warning('Zulip API error', ['exception' => $e, 'app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
 	}

@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Invalid client secret" : "Neplatný tajný kľúč klienta",
     "Error getting OAuth access token. " : "Chyba pri získavaní prístupového tokenu OAuth.",

@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\Slack\Tests;
+namespace OCA\Zulip\Tests;
 
 use OC\Http\Client\ClientService;
 use OC\L10N\L10N;
-use OCA\Slack\AppInfo\Application;
-use OCA\Slack\Service\NetworkService;
-use OCA\Slack\Service\SlackAPIService;
+use OCA\Zulip\AppInfo\Application;
+use OCA\Zulip\Service\NetworkService;
+use OCA\Zulip\Service\ZulipAPIService;
 use OCP\Files\IRootFolder;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
@@ -17,7 +17,7 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
-class SlackAPIServiceTest extends TestCase {
+class ZulipAPIServiceTest extends TestCase {
 	private LoggerInterface $logger;
 	private IL10N $l10n;
 	private IConfig $config;
@@ -28,7 +28,7 @@ class SlackAPIServiceTest extends TestCase {
 	private NetworkService $networkService;
 	private IClientService $clientService;
 
-	private SlackAPIService $apiService;
+	private ZulipAPIService $apiService;
 
 	public function setUp(): void {
 		parent::setUp();
@@ -47,7 +47,7 @@ class SlackAPIServiceTest extends TestCase {
 		$this->networkService = $this->createMock(NetworkService::class);
 		$this->clientService = $this->createMock(ClientService::class);
 
-		$this->apiService = new SlackAPIService(
+		$this->apiService = new ZulipAPIService(
 			$this->logger,
 			$this->l10n,
 			$this->config,
@@ -62,7 +62,7 @@ class SlackAPIServiceTest extends TestCase {
 
 	public function testDummy() {
 		$app = new Application();
-		$this->assertEquals('integration_slack', $app::APP_ID);
+		$this->assertEquals('integration_zulip', $app::APP_ID);
 	}
 
 	public function testUsetAvatar() {
@@ -71,10 +71,10 @@ class SlackAPIServiceTest extends TestCase {
 			string $endPoint,
 			array $params,
 		) {
-			if (isset($params['user']) && $params['user'] === 'slackid2') {
+			if (isset($params['user']) && $params['user'] === 'zulipid2') {
 				return [ 'user' => [ 'real_name' => 'realname' ] ];
 			}
-			if (isset($params['user']) && $params['user'] === 'slackid3') {
+			if (isset($params['user']) && $params['user'] === 'zulipid3') {
 				return [ 'user' => [ 'profile' => [ 'image_48' => 'image_location_url' ] ] ];
 			}
 			if ($endPoint === 'image_location_url') {
@@ -84,13 +84,13 @@ class SlackAPIServiceTest extends TestCase {
 			return 'dummy';
 		});
 
-		$expected = $this->apiService->getUserAvatar('user', 'slackid1');
+		$expected = $this->apiService->getUserAvatar('user', 'zulipid1');
 		$this->assertEquals([ 'displayName' => 'User' ], $expected);
 
-		$expected = $this->apiService->getUserAvatar('user', 'slackid2');
+		$expected = $this->apiService->getUserAvatar('user', 'zulipid2');
 		$this->assertEquals([ 'displayName' => 'realname' ], $expected);
 
-		$expected = $this->apiService->getUserAvatar('user', 'slackid3');
+		$expected = $this->apiService->getUserAvatar('user', 'zulipid3');
 		$this->assertEquals([ 'avatarContent' => 'image_content' ], $expected);
 	}
 

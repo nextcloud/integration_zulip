@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -10,7 +10,7 @@
  * @copyright Julien Veyssier 2022
  */
 
-namespace OCA\Slack\Service;
+namespace OCA\Zulip\Service;
 
 use OCP\Files\File;
 use OCP\Files\IMimeTypeDetector;

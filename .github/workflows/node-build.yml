@@ -17,7 +17,7 @@ on:
       - webpack.js
 
 env:
-  APP_NAME: integration_slack
+  APP_NAME: integration_zulip
 
 jobs:
   build:

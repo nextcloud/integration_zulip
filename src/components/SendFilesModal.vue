@@ -1,15 +1,15 @@
 <template>
-	<div class="slack-modal-container">
+	<div class="zulip-modal-container">
 		<NcModal v-if="show"
 			size="normal"
 			@close="closeModal">
-			<div class="slack-modal-content">
+			<div class="zulip-modal-content">
 				<h2 class="modal-title">
-					<SlackIcon />
+					<ZulipIcon />
 					<span>
 						{{ sendType === SEND_TYPE.file.id
-							? n('integration_slack', 'Send file to Slack', 'Send files to Slack', files.length)
-							: n('integration_slack', 'Send link to Slack', 'Send links to Slack', files.length)
+							? n('integration_zulip', 'Send file to Zulip', 'Send files to Zulip', files.length)
+							: n('integration_zulip', 'Send link to Zulip', 'Send links to Zulip', files.length)
 						}}
 					</span>
 				</h2>
@@ -17,7 +17,7 @@
 					<FileIcon />
 					<span>
 						<strong>
-							{{ t('integration_slack', 'Files') }}
+							{{ t('integration_zulip', 'Files') }}
 						</strong>
 					</span>
 				</span>
@@ -41,7 +41,7 @@
 							{{ myHumanFileSize(f.size, true) }}
 						</span>
 						<NcButton class="remove-file-button"
-							:aria-label="t('integration_slack', 'Remove file from list')"
+							:aria-label="t('integration_zulip', 'Remove file from list')"
 							@click="onRemoveFile(f.id)">
 							<template #icon>
 								<CloseIcon :size="20" />
@@ -53,7 +53,7 @@
 					<PoundBoxIcon />
 					<span>
 						<strong>
-							{{ t('integration_slack', 'Conversation') }}
+							{{ t('integration_zulip', 'Conversation') }}
 						</strong>
 					</span>
 					<NcLoadingIcon v-if="channels === undefined" :size="20" />
@@ -65,8 +65,8 @@
 					:clearable="false"
 					:options="channels"
 					:append-to-body="false"
-					:placeholder="t('integration_slack', 'Choose a conversation')"
-					input-id="slack-channel-select"
+					:placeholder="t('integration_zulip', 'Choose a conversation')"
+					input-id="zulip-channel-select"
 					@search="query = $event">
 					<template #option="option">
 						<div class="select-option">
@@ -111,7 +111,7 @@
 						<PackageUpIcon />
 						<span>
 							<strong>
-								{{ t('integration_slack', 'Type') }}
+								{{ t('integration_zulip', 'Type') }}
 							</strong>
 						</span>
 					</span>
@@ -137,20 +137,20 @@
 					<div v-show="sendType === SEND_TYPE.public_link.id"
 						class="expiration-field">
 						<NcCheckboxRadioSwitch :checked.sync="expirationEnabled">
-							{{ t('integration_slack', 'Set expiration date') }}
+							{{ t('integration_zulip', 'Set expiration date') }}
 						</NcCheckboxRadioSwitch>
 						<div class="spacer" />
 						<NcDateTimePicker v-show="expirationEnabled"
 							id="expiration-datepicker"
 							v-model="expirationDate"
 							:disabled-date="isDateDisabled"
-							:placeholder="t('integration_slack', 'Expires on')"
+							:placeholder="t('integration_zulip', 'Expires on')"
 							:clearable="true" />
 					</div>
 					<div v-show="sendType === SEND_TYPE.public_link.id"
 						class="password-field">
 						<NcCheckboxRadioSwitch :checked.sync="passwordEnabled">
-							{{ t('integration_slack', 'Set link password') }}
+							{{ t('integration_zulip', 'Set link password') }}
 						</NcCheckboxRadioSwitch>
 						<div class="spacer" />
 						<input v-show="passwordEnabled"
@@ -163,7 +163,7 @@
 						<CommentIcon />
 						<span>
 							<strong>
-								{{ t('integration_slack', 'Comment') }}
+								{{ t('integration_zulip', 'Comment') }}
 							</strong>
 						</span>
 					</span>
@@ -177,29 +177,29 @@
 					class="warning-container">
 					<AlertBoxIcon class="warning-icon" />
 					<label>
-						{{ t('integration_slack', 'Directories will be skipped, they can only be sent as links.') }}
+						{{ t('integration_zulip', 'Directories will be skipped, they can only be sent as links.') }}
 					</label>
 				</span>
-				<div class="slack-footer">
+				<div class="zulip-footer">
 					<div class="spacer" />
 					<NcButton
-						:aria-label="t('integration_slack', 'Cancel')"
+						:aria-label="t('integration_zulip', 'Cancel')"
 						@click="closeModal">
-						{{ t('integration_slack', 'Cancel') }}
+						{{ t('integration_zulip', 'Cancel') }}
 					</NcButton>
 					<NcButton type="primary"
 						:class="{ loading, okButton: true }"
 						:disabled="!canValidate"
 						:aria-label="sendType === SEND_TYPE.file.id
-							? n('integration_slack', 'Send file', 'Send files', files.length)
-							: n('integration_slack', 'Send link', 'Send links', files.length)"
+							? n('integration_zulip', 'Send file', 'Send files', files.length)
+							: n('integration_zulip', 'Send link', 'Send links', files.length)"
 						@click="onSendClick">
 						<template #icon>
 							<SendIcon />
 						</template>
 						{{ sendType === SEND_TYPE.file.id
-							? n('integration_slack', 'Send file', 'Send files', files.length)
-							: n('integration_slack', 'Send link', 'Send links', files.length) }}
+							? n('integration_zulip', 'Send file', 'Send files', files.length)
+							: n('integration_zulip', 'Send link', 'Send links', files.length) }}
 					</NcButton>
 				</div>
 			</div>
@@ -234,7 +234,7 @@ import { showError } from '@nextcloud/dialogs'
 import { FileType } from '@nextcloud/files'
 import { generateUrl } from '@nextcloud/router'
 import { humanFileSize, SEND_TYPE } from '../utils.js'
-import SlackIcon from './icons/SlackIcon.vue'
+import ZulipIcon from './icons/ZulipIcon.vue'
 import RadioElementSet from './RadioElementSet.vue'
 
 const STATES = {
@@ -246,7 +246,7 @@ export default {
 	name: 'SendFilesModal',
 
 	components: {
-		SlackIcon,
+		ZulipIcon,
 		NcSelect,
 		NcCheckboxRadioSwitch,
 		NcDateTimePicker,
@@ -284,12 +284,12 @@ export default {
 			expirationDate: null,
 			passwordEnabled: false,
 			password: '',
-			passwordPlaceholder: t('integration_slack', 'password'),
+			passwordPlaceholder: t('integration_zulip', 'password'),
 			STATES,
-			commentPlaceholder: t('integration_slack', 'Message to send with the files'),
+			commentPlaceholder: t('integration_zulip', 'Message to send with the files'),
 			permissionOptions: {
-				view: { label: t('integration_slack', 'View only'), icon: EyeIcon },
-				edit: { label: t('integration_slack', 'Edit'), icon: PencilIcon },
+				view: { label: t('integration_zulip', 'View only'), icon: EyeIcon },
+				edit: { label: t('integration_zulip', 'Edit'), icon: PencilIcon },
 			},
 		}
 	},
@@ -358,7 +358,7 @@ export default {
 			this.loading = false
 		},
 		updateChannels() {
-			const url = generateUrl('apps/integration_slack/channels')
+			const url = generateUrl('apps/integration_zulip/channels')
 			axios.get(url).then((response) => {
 				this.channels = response.data ?? []
 				this.channels.sort((a, b) => a.name.localeCompare(b.name))
@@ -366,7 +366,7 @@ export default {
 					this.selectedChannel = this.channels[0]
 				}
 			}).catch((error) => {
-				showError(t('integration_slack', 'Failed to load Slack channels'))
+				showError(t('integration_zulip', 'Failed to load Zulip channels'))
 				console.error(error)
 				this.channels = []
 			})
@@ -375,7 +375,7 @@ export default {
 			if (fileType === FileType.Folder) {
 				return generateUrl('/apps/theming/img/core/filetypes/folder.svg')
 			}
-			return generateUrl('/apps/integration_slack/preview?id={fileId}&x=24&y=24', { fileId })
+			return generateUrl('/apps/integration_zulip/preview?id={fileId}&x=24&y=24', { fileId })
 		},
 		fileStarted(id) {
 			this.$set(this.fileStates, id, STATES.IN_PROGRESS)
@@ -383,8 +383,8 @@ export default {
 		fileFinished(id) {
 			this.$set(this.fileStates, id, STATES.FINISHED)
 		},
-		getUserIconUrl(slackUserId) {
-			return generateUrl('/apps/integration_slack/users/{slackUserId}/image', { slackUserId })
+		getUserIconUrl(zulipUserId) {
+			return generateUrl('/apps/integration_zulip/users/{zulipUserId}/image', { zulipUserId })
 		},
 		isDateDisabled(d) {
 			const now = new Date()
@@ -407,7 +407,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.slack-modal-content {
+.zulip-modal-content {
 	//width: 100%;
 	padding: 16px;
 	display: flex;
@@ -419,7 +419,7 @@ export default {
 		align-items: center;
 	}
 
-	> *:not(.slack-footer) {
+	> *:not(.zulip-footer) {
 		margin-bottom: 16px;
 	}
 
@@ -432,7 +432,7 @@ export default {
 		}
 	}
 
-	> *:not(.field-label):not(.advanced-options):not(.slack-footer):not(.warning-container),
+	> *:not(.field-label):not(.advanced-options):not(.zulip-footer):not(.warning-container),
 	.advanced-options > *:not(.field-label) {
 		margin-left: 10px;
 	}
@@ -541,7 +541,7 @@ export default {
 	flex-grow: 1;
 }
 
-.slack-footer {
+.zulip-footer {
 	display: flex;
 	> * {
 		margin-left: 8px;

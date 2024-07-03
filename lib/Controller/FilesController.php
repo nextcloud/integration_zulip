@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,10 +9,10 @@
  * @copyright Julien Veyssier 2022
  */
 
-namespace OCA\Slack\Controller;
+namespace OCA\Zulip\Controller;
 
 use Exception;
-use OCA\Slack\Service\ImageService;
+use OCA\Zulip\Service\ImageService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDownloadResponse;

@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Error during OAuth exchanges" : "Грешка при размена на податоци со OAuth ",
     "Bad credentials" : "Неточни акредитиви",

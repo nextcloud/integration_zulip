@@ -1,7 +1,7 @@
 /* jshint esversion: 6 */
 
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -18,4 +18,4 @@ import './bootstrap.js'
 import PersonalSettings from './components/PersonalSettings.vue'
 
 const VuePersonalSettings = Vue.extend(PersonalSettings)
-new VuePersonalSettings().$mount('#slack_prefs')
+new VuePersonalSettings().$mount('#zulip_prefs')

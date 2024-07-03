@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Error getting OAuth access token. " : "Klaida gaunant „OAuth“ prieigos raktą. ",
     "Error during OAuth exchanges" : "Klaida „OAuth“ apsikeitimo metu",

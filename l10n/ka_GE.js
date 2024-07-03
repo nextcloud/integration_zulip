@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Client ID" : "კლიენტის ID",
     "Set expiration date" : "მიუთითეთ ვადის გასვლის დრო",

@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -20,11 +20,11 @@ return [
 		['name' => 'config#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 		['name' => 'config#popupSuccessPage', 'url' => '/popup-success', 'verb' => 'GET'],
 
-		['name' => 'slackAPI#sendMessage', 'url' => '/sendMessage', 'verb' => 'POST'],
-		['name' => 'slackAPI#sendPublicLinks', 'url' => '/sendPublicLinks', 'verb' => 'POST'],
-		['name' => 'slackAPI#sendFile', 'url' => '/sendFile', 'verb' => 'POST'],
-		['name' => 'slackAPI#getChannels', 'url' => '/channels', 'verb' => 'GET'],
-		['name' => 'slackAPI#getUserAvatar', 'url' => '/users/{slackUserId}/image', 'verb' => 'GET'],
+		['name' => 'zulipAPI#sendMessage', 'url' => '/sendMessage', 'verb' => 'POST'],
+		['name' => 'zulipAPI#sendPublicLinks', 'url' => '/sendPublicLinks', 'verb' => 'POST'],
+		['name' => 'zulipAPI#sendFile', 'url' => '/sendFile', 'verb' => 'POST'],
+		['name' => 'zulipAPI#getChannels', 'url' => '/channels', 'verb' => 'GET'],
+		['name' => 'zulipAPI#getUserAvatar', 'url' => '/users/{zulipUserId}/image', 'verb' => 'GET'],
 
 		['name' => 'files#getFileImage', 'url' => '/preview', 'verb' => 'GET'],
 	]

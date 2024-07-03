@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -11,11 +11,11 @@
  * @copyright Anupam Kumar 2023
  */
 
-namespace OCA\Slack\Controller;
+namespace OCA\Zulip\Controller;
 
 use Exception;
 use OC\User\NoUserException;
-use OCA\Slack\Service\SlackAPIService;
+use OCA\Zulip\Service\ZulipAPIService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
@@ -27,30 +27,30 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\Lock\LockedException;
 
-class SlackAPIController extends Controller {
+class ZulipAPIController extends Controller {
 
 	public function __construct(
 		string                  $appName,
 		IRequest                $request,
 		private IConfig         $config,
 		private IURLGenerator   $urlGenerator,
-		private SlackAPIService $slackAPIService,
+		private ZulipAPIService $zulipAPIService,
 		private ?string         $userId) {
 		parent::__construct($appName, $request);
 	}
 
 	/**
-	 * Get Slack user avatar
+	 * Get Zulip user avatar
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $slackUserId
+	 * @param string $zulipUserId
 	 * @param int $useFallback
 	 * @return DataDisplayResponse|RedirectResponse
 	 * @throws \Exception
 	 */
-	public function getUserAvatar(string $slackUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
-		$result = $this->slackAPIService->getUserAvatar($this->userId, $slackUserId);
+	public function getUserAvatar(string $zulipUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
+		$result = $this->zulipAPIService->getUserAvatar($this->userId, $zulipUserId);
 		if (isset($result['avatarContent'])) {
 			$response = new DataDisplayResponse($result['avatarContent']);
 			$response->cacheFor(60 * 60 * 24);
@@ -70,7 +70,7 @@ class SlackAPIController extends Controller {
 	 * @throws Exception
 	 */
 	public function getChannels() {
-		$result = $this->slackAPIService->getMyChannels($this->userId);
+		$result = $this->zulipAPIService->getMyChannels($this->userId);
 		if (isset($result['error'])) {
 			return new DataResponse($result, Http::STATUS_BAD_REQUEST);
 		}
@@ -86,7 +86,7 @@ class SlackAPIController extends Controller {
 	 * @throws Exception
 	 */
 	public function sendMessage(string $message, string $channelId) {
-		$result = $this->slackAPIService->sendMessage($this->userId, $message, $channelId);
+		$result = $this->zulipAPIService->sendMessage($this->userId, $message, $channelId);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {
@@ -106,7 +106,7 @@ class SlackAPIController extends Controller {
 	 * @throws NoUserException
 	 */
 	public function sendFile(int $fileId, string $channelId, string $comment = '') {
-		$result = $this->slackAPIService->sendFile($this->userId, $fileId, $channelId, $comment);
+		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $channelId, $comment);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {
@@ -130,7 +130,7 @@ class SlackAPIController extends Controller {
 	 */
 	public function sendPublicLinks(array $fileIds, string $channelId, string $channelName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): DataResponse {
-		$result = $this->slackAPIService->sendPublicLinks(
+		$result = $this->zulipAPIService->sendPublicLinks(
 			$this->userId, $fileIds, $channelId, $channelName,
 			$comment, $permission, $expirationDate, $password
 		);

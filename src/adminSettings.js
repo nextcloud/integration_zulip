@@ -1,7 +1,7 @@
 /* jshint esversion: 6 */
 
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -18,4 +18,4 @@ import './bootstrap.js'
 import AdminSettings from './components/AdminSettings.vue'
 
 const VueAdminSettings = Vue.extend(AdminSettings)
-new VueAdminSettings().$mount('#slack_prefs')
+new VueAdminSettings().$mount('#zulip_prefs')

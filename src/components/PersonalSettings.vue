@@ -1,37 +1,37 @@
 <template>
-	<div id="slack_prefs" class="section">
+	<div id="zulip_prefs" class="section">
 		<h2>
-			<SlackIcon class="icon" />
-			{{ t('integration_slack', 'Slack integration') }}
+			<ZulipIcon class="icon" />
+			{{ t('integration_zulip', 'Zulip integration') }}
 		</h2>
 		<p v-if="state.client_id === '' || state.client_secret === ''" class="settings-hint">
-			{{ t('integration_slack', 'The admin must fill in client ID and client secret for you to continue from here') }}
+			{{ t('integration_zulip', 'The admin must fill in client ID and client secret for you to continue from here') }}
 		</p>
 		<br>
-		<div id="slack-content">
-			<div id="slack-connect-block">
+		<div id="zulip-content">
+			<div id="zulip-connect-block">
 				<NcButton v-if="!connected"
-					id="slack-connect"
+					id="zulip-connect"
 					:disabled="loading === true || state.client_id === '' || state.client_secret === ''"
 					:class="{ loading }"
 					@click="connectWithOauth">
 					<template #icon>
 						<OpenInNewIcon />
 					</template>
-					{{ t('integration_slack', 'Connect to Slack') }}
+					{{ t('integration_zulip', 'Connect to Zulip') }}
 				</NcButton>
 				<div v-if="connected" class="line">
 					<NcAvatar :url="getUserIconUrl()" :size="48" dispay-name="User" />
-					<label class="slack-connected">
-						{{ t('integration_slack', 'Connected as') }}
+					<label class="zulip-connected">
+						{{ t('integration_zulip', 'Connected as') }}
 						{{ " " }}
 						<b>{{ connectedDisplayName }}</b>
 					</label>
-					<NcButton id="slack-rm-cred" @click="onLogoutClick">
+					<NcButton id="zulip-rm-cred" @click="onLogoutClick">
 						<template #icon>
 							<CloseIcon />
 						</template>
-						{{ t('integration_slack', 'Disconnect from Slack') }}
+						{{ t('integration_zulip', 'Disconnect from Zulip') }}
 					</NcButton>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 			<NcCheckboxRadioSwitch
 				:checked.sync="state.file_action_enabled"
 				@update:checked="onCheckboxChanged($event, 'file_action_enabled')">
-				{{ t('integration_slack', 'Add file action to send files to Slack') }}
+				{{ t('integration_zulip', 'Add file action to send files to Zulip') }}
 			</NcCheckboxRadioSwitch>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 
-import SlackIcon from './icons/SlackIcon.vue'
+import ZulipIcon from './icons/ZulipIcon.vue'
 
 import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
@@ -65,7 +65,7 @@ export default {
 	name: 'PersonalSettings',
 
 	components: {
-		SlackIcon,
+		ZulipIcon,
 		NcAvatar,
 		NcCheckboxRadioSwitch,
 		NcButton,
@@ -77,7 +77,7 @@ export default {
 
 	data() {
 		return {
-			state: loadState('integration_slack', 'user-config'),
+			state: loadState('integration_zulip', 'user-config'),
 			loading: false,
 		}
 	},
@@ -99,17 +99,17 @@ export default {
 		const urlParams = new URLSearchParams(paramString)
 		const glToken = urlParams.get('result')
 		if (glToken === 'success') {
-			showSuccess(t('integration_slack', 'Successfully connected to Slack!'))
+			showSuccess(t('integration_zulip', 'Successfully connected to Zulip!'))
 		} else if (glToken === 'error') {
-			showError(t('integration_slack', 'Error connecting to Slack:') + ' ' + urlParams.get('message'))
+			showError(t('integration_zulip', 'Error connecting to Zulip:') + ' ' + urlParams.get('message'))
 		}
 	},
 
 	methods: {
 		getUserIconUrl() {
 			return generateUrl(
-				'/apps/integration_slack/users/{slackUserId}/image',
-				{ slackUserId: this.state.user_id },
+				'/apps/integration_zulip/users/{zulipUserId}/image',
+				{ zulipUserId: this.state.user_id },
 			) + '?useFallback=1'
 		},
 		onLogoutClick() {
@@ -130,28 +130,28 @@ export default {
 			const req = {
 				values,
 			}
-			const url = generateUrl('/apps/integration_slack/config')
+			const url = generateUrl('/apps/integration_zulip/config')
 			axios.put(url, req)
 				.then((response) => {
 					if (checkboxChanged) {
-						showSuccess(t('integration_slack', 'Slack options saved'))
+						showSuccess(t('integration_zulip', 'Zulip options saved'))
 						return
 					}
 
 					if (response.data.user_id) {
 						this.state.user_id = response.data.user_id
 						if (!!this.state.token && !!this.state.user_id) {
-							showSuccess(t('integration_slack', 'Successfully connected to Slack!'))
+							showSuccess(t('integration_zulip', 'Successfully connected to Zulip!'))
 							this.state.user_id = response.data.user_id
 							this.state.user_displayname = response.data.user_displayname
 						} else {
-							showError(t('integration_slack', 'Invalid access token'))
+							showError(t('integration_zulip', 'Invalid access token'))
 						}
 					}
 				})
 				.catch((error) => {
 					showError(
-						t('integration_slack', 'Failed to save Slack options')
+						t('integration_zulip', 'Failed to save Zulip options')
 						+ ': ' + (error.response?.request?.responseText ?? ''),
 					)
 					console.error(error)
@@ -177,8 +177,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#slack_prefs {
-	#slack-content {
+#zulip_prefs {
+	#zulip-content {
 		margin-left: 40px;
 	}
 

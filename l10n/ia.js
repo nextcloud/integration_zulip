@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Type" : "Typo",
     "Set expiration date" : "Assignar data de expiration",

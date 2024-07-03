@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Error during OAuth exchanges" : "Помилка під час обміну OAuth",
     "Bad HTTP method" : "Поганий метод HTTP",

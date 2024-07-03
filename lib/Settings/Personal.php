@@ -1,8 +1,8 @@
 <?php
 
-namespace OCA\Slack\Settings;
+namespace OCA\Zulip\Settings;
 
-use OCA\Slack\AppInfo\Application;
+use OCA\Zulip\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;

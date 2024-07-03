@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,9 +9,9 @@
  * @copyright Copyright (c) 2023 Anupam Kumar <kyteinsky@gmail.com>
  */
 
-namespace OCA\Slack\Listener;
+namespace OCA\Zulip\Listener;
 
-use OCA\Slack\AppInfo\Application;
+use OCA\Zulip\AppInfo\Application;
 use OCP\Collaboration\Resources\LoadAdditionalScriptsEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;

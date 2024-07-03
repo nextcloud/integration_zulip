@@ -1,6 +1,6 @@
 import { loadState } from '@nextcloud/initial-state'
 
-const state = loadState('integration_slack', 'popup-data')
+const state = loadState('integration_zulip', 'popup-data')
 const userId = state.user_id
 const userDisplayName = state.user_displayname
 

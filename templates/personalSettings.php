@@ -1,6 +1,6 @@
 <?php
-$appId = OCA\Slack\AppInfo\Application::APP_ID;
+$appId = OCA\Zulip\AppInfo\Application::APP_ID;
 \OCP\Util::addScript($appId, $appId . '-personalSettings');
 ?>
 
-<div id="slack_prefs"></div>
+<div id="zulip_prefs"></div>

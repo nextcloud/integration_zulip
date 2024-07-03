@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <info>
-	<id>integration_slack</id>
-	<name>Slack Integration</name>
-	<summary>Integration of Slack</summary>
-	<description><![CDATA[Slack integration lets you send files to Slack from Nextcloud Files.]]></description>
+	<id>integration_zulip</id>
+	<name>Zulip Integration</name>
+	<summary>Integration of Zulip</summary>
+	<description><![CDATA[Zulip integration lets you send files to Zulip from Nextcloud Files.]]></description>
 	<version>1.1.0</version>
 	<licence>agpl</licence>
 	<author>Anupam Kumar</author>
-	<namespace>Slack</namespace>
+	<namespace>Zulip</namespace>
 	<documentation>
-		<developer>https://github.com/nextcloud/integration_slack</developer>
+		<developer>https://github.com/nextcloud/integration_zulip</developer>
 	</documentation>
 	<category>integration</category>
-	<website>https://github.com/nextcloud/integration_slack</website>
-	<bugs>https://github.com/nextcloud/integration_slack/issues</bugs>
-	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_slack/main/img/screenshot1.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_slack/main/img/screenshot2.png</screenshot>
+	<website>https://github.com/nextcloud/integration_zulip</website>
+	<bugs>https://github.com/nextcloud/integration_zulip/issues</bugs>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_zulip/main/img/screenshot1.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_zulip/main/img/screenshot2.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="28" max-version="29"/>
 	</dependencies>
 	<settings>
-		<admin>OCA\Slack\Settings\Admin</admin>
-		<admin-section>OCA\Slack\Settings\AdminSection</admin-section>
-		<personal>OCA\Slack\Settings\Personal</personal>
-		<personal-section>OCA\Slack\Settings\PersonalSection</personal-section>
+		<admin>OCA\Zulip\Settings\Admin</admin>
+		<admin-section>OCA\Zulip\Settings\AdminSection</admin-section>
+		<personal>OCA\Zulip\Settings\Personal</personal>
+		<personal-section>OCA\Zulip\Settings\PersonalSection</personal-section>
 	</settings>
 </info>

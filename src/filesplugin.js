@@ -20,20 +20,20 @@ import {
 	davGetClient, davGetDefaultPropfind, davResultToNode, davRootPath, FileType,
 } from '@nextcloud/files'
 import { subscribe } from '@nextcloud/event-bus'
-import SlackIcon from '../img/app-dark.svg'
+import ZulipIcon from '../img/app-dark.svg'
 
 import Vue from 'vue'
 import './bootstrap.js'
 
 const DEBUG = false
 
-const SEND_MESSAGE_URL = generateUrl('/apps/integration_slack/sendMessage')
-const SEND_FILE_URL = generateUrl('/apps/integration_slack/sendFile')
-const SEND_PUBLIC_LINKS_URL = generateUrl('/apps/integration_slack/sendPublicLinks')
-const IS_CONNECTED_URL = generateUrl('/apps/integration_slack/is-connected')
+const SEND_MESSAGE_URL = generateUrl('/apps/integration_zulip/sendMessage')
+const SEND_FILE_URL = generateUrl('/apps/integration_zulip/sendFile')
+const SEND_PUBLIC_LINKS_URL = generateUrl('/apps/integration_zulip/sendPublicLinks')
+const IS_CONNECTED_URL = generateUrl('/apps/integration_zulip/is-connected')
 
-if (!OCA.Slack) {
-	OCA.Slack = {
+if (!OCA.Zulip) {
+	OCA.Zulip = {
 		actionIgnoreLists: [
 			'trashbin',
 			'files.public',
@@ -45,32 +45,32 @@ if (!OCA.Slack) {
 
 subscribe('files:list:updated', onFilesListUpdated)
 function onFilesListUpdated({ view, folder, contents }) {
-	OCA.Slack.currentFileList = { view, folder, contents }
+	OCA.Zulip.currentFileList = { view, folder, contents }
 }
 
 function openChannelSelector(files) {
-	OCA.Slack.filesToSend = files
-	const modalVue = OCA.Slack.SlackSendModalVue
+	OCA.Zulip.filesToSend = files
+	const modalVue = OCA.Zulip.ZulipSendModalVue
 	modalVue.updateChannels()
 	modalVue.setFiles([...files])
 	modalVue.showModal()
 }
 
 const sendAction = new FileAction({
-	id: 'slackSend',
+	id: 'zulipSend',
 	displayName: (nodes) => {
 		return nodes.length > 1
-			? t('integration_slack', 'Send files to Slack')
-			: t('integration_slack', 'Send file to Slack')
+			? t('integration_zulip', 'Send files to Zulip')
+			: t('integration_zulip', 'Send file to Zulip')
 	},
 	enabled(nodes, view) {
-		return !OCA.Slack.actionIgnoreLists.includes(view.id)
+		return !OCA.Zulip.actionIgnoreLists.includes(view.id)
 			&& nodes.length > 0
 			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
 		// && nodes.every(({ type }) => type === FileType.File)
 		// && nodes.every(({ mime }) => mime === 'application/some+type')
 	},
-	iconSvgInline: () => SlackIcon,
+	iconSvgInline: () => ZulipIcon,
 	async exec(node) {
 		sendSelectedNodes([node])
 		return null
@@ -91,17 +91,17 @@ function sendSelectedNodes(nodes) {
 			size: node.size,
 		}
 	})
-	if (OCA.Slack.slackConnected) {
+	if (OCA.Zulip.zulipConnected) {
 		openChannelSelector(formattedNodes)
-	} else if (OCA.Slack.oauthPossible) {
-		connectToSlack(formattedNodes)
+	} else if (OCA.Zulip.oauthPossible) {
+		connectToZulip(formattedNodes)
 	} else {
 		gotoSettingsConfirmDialog()
 	}
 }
 
 function checkIfFilesToSend() {
-	const urlCheckConnection = generateUrl('/apps/integration_slack/files-to-send')
+	const urlCheckConnection = generateUrl('/apps/integration_zulip/files-to-send')
 	axios.get(urlCheckConnection)
 		.then((response) => {
 			const fileIdsStr = response?.data?.file_ids_to_send_after_oauth
@@ -109,7 +109,7 @@ function checkIfFilesToSend() {
 			if (fileIdsStr && currentDir) {
 				sendFileIdsAfterOAuth(fileIdsStr, currentDir)
 			} else {
-				if (DEBUG) console.debug('[Slack] nothing to send')
+				if (DEBUG) console.debug('[Zulip] nothing to send')
 			}
 		})
 		.catch((error) => {
@@ -125,7 +125,7 @@ function checkIfFilesToSend() {
  * @param {string} currentDir path to the current dir
  */
 async function sendFileIdsAfterOAuth(fileIdsStr, currentDir) {
-	if (DEBUG) console.debug('[Slack] in sendFileIdsAfterOAuth, fileIdsStr, currentDir', fileIdsStr, currentDir)
+	if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, fileIdsStr, currentDir', fileIdsStr, currentDir)
 	// this is only true after an OAuth connection initated from a file action
 	if (fileIdsStr) {
 		// get files info
@@ -150,28 +150,28 @@ async function sendFileIdsAfterOAuth(fileIdsStr, currentDir) {
 			}
 			return null
 		}).filter((e) => e !== null)
-		if (DEBUG) console.debug('[Slack] in sendFileIdsAfterOAuth, after changeDirectory, files:', files)
+		if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, after changeDirectory, files:', files)
 		if (files.length) {
-			if (DEBUG) console.debug('[Slack] in sendFileIdsAfterOAuth, after changeDirectory, call openChannelSelector')
+			if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, after changeDirectory, call openChannelSelector')
 			openChannelSelector(files)
 		}
 	}
 }
 
-function connectToSlack(selectedFiles = []) {
-	oauthConnectConfirmDialog(OCA.Slack.clientId).then((result) => {
+function connectToZulip(selectedFiles = []) {
+	oauthConnectConfirmDialog(OCA.Zulip.clientId).then((result) => {
 		if (result) {
-			if (OCA.Slack.usePopup) {
-				oauthConnect(OCA.Slack.clientId, null, true)
+			if (OCA.Zulip.usePopup) {
+				oauthConnect(OCA.Zulip.clientId, null, true)
 					.then(() => {
-						OCA.Slack.slackConnected = true
+						OCA.Zulip.zulipConnected = true
 						openChannelSelector(selectedFiles)
 					})
 			} else {
 				const selectedFilesIds = selectedFiles.map(f => f.id)
-				const currentDirectory = OCA.Slack.currentFileList?.folder?.attributes?.filename
+				const currentDirectory = OCA.Zulip.currentFileList?.folder?.attributes?.filename
 				oauthConnect(
-					OCA.Slack.clientId,
+					OCA.Zulip.clientId,
 					'files--' + currentDirectory + '--' + selectedFilesIds.join(','),
 				)
 			}
@@ -181,7 +181,7 @@ function connectToSlack(selectedFiles = []) {
 
 async function sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password) {
 	const req = {
-		fileIds: OCA.Slack.filesToSend.map((f) => f.id),
+		fileIds: OCA.Zulip.filesToSend.map((f) => f.id),
 		channelId,
 		channelName,
 		comment,
@@ -197,13 +197,13 @@ const sendInternalLinks = async (channelId, comment) => {
 	const getLink = (file) => window.location.protocol + '//' + window.location.host + generateUrl('/f/' + file.id)
 	const message = (comment !== ''
 		? `${comment}\n\n`
-		: '') + `${OCA.Slack.filesToSend.map((file) => `${file.name}: ${getLink(file)}`).join('\n')}`
+		: '') + `${OCA.Zulip.filesToSend.map((file) => `${file.name}: ${getLink(file)}`).join('\n')}`
 	return sendMessage(channelId, message)
 }
 
 const sendFile
 	= (channelId, channelName, comment) => (file, i) => new Promise((resolve, reject) => {
-		OCA.Slack.SlackSendModalVue.fileStarted(file.id)
+		OCA.Zulip.ZulipSendModalVue.fileStarted(file.id)
 
 		// send the comment only with the first file
 		const req = {
@@ -213,14 +213,14 @@ const sendFile
 		}
 
 		axios.post(SEND_FILE_URL, req).then((response) => {
-			OCA.Slack.remoteFileIds.push(response.data.remote_file_id)
-			OCA.Slack.sentFileNames.push(file.name)
-			OCA.Slack.SlackSendModalVue.fileFinished(file.id)
+			OCA.Zulip.remoteFileIds.push(response.data.remote_file_id)
+			OCA.Zulip.sentFileNames.push(file.name)
+			OCA.Zulip.ZulipSendModalVue.fileFinished(file.id)
 
 			resolve()
 		}).catch((error) => {
 			showError(
-				t('integration_slack', 'Failed to send {name} to {channelName} on Slack',
+				t('integration_zulip', 'Failed to send {name} to {channelName} on Zulip',
 					{ name: file.name, channelName })
 				+ ': ' + error.response?.request?.responseText,
 			)
@@ -237,44 +237,44 @@ async function sendMessage(channelId, message) {
 }
 
 // send file modal
-const modalId = 'slackSendModal'
+const modalId = 'zulipSendModal'
 const modalElement = document.createElement('div')
 modalElement.id = modalId
 document.body.append(modalElement)
 
 const View = Vue.extend(SendFilesModal)
-OCA.Slack.SlackSendModalVue = new View().$mount(modalElement)
+OCA.Zulip.ZulipSendModalVue = new View().$mount(modalElement)
 
-OCA.Slack.SlackSendModalVue.$on('closed', () => {
-	if (DEBUG) console.debug('[Slack] modal closed')
+OCA.Zulip.ZulipSendModalVue.$on('closed', () => {
+	if (DEBUG) console.debug('[Zulip] modal closed')
 })
-OCA.Slack.SlackSendModalVue.$on('validate', ({ filesToSend, channelId, channelName, type, comment, permission, expirationDate, password }) => {
+OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelName, type, comment, permission, expirationDate, password }) => {
 	if (filesToSend.length === 0) {
 		return
 	}
 
-	OCA.Slack.filesToSend = filesToSend
+	OCA.Zulip.filesToSend = filesToSend
 
 	if (type === SEND_TYPE.public_link.id) {
 		sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password).then(() => {
 			showSuccess(
 				n(
-					'integration_slack',
+					'integration_zulip',
 					'A link to {fileName} was sent to {channelName}',
 					'All of the {number} links were sent to {channelName}',
-					OCA.Slack.filesToSend.length,
+					OCA.Zulip.filesToSend.length,
 					{
-						fileName: OCA.Slack.filesToSend[0].name,
+						fileName: OCA.Zulip.filesToSend[0].name,
 						channelName,
-						number: OCA.Slack.filesToSend.length,
+						number: OCA.Zulip.filesToSend.length,
 					},
 				),
 			)
-			OCA.Slack.SlackSendModalVue.success()
+			OCA.Zulip.ZulipSendModalVue.success()
 		}).catch((error) => {
 			errorCallback(error)
 			showError(
-				t('integration_slack', 'Failed to send links to Slack')
+				t('integration_zulip', 'Failed to send links to Zulip')
 				+ ' ' + error.response?.request?.responseText,
 			)
 		})
@@ -282,28 +282,28 @@ OCA.Slack.SlackSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 		sendInternalLinks(channelId, comment).then(() => {
 			showSuccess(
 				n(
-					'integration_slack',
+					'integration_zulip',
 					'A link to {fileName} was sent to {channelName}',
 					'All of the {number} links were sent to {channelName}',
-					OCA.Slack.filesToSend.length,
+					OCA.Zulip.filesToSend.length,
 					{
-						fileName: OCA.Slack.filesToSend[0].name,
-						number: OCA.Slack.filesToSend.length,
+						fileName: OCA.Zulip.filesToSend[0].name,
+						number: OCA.Zulip.filesToSend.length,
 						channelName,
 					},
 				),
 			)
-			OCA.Slack.SlackSendModalVue.success()
+			OCA.Zulip.ZulipSendModalVue.success()
 		}).catch((error) => {
 			errorCallback(error)
 			showError(
 				n(
-					'integration_slack',
+					'integration_zulip',
 					'Failed to send the internal link to {channelName}',
 					'Failed to send internal links to {channelName}',
-					OCA.Slack.filesToSend.length,
+					OCA.Zulip.filesToSend.length,
 					{
-						fileName: OCA.Slack.filesToSend[0].name,
+						fileName: OCA.Zulip.filesToSend[0].name,
 						channelName,
 					},
 				)
@@ -311,48 +311,48 @@ OCA.Slack.SlackSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 			)
 		})
 	} else {
-		OCA.Slack.remoteFileIds = []
-		OCA.Slack.sentFileNames = []
-		OCA.Slack.filesToSend = filesToSend.filter((f) => f.type !== FileType.Folder)
+		OCA.Zulip.remoteFileIds = []
+		OCA.Zulip.sentFileNames = []
+		OCA.Zulip.filesToSend = filesToSend.filter((f) => f.type !== FileType.Folder)
 
-		Promise.all(OCA.Slack.filesToSend.map(sendFile(channelId, channelName, comment))).then(() => {
+		Promise.all(OCA.Zulip.filesToSend.map(sendFile(channelId, channelName, comment))).then(() => {
 			showSuccess(
 				n(
-					'integration_slack',
+					'integration_zulip',
 					'{fileName} was successfully sent to {channelName}',
 					'All of the {number} files were sent to {channelName}',
-					OCA.Slack.filesToSend.length,
+					OCA.Zulip.filesToSend.length,
 					{
-						fileName: OCA.Slack.filesToSend[0].name,
-						number: OCA.Slack.filesToSend.length,
+						fileName: OCA.Zulip.filesToSend[0].name,
+						number: OCA.Zulip.filesToSend.length,
 						channelName,
 					},
 				),
 			)
-			OCA.Slack.SlackSendModalVue.success()
+			OCA.Zulip.ZulipSendModalVue.success()
 		}).catch(errorCallback)
 	}
 })
 
 function errorCallback(error) {
 	console.error(error)
-	OCA.Slack.SlackSendModalVue.failure()
-	OCA.Slack.filesToSend = []
-	OCA.Slack.sentFileNames = []
+	OCA.Zulip.ZulipSendModalVue.failure()
+	OCA.Zulip.filesToSend = []
+	OCA.Zulip.sentFileNames = []
 }
 
-// get Slack state
+// get Zulip state
 axios.get(IS_CONNECTED_URL).then((response) => {
-	OCA.Slack.slackConnected = response.data.connected
-	OCA.Slack.oauthPossible = response.data.oauth_possible
-	OCA.Slack.usePopup = response.data.use_popup
-	OCA.Slack.clientId = response.data.client_id
-	if (DEBUG) console.debug('[Slack] OCA.Slack', OCA.Slack)
+	OCA.Zulip.zulipConnected = response.data.connected
+	OCA.Zulip.oauthPossible = response.data.oauth_possible
+	OCA.Zulip.usePopup = response.data.use_popup
+	OCA.Zulip.clientId = response.data.client_id
+	if (DEBUG) console.debug('[Zulip] OCA.Zulip', OCA.Zulip)
 }).catch((error) => {
 	console.error(error)
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (DEBUG) console.debug('[Slack] before checkIfFilesToSend')
+	if (DEBUG) console.debug('[Zulip] before checkIfFilesToSend')
 	checkIfFilesToSend()
 })

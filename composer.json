@@ -1,5 +1,5 @@
 {
-	"name": "nextcloud/integration_slack",
+	"name": "nextcloud/integration_zulip",
 	"authors": [
 		{
 			"name": "Anupam Kumar",
@@ -47,7 +47,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"OCA\\Slack\\": "lib/"
+			"OCA\\Zulip\\": "lib/"
 		}
 	},
 	"autoload-dev": {

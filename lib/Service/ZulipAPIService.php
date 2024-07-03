@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -11,12 +11,12 @@
  * @copyright Anupam Kumar 2023
  */
 
-namespace OCA\Slack\Service;
+namespace OCA\Zulip\Service;
 
 use DateTime;
 use Exception;
 use OC\User\NoUserException;
-use OCA\Slack\AppInfo\Application;
+use OCA\Zulip\AppInfo\Application;
 use OCP\Constants;
 use OCP\Files\File;
 use OCP\Files\Folder;
@@ -35,9 +35,9 @@ use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 
 /**
- * Service to make requests to Slack API
+ * Service to make requests to Zulip API
  */
-class SlackAPIService {
+class ZulipAPIService {
 
 	private IClient $client;
 
@@ -57,19 +57,19 @@ class SlackAPIService {
 
 	/**
 	 * @param string $userId
-	 * @param string $slackUserId
+	 * @param string $zulipUserId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */
-	public function getUserAvatar(string $userId, string $slackUserId): array {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $slackUserId]);
+	public function getUserAvatar(string $userId, string $zulipUserId): array {
+		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
 
 		if (isset($userInfo['error'])) {
 			return ['displayName' => 'User'];
 		}
 
 		if (isset($userInfo['user'], $userInfo['user']['profile'], $userInfo['user']['profile']['image_48'])) {
-			// due to some Slack API changes, we now have to sanitize the image url
+			// due to some Zulip API changes, we now have to sanitize the image url
 			//   for some of them
 			$parsedUrlObj = parse_url($userInfo['user']['profile']['image_48']);
 
@@ -102,11 +102,11 @@ class SlackAPIService {
 
 	/**
 	 * @param string $userId
-	 * @param string $slackUserId
+	 * @param string $zulipUserId
 	 * @return string|null
 	 */
-	private function getUserRealName(string $userId, string $slackUserId): string|null {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $slackUserId]);
+	private function getUserRealName(string $userId, string $zulipUserId): string|null {
+		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
 		if (isset($userInfo['error'])) {
 			return null;
 		}
@@ -247,7 +247,7 @@ class SlackAPIService {
 
 				$share->setShareType(IShare::TYPE_LINK);
 				$share->setSharedBy($userId);
-				$share->setLabel('Slack (' . $channelName . ')');
+				$share->setLabel('Zulip (' . $channelName . ')');
 
 				if ($expirationDate !== null) {
 					$share->setExpirationDate(new DateTime($expirationDate));
@@ -341,14 +341,14 @@ class SlackAPIService {
 	 * @param array $params
 	 * @param string $method
 	 * @param bool $jsonResponse
-	 * @param bool $slackApiRequest
+	 * @param bool $zulipApiRequest
 	 * @return array|mixed|resource|string|string[]
 	 * @throws PreConditionNotMetException
 	 */
 	public function request(string $userId, string $endPoint, array $params = [], string $method = 'GET',
-		bool $jsonResponse = true, bool $slackApiRequest = true) {
+		bool $jsonResponse = true, bool $zulipApiRequest = true) {
 		$this->checkTokenExpiration($userId);
-		return $this->networkService->request($userId, $endPoint, $params, $method, $jsonResponse, $slackApiRequest);
+		return $this->networkService->request($userId, $endPoint, $params, $method, $jsonResponse, $zulipApiRequest);
 	}
 
 	/**
@@ -380,18 +380,18 @@ class SlackAPIService {
 		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
 
 		if (!$refreshToken) {
-			$this->logger->error('No Slack refresh token found', ['app' => Application::APP_ID]);
+			$this->logger->error('No Zulip refresh token found', ['app' => Application::APP_ID]);
 			return false;
 		}
 
 		try {
 			$clientSecret = $this->crypto->decrypt($clientSecret);
 		} catch (Exception $e) {
-			$this->logger->error('Unable to decrypt Slack secrets', ['app' => Application::APP_ID]);
+			$this->logger->error('Unable to decrypt Zulip secrets', ['app' => Application::APP_ID]);
 			return false;
 		}
 
-		$result = $this->requestOAuthAccessToken(Application::SLACK_OAUTH_ACCESS_URL, [
+		$result = $this->requestOAuthAccessToken(Application::ZULIP_OAUTH_ACCESS_URL, [
 			'client_id' => $clientID,
 			'client_secret' => $clientSecret,
 			'grant_type' => 'refresh_token',
@@ -399,7 +399,7 @@ class SlackAPIService {
 		], 'POST');
 
 		if (isset($result['access_token'])) {
-			$this->logger->info('Slack access token successfully refreshed', ['app' => Application::APP_ID]);
+			$this->logger->info('Zulip access token successfully refreshed', ['app' => Application::APP_ID]);
 
 			$accessToken = $result['access_token'];
 			$refreshToken = $result['refresh_token'];
@@ -469,7 +469,7 @@ class SlackAPIService {
 				return json_decode($body, true);
 			}
 		} catch (Exception $e) {
-			$this->logger->warning('Slack OAuth error : '.$e->getMessage(), ['app' => Application::APP_ID]);
+			$this->logger->warning('Zulip OAuth error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
 	}

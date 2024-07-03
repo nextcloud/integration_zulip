@@ -1,6 +1,6 @@
 <?php
 /**
- * Nextcloud - Slack
+ * Nextcloud - Zulip
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -11,12 +11,12 @@
  * @copyright Anupam Kumar 2023
  */
 
-namespace OCA\Slack\Controller;
+namespace OCA\Zulip\Controller;
 
 use DateTime;
 use Exception;
-use OCA\Slack\AppInfo\Application;
-use OCA\Slack\Service\SlackAPIService;
+use OCA\Zulip\AppInfo\Application;
+use OCA\Zulip\Service\ZulipAPIService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -39,7 +39,7 @@ class ConfigController extends Controller {
 		private IURLGenerator $urlGenerator,
 		private IL10N $l,
 		private IInitialState $initialStateService,
-		private SlackAPIService $slackAPIService,
+		private ZulipAPIService $zulipAPIService,
 		private ICrypto $crypto,
 		private LoggerInterface $logger,
 		private ?string $userId
@@ -193,7 +193,7 @@ class ConfigController extends Controller {
 		if ($clientID && $clientSecret && $configState !== '' && $configState === $state) {
 			$redirect_uri = $this->config->getUserValue($this->userId, Application::APP_ID, 'redirect_uri', '');
 
-			$result = $this->slackAPIService->requestOAuthAccessToken(Application::SLACK_OAUTH_ACCESS_URL, [
+			$result = $this->zulipAPIService->requestOAuthAccessToken(Application::ZULIP_OAUTH_ACCESS_URL, [
 				'client_id' => $clientID,
 				'client_secret' => $clientSecret,
 				'code' => $code,
@@ -219,7 +219,7 @@ class ConfigController extends Controller {
 
 				if ($usePopup) {
 					return new RedirectResponse(
-						$this->urlGenerator->linkToRoute('integration_slack.config.popupSuccessPage', [
+						$this->urlGenerator->linkToRoute('integration_zulip.config.popupSuccessPage', [
 							'user_id' => $userInfo['user_id'] ?? '',
 							'user_displayname' => $userInfo['user_displayname'] ?? '',
 						])
@@ -264,9 +264,9 @@ class ConfigController extends Controller {
 	 * @return array{user_id: string, user_displayname: string}
 	 * @throws PreConditionNotMetException
 	 */
-	private function storeUserInfo(string $slackUserId = ''): array {
-		$info = $this->slackAPIService->request($this->userId, 'users.info', [
-			'user' => $slackUserId,
+	private function storeUserInfo(string $zulipUserId = ''): array {
+		$info = $this->zulipAPIService->request($this->userId, 'users.info', [
+			'user' => $zulipUserId,
 		]);
 
 		if (isset($info['user'], $info['user']['id'], $info['user']['real_name'])

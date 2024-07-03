@@ -1,7 +1,7 @@
 <template>
 	<span :aria-hidden="!title"
 		:aria-label="title"
-		class="material-design-icon slack-icon"
+		class="material-design-icon zulip-icon"
 		role="img"
 		v-bind="$attrs"
 		@click="$emit('click', $event)">
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-	name: 'SlackIcon',
+	name: 'ZulipIcon',
 	props: {
 		title: {
 			type: String,

@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Type" : "Görnüşi",
     "Set expiration date" : "Möhlet möhletini belläň",

@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "integration_slack",
+    "integration_zulip",
     {
     "Type" : "ប្រភេទ",
     "Set expiration date" : "កំណត់​ពេល​ផុត​កំណត់",

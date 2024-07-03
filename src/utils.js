@@ -5,7 +5,7 @@ import FileIcon from 'vue-material-design-icons/File.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import LinkVariantIcon from 'vue-material-design-icons/LinkVariant.vue'
 
-const SLACK_OAUTH_URL = 'https://slack.com/oauth/v2/authorize'
+const ZULIP_OAUTH_URL = 'https://zulip.com/oauth/v2/authorize'
 
 let mytimer = 0
 export function delay(callback, ms) {
@@ -23,10 +23,10 @@ export function oauthConnect(clientId, oauthOrigin, usePopup = false) {
 	const oauthState = Math.random().toString(36).substring(3)
 	const redirectUri
 		= window.location.protocol + '//' + window.location.host
-		+ generateUrl('/apps/integration_slack/oauth-redirect')
+		+ generateUrl('/apps/integration_zulip/oauth-redirect')
 	const userScopes = 'channels:read,groups:read,im:read,mpim:read,users:read,chat:write,files:write'
 
-	const requestUrl = SLACK_OAUTH_URL
+	const requestUrl = ZULIP_OAUTH_URL
 		+ '?client_id=' + encodeURIComponent(clientId)
 		+ '&state=' + encodeURIComponent(oauthState)
 		+ '&redirect_uri=' + encodeURIComponent(redirectUri)
@@ -40,17 +40,17 @@ export function oauthConnect(clientId, oauthOrigin, usePopup = false) {
 		},
 	}
 
-	const url = generateUrl('/apps/integration_slack/config')
+	const url = generateUrl('/apps/integration_zulip/config')
 
 	return new Promise((resolve) => {
 		axios.put(url, req).then(() => {
 			if (usePopup) {
 				const ssoWindow = window.open(
 					requestUrl,
-					t('integration_slack', 'Sign in with Slack'),
+					t('integration_zulip', 'Sign in with Zulip'),
 					'toolbar=no, menubar=no, width=600, height=700')
 				if (!ssoWindow) {
-					showError(t('integration_slack', 'Failed to open Slack OAuth popup window, please allow popups'))
+					showError(t('integration_zulip', 'Failed to open Zulip OAuth popup window, please allow popups'))
 					return
 				}
 				ssoWindow.focus()
@@ -64,7 +64,7 @@ export function oauthConnect(clientId, oauthOrigin, usePopup = false) {
 			}
 		}).catch((error) => {
 			showError(
-				t('integration_slack', 'Failed to save Slack OAuth state')
+				t('integration_zulip', 'Failed to save Zulip OAuth state')
 				+ ': ' + (error.response?.request?.responseText ?? ''),
 			)
 			console.error(error)
@@ -75,23 +75,23 @@ export function oauthConnect(clientId, oauthOrigin, usePopup = false) {
 export function oauthConnectConfirmDialog() {
 	return new Promise((resolve) => {
 		const settingsLink = generateUrl('/settings/user/connected-accounts')
-		const linkText = t('integration_slack', 'Connected accounts')
+		const linkText = t('integration_zulip', 'Connected accounts')
 		const settingsHtmlLink = `<a href="${settingsLink}" class="external">${linkText}</a>`
 		OC.dialogs.message(
-			t('integration_slack', 'You need to connect before using the Slack integration.')
+			t('integration_zulip', 'You need to connect before using the Zulip integration.')
 			+ '<br><br>'
-			+ t('integration_slack',
-				'You can set Slack API keys in the {settingsHtmlLink} section of your personal settings.',
+			+ t('integration_zulip',
+				'You can set Zulip API keys in the {settingsHtmlLink} section of your personal settings.',
 				{ settingsHtmlLink },
 				null,
 				{ escape: false }),
-			t('integration_slack', 'Connect to Slack'),
+			t('integration_zulip', 'Connect to Zulip'),
 			'none',
 			{
 				type: OC.dialogs.YES_NO_BUTTONS,
-				confirm: t('integration_slack', 'Connect'),
+				confirm: t('integration_zulip', 'Connect'),
 				confirmClasses: 'success',
-				cancel: t('integration_slack', 'Cancel'),
+				cancel: t('integration_zulip', 'Cancel'),
 			},
 			(result) => {
 				resolve(result)
@@ -105,16 +105,16 @@ export function oauthConnectConfirmDialog() {
 export function gotoSettingsConfirmDialog() {
 	const settingsLink = generateUrl('/settings/user/connected-accounts')
 	OC.dialogs.message(
-		t('integration_slack', 'You need to connect a Slack app before using the Slack integration.')
+		t('integration_zulip', 'You need to connect a Zulip app before using the Zulip integration.')
 		+ '<br><br>'
-		+ t('integration_slack', 'Do you want to go to your "Connect accounts" personal settings?'),
-		t('integration_slack', 'Connect to Slack'),
+		+ t('integration_zulip', 'Do you want to go to your "Connect accounts" personal settings?'),
+		t('integration_zulip', 'Connect to Zulip'),
 		'none',
 		{
 			type: OC.dialogs.YES_NO_BUTTONS,
-			confirm: t('integration_slack', 'Go to settings'),
+			confirm: t('integration_zulip', 'Go to settings'),
 			confirmClasses: 'success',
-			cancel: t('integration_slack', 'Cancel'),
+			cancel: t('integration_zulip', 'Cancel'),
 		},
 		(result) => {
 			if (result) {
@@ -154,17 +154,17 @@ export function humanFileSize(bytes, approx = false, si = false, dp = 1) {
 export const SEND_TYPE = {
 	file: {
 		id: 'file',
-		label: t('integration_slack', 'Upload files'),
+		label: t('integration_zulip', 'Upload files'),
 		icon: FileIcon,
 	},
 	public_link: {
 		id: 'public_link',
-		label: t('integration_slack', 'Public links'),
+		label: t('integration_zulip', 'Public links'),
 		icon: LinkVariantIcon,
 	},
 	internal_link: {
 		id: 'internal_link',
-		label: t('integration_slack', 'Internal links (Only works for users with access to the files)'),
+		label: t('integration_zulip', 'Internal links (Only works for users with access to the files)'),
 		icon: OpenInNewIcon,
 	},
 }

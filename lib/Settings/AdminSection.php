@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\Slack\Settings;
+namespace OCA\Zulip\Settings;
 
 use OCP\IL10N;
 use OCP\IURLGenerator;
