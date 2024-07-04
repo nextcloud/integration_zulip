@@ -14,10 +14,9 @@ import moment from '@nextcloud/moment'
 import { generateUrl } from '@nextcloud/router'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
-import { oauthConnect, oauthConnectConfirmDialog, gotoSettingsConfirmDialog, SEND_TYPE } from './utils.js'
+import { gotoSettingsConfirmDialog, SEND_TYPE } from './utils.js'
 import {
-	registerFileAction, Permission, FileAction,
-	davGetClient, davGetDefaultPropfind, davResultToNode, davRootPath, FileType,
+	registerFileAction, Permission, FileAction, FileType,
 } from '@nextcloud/files'
 import { subscribe } from '@nextcloud/event-bus'
 import ZulipIcon from '../img/app-dark.svg'
@@ -93,90 +92,9 @@ function sendSelectedNodes(nodes) {
 	})
 	if (OCA.Zulip.zulipConnected) {
 		openChannelSelector(formattedNodes)
-	} else if (OCA.Zulip.oauthPossible) {
-		connectToZulip(formattedNodes)
 	} else {
 		gotoSettingsConfirmDialog()
 	}
-}
-
-function checkIfFilesToSend() {
-	const urlCheckConnection = generateUrl('/apps/integration_zulip/files-to-send')
-	axios.get(urlCheckConnection)
-		.then((response) => {
-			const fileIdsStr = response?.data?.file_ids_to_send_after_oauth
-			const currentDir = response?.data?.current_dir_after_oauth
-			if (fileIdsStr && currentDir) {
-				sendFileIdsAfterOAuth(fileIdsStr, currentDir)
-			} else {
-				if (DEBUG) console.debug('[Zulip] nothing to send')
-			}
-		})
-		.catch((error) => {
-			console.error(error)
-		})
-}
-
-/**
- * In case we successfully connected with oauth and got redirected back to files
- * actually go on with the files that were previously selected
- *
- * @param {string} fileIdsStr list of files to send
- * @param {string} currentDir path to the current dir
- */
-async function sendFileIdsAfterOAuth(fileIdsStr, currentDir) {
-	if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, fileIdsStr, currentDir', fileIdsStr, currentDir)
-	// this is only true after an OAuth connection initated from a file action
-	if (fileIdsStr) {
-		// get files info
-		const client = davGetClient()
-		const results = await client.getDirectoryContents(`${davRootPath}${currentDir}`, {
-			details: true,
-			// Query all required properties for a Node
-			data: davGetDefaultPropfind(),
-		})
-		const nodes = results.data.map((r) => davResultToNode(r))
-
-		const fileIds = fileIdsStr.split(',')
-		const files = fileIds.map((fid) => {
-			const f = nodes.find((n) => n.fileid === parseInt(fid))
-			if (f) {
-				return {
-					id: f.fileid,
-					name: f.basename,
-					type: f.type,
-					size: f.size,
-				}
-			}
-			return null
-		}).filter((e) => e !== null)
-		if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, after changeDirectory, files:', files)
-		if (files.length) {
-			if (DEBUG) console.debug('[Zulip] in sendFileIdsAfterOAuth, after changeDirectory, call openChannelSelector')
-			openChannelSelector(files)
-		}
-	}
-}
-
-function connectToZulip(selectedFiles = []) {
-	oauthConnectConfirmDialog(OCA.Zulip.clientId).then((result) => {
-		if (result) {
-			if (OCA.Zulip.usePopup) {
-				oauthConnect(OCA.Zulip.clientId, null, true)
-					.then(() => {
-						OCA.Zulip.zulipConnected = true
-						openChannelSelector(selectedFiles)
-					})
-			} else {
-				const selectedFilesIds = selectedFiles.map(f => f.id)
-				const currentDirectory = OCA.Zulip.currentFileList?.folder?.attributes?.filename
-				oauthConnect(
-					OCA.Zulip.clientId,
-					'files--' + currentDirectory + '--' + selectedFilesIds.join(','),
-				)
-			}
-		}
-	})
 }
 
 async function sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password) {
@@ -344,15 +262,7 @@ function errorCallback(error) {
 // get Zulip state
 axios.get(IS_CONNECTED_URL).then((response) => {
 	OCA.Zulip.zulipConnected = response.data.connected
-	OCA.Zulip.oauthPossible = response.data.oauth_possible
-	OCA.Zulip.usePopup = response.data.use_popup
-	OCA.Zulip.clientId = response.data.client_id
 	if (DEBUG) console.debug('[Zulip] OCA.Zulip', OCA.Zulip)
 }).catch((error) => {
 	console.error(error)
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-	if (DEBUG) console.debug('[Zulip] before checkIfFilesToSend')
-	checkIfFilesToSend()
 })

@@ -21,8 +21,6 @@ use OCP\Collaboration\Resources\LoadAdditionalScriptsEvent;
 class Application extends App implements IBootstrap {
 	public const APP_ID = 'integration_zulip';
 	public const INTEGRATION_USER_AGENT = 'Nextcloud Zulip Integration';
-	public const ZULIP_API_URL = 'https://zulip.com/api/';
-	public const ZULIP_OAUTH_ACCESS_URL = 'https://zulip.com/api/oauth.v2.access';
 
 	public function __construct(array $urlParams = []) {
 		parent::__construct(self::APP_ID, $urlParams);

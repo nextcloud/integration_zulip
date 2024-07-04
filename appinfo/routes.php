@@ -14,11 +14,7 @@
 return [
 	'routes' => [
 		['name' => 'config#isUserConnected', 'url' => '/is-connected', 'verb' => 'GET'],
-		['name' => 'config#getFilesToSend', 'url' => '/files-to-send', 'verb' => 'GET'],
-		['name' => 'config#oauthRedirect', 'url' => '/oauth-redirect', 'verb' => 'GET'],
 		['name' => 'config#setConfig', 'url' => '/config', 'verb' => 'PUT'],
-		['name' => 'config#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
-		['name' => 'config#popupSuccessPage', 'url' => '/popup-success', 'verb' => 'GET'],
 
 		['name' => 'zulipAPI#sendMessage', 'url' => '/sendMessage', 'verb' => 'POST'],
 		['name' => 'zulipAPI#sendPublicLinks', 'url' => '/sendPublicLinks', 'verb' => 'POST'],

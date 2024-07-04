@@ -4,35 +4,47 @@
 			<ZulipIcon class="icon" />
 			{{ t('integration_zulip', 'Zulip integration') }}
 		</h2>
-		<p v-if="state.client_id === '' || state.client_secret === ''" class="settings-hint">
-			{{ t('integration_zulip', 'The admin must fill in client ID and client secret for you to continue from here') }}
-		</p>
-		<br>
 		<div id="zulip-content">
 			<div id="zulip-connect-block">
-				<NcButton v-if="!connected"
-					id="zulip-connect"
-					:disabled="loading === true || state.client_id === '' || state.client_secret === ''"
-					:class="{ loading }"
-					@click="connectWithOauth">
-					<template #icon>
-						<OpenInNewIcon />
-					</template>
-					{{ t('integration_zulip', 'Connect to Zulip') }}
-				</NcButton>
-				<div v-if="connected" class="line">
-					<NcAvatar :url="getUserIconUrl()" :size="48" dispay-name="User" />
-					<label class="zulip-connected">
-						{{ t('integration_zulip', 'Connected as') }}
-						{{ " " }}
-						<b>{{ connectedDisplayName }}</b>
+				<p class="settings-hint">
+					<InformationOutlineIcon :size="24" class="icon" />
+					{{ t('integration_zulip', 'You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key.') }}
+				</p>
+				<p class="settings-hint">
+					{{ t('integration_zulip', 'Then copy the values in the provided zuliprc file into the fields below.') }}
+				</p>
+				<div class="line">
+					<label for="zulip-url">
+						<EarthIcon :size="20" class="icon" />
+						{{ t('integration_zulip', 'Zulip instance address') }}
 					</label>
-					<NcButton id="zulip-rm-cred" @click="onLogoutClick">
-						<template #icon>
-							<CloseIcon />
-						</template>
-						{{ t('integration_zulip', 'Disconnect from Zulip') }}
-					</NcButton>
+					<input id="zulip-url"
+						v-model="state.url"
+						type="text"
+						:placeholder="t('integration_zulip', 'Zulip instance address')"
+						@input="onInput">
+				</div>
+				<div class="line">
+					<label for="zulip-email">
+						<AccountIcon :size="20" class="icon" />
+						{{ t('integration_zulip', 'Zulip account email') }}
+					</label>
+					<input id="zulip-email"
+						v-model="state.email"
+						type="text"
+						:placeholder="t('integration_zulip', 'Zulip account email')"
+						@input="onInput">
+				</div>
+				<div class="line">
+					<label for="zulip-key">
+						<KeyIcon :size="20" class="icon" />
+						{{ t('integration_zulip', 'Zulip API key') }}
+					</label>
+					<input id="zulip-key"
+						v-model="state.api_key"
+						type="password"
+						:placeholder="t('integration_zulip', 'Zulip API key')"
+						@input="onInput">
 				</div>
 			</div>
 			<br>
@@ -46,31 +58,31 @@
 </template>
 
 <script>
-import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
+import AccountIcon from 'vue-material-design-icons/Account.vue'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import KeyIcon from 'vue-material-design-icons/Key.vue'
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 import ZulipIcon from './icons/ZulipIcon.vue'
 
-import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
-import { oauthConnect } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+import { delay } from '../utils.js'
 
 export default {
 	name: 'PersonalSettings',
 
 	components: {
+		AccountIcon,
+		EarthIcon,
+		KeyIcon,
+		InformationOutlineIcon,
 		ZulipIcon,
-		NcAvatar,
 		NcCheckboxRadioSwitch,
-		NcButton,
-		OpenInNewIcon,
-		CloseIcon,
 	},
 
 	props: [],
@@ -83,48 +95,27 @@ export default {
 	},
 
 	computed: {
-		connected() {
-			return !!this.state.token && !!this.state.user_id
-		},
-		connectedDisplayName() {
-			return this.state.user_displayname
-		},
 	},
 
 	watch: {
 	},
 
 	mounted() {
-		const paramString = window.location.search.substr(1)
-		const urlParams = new URLSearchParams(paramString)
-		const glToken = urlParams.get('result')
-		if (glToken === 'success') {
-			showSuccess(t('integration_zulip', 'Successfully connected to Zulip!'))
-		} else if (glToken === 'error') {
-			showError(t('integration_zulip', 'Error connecting to Zulip:') + ' ' + urlParams.get('message'))
-		}
 	},
 
 	methods: {
-		getUserIconUrl() {
-			return generateUrl(
-				'/apps/integration_zulip/users/{zulipUserId}/image',
-				{ zulipUserId: this.state.user_id },
-			) + '?useFallback=1'
-		},
-		onLogoutClick() {
-			this.state.token = ''
-			this.state.user_id = ''
-			this.state.user_displayname = ''
-
-			this.saveOptions({
-				token: '',
-				user_id: '',
-				user_displayname: '',
-			})
-		},
 		onCheckboxChanged(newValue, key) {
 			this.saveOptions({ [key]: newValue ? '1' : '0' }, true)
+		},
+		onInput() {
+			this.loading = true
+			delay(() => {
+				this.saveOptions({
+					url: this.state.url,
+					email: this.state.email,
+					api_key: this.state.api_key,
+				})
+			}, 2000)()
 		},
 		saveOptions(values, checkboxChanged = false) {
 			const req = {
@@ -133,21 +124,7 @@ export default {
 			const url = generateUrl('/apps/integration_zulip/config')
 			axios.put(url, req)
 				.then((response) => {
-					if (checkboxChanged) {
-						showSuccess(t('integration_zulip', 'Zulip options saved'))
-						return
-					}
-
-					if (response.data.user_id) {
-						this.state.user_id = response.data.user_id
-						if (!!this.state.token && !!this.state.user_id) {
-							showSuccess(t('integration_zulip', 'Successfully connected to Zulip!'))
-							this.state.user_id = response.data.user_id
-							this.state.user_displayname = response.data.user_displayname
-						} else {
-							showError(t('integration_zulip', 'Invalid access token'))
-						}
-					}
+					showSuccess(t('integration_zulip', 'Zulip options saved'))
 				})
 				.catch((error) => {
 					showError(
@@ -159,18 +136,6 @@ export default {
 				.then(() => {
 					this.loading = false
 				})
-		},
-		connectWithOauth() {
-			if (this.state.use_popup) {
-				oauthConnect(this.state.client_id, null, true)
-					.then((data) => {
-						this.state.token = 'isset'
-						this.state.user_id = data.userId
-						this.state.user_displayname = data.userDisplayName
-					})
-			} else {
-				oauthConnect(this.state.client_id, 'settings')
-			}
 		},
 	},
 }
@@ -197,10 +162,14 @@ export default {
 	}
 
 	.line {
-		width: 450px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		> label {
+			width: 250px;
+			display: flex;
+			align-items: center;
+		}
+		> input {
+			width: 350px;
+		}
 	}
 }
 </style>

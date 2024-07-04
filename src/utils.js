@@ -1,11 +1,7 @@
 import { generateUrl } from '@nextcloud/router'
-import axios from '@nextcloud/axios'
-import { showError } from '@nextcloud/dialogs'
 import FileIcon from 'vue-material-design-icons/File.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import LinkVariantIcon from 'vue-material-design-icons/LinkVariant.vue'
-
-const ZULIP_OAUTH_URL = 'https://zulip.com/oauth/v2/authorize'
 
 let mytimer = 0
 export function delay(callback, ms) {
@@ -17,89 +13,6 @@ export function delay(callback, ms) {
 			callback.apply(context, args)
 		}, ms || 0)
 	}
-}
-
-export function oauthConnect(clientId, oauthOrigin, usePopup = false) {
-	const oauthState = Math.random().toString(36).substring(3)
-	const redirectUri
-		= window.location.protocol + '//' + window.location.host
-		+ generateUrl('/apps/integration_zulip/oauth-redirect')
-	const userScopes = 'channels:read,groups:read,im:read,mpim:read,users:read,chat:write,files:write'
-
-	const requestUrl = ZULIP_OAUTH_URL
-		+ '?client_id=' + encodeURIComponent(clientId)
-		+ '&state=' + encodeURIComponent(oauthState)
-		+ '&redirect_uri=' + encodeURIComponent(redirectUri)
-		+ '&user_scope=' + encodeURIComponent(userScopes)
-
-	const req = {
-		values: {
-			oauth_state: oauthState,
-			oauth_origin: usePopup ? undefined : oauthOrigin,
-			redirect_uri: redirectUri,
-		},
-	}
-
-	const url = generateUrl('/apps/integration_zulip/config')
-
-	return new Promise((resolve) => {
-		axios.put(url, req).then(() => {
-			if (usePopup) {
-				const ssoWindow = window.open(
-					requestUrl,
-					t('integration_zulip', 'Sign in with Zulip'),
-					'toolbar=no, menubar=no, width=600, height=700')
-				if (!ssoWindow) {
-					showError(t('integration_zulip', 'Failed to open Zulip OAuth popup window, please allow popups'))
-					return
-				}
-				ssoWindow.focus()
-
-				window.addEventListener('message', (event) => {
-					console.debug('Child window message received', event)
-					resolve(event.data)
-				})
-			} else {
-				window.location.href = requestUrl
-			}
-		}).catch((error) => {
-			showError(
-				t('integration_zulip', 'Failed to save Zulip OAuth state')
-				+ ': ' + (error.response?.request?.responseText ?? ''),
-			)
-			console.error(error)
-		})
-	})
-}
-
-export function oauthConnectConfirmDialog() {
-	return new Promise((resolve) => {
-		const settingsLink = generateUrl('/settings/user/connected-accounts')
-		const linkText = t('integration_zulip', 'Connected accounts')
-		const settingsHtmlLink = `<a href="${settingsLink}" class="external">${linkText}</a>`
-		OC.dialogs.message(
-			t('integration_zulip', 'You need to connect before using the Zulip integration.')
-			+ '<br><br>'
-			+ t('integration_zulip',
-				'You can set Zulip API keys in the {settingsHtmlLink} section of your personal settings.',
-				{ settingsHtmlLink },
-				null,
-				{ escape: false }),
-			t('integration_zulip', 'Connect to Zulip'),
-			'none',
-			{
-				type: OC.dialogs.YES_NO_BUTTONS,
-				confirm: t('integration_zulip', 'Connect'),
-				confirmClasses: 'success',
-				cancel: t('integration_zulip', 'Cancel'),
-			},
-			(result) => {
-				resolve(result)
-			},
-			true,
-			true,
-		)
-	})
 }
 
 export function gotoSettingsConfirmDialog() {
