@@ -53,13 +53,16 @@ class NetworkService {
 	 */
 	public function request(string $userId, string $endPoint, array $params = [], string $method = 'GET',
 		bool $jsonResponse = true, bool $zulipApiRequest = true) {
-		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+		$email = $this->config->getUserValue($userId, Application::APP_ID, 'email');
+		$apiKey = $this->config->getUserValue($userId, Application::APP_ID, 'api_key');
 
 		try {
-			$url = ($zulipApiRequest ? Application::ZULIP_API_URL : '') . $endPoint;
+			$url = rtrim($zulipUrl, '/') . '/api/v1/' . $endPoint;
+			$credentials = base64_encode($email . ':' . $apiKey);
 			$options = [
 				'headers' => [
-					'Authorization' => 'Bearer ' . $accessToken,
+					'Authorization' => 'Basic ' . $credentials,
 					'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8',
 					'User-Agent' => Application::INTEGRATION_USER_AGENT,
 				],
