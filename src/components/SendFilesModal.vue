@@ -144,10 +144,12 @@
 							:value="type.id"
 							name="send_type_radio"
 							type="radio">
-							<component :is="type.icon" :size="20" />
-							<span class="option-title">
-								{{ type.label }}
-							</span>
+							<div class="select-option">
+								<component :is="type.icon" :size="20" />
+								<span class="option-title">
+									{{ type.label }}
+								</span>
+							</div>
 						</NcCheckboxRadioSwitch>
 					</div>
 					<RadioElementSet v-if="sendType === SEND_TYPE.public_link.id"
