@@ -70,7 +70,10 @@
 					@search="query = $event">
 					<template #option="option">
 						<div class="select-option">
-							<LockIcon v-if="option.invite_only"
+							<NcAvatar v-if="option.type === 'direct'"
+								:size="20"
+								:display-name="option.name" />
+							<LockIcon v-else-if="option.invite_only"
 								:size="20" />
 							<EarthIcon v-else-if="option.is_web_public"
 								:size="20" />
@@ -83,7 +86,10 @@
 						</div>
 					</template>
 					<template #selected-option="option">
-						<LockIcon v-if="option.invite_only"
+						<NcAvatar v-if="option.type === 'direct'"
+							:size="20"
+							:display-name="option.name" />
+						<LockIcon v-else-if="option.invite_only"
 							:size="20" />
 						<EarthIcon v-else-if="option.is_web_public"
 							:size="20" />
@@ -412,7 +418,7 @@ export default {
 			})
 		},
 		updateTopics() {
-			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.id}/topics`)
+			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.channel_id}/topics`)
 			axios.get(url).then((response) => {
 				this.topics = response.data ?? []
 				this.topics.sort((a, b) => a.name.localeCompare(b.name))

@@ -134,19 +134,38 @@ class ZulipAPIService {
 			return ['error' => 'No channels found'];
 		}
 
-		$channels = [];
+		$userResult = $this->request($userId, 'users');
+
+		if (isset($userResult['error'])) {
+			return (array) $userResult;
+		}
+
+		if (!isset($userResult['members']) || !is_array($userResult['members'])) {
+			return ['error' => 'No users found'];
+		}
+
+		$conversations = [];
 
 		foreach($channelResult['streams'] as $channel) {
-			$channels[] = [
+			$conversations[] = [
 				'type' => 'channel',
-				'id' => $channel['stream_id'],
+				'channel_id' => $channel['stream_id'],
 				'name' => $channel['name'],
 				'invite_only' => $channel['invite_only'],
 				'is_web_public' => $channel['is_web_public'],
 			];
 		}
 
-		return $channels;
+		foreach($userResult['members'] as $user) {
+			$conversations[] = [
+				'type' => 'direct',
+				'user_id' => $user['user_id'],
+				'name' => $user['full_name'],
+				// 'avatar_url' => $user['avatar_url'],
+			];
+		}
+
+		return $conversations;
 	}
 
 	/**
