@@ -95,14 +95,16 @@ class ZulipAPIController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 *
+	 * @param string $messageType
 	 * @param string $message
 	 * @param int $channelId
+	 * @param string|null $topicName
 	 * @return DataResponse
 	 * @throws Exception
 	 */
-	public function sendMessage(string $type, string $message, int $channelId,
+	public function sendMessage(string $messageType, string $message, int $channelId,
 		?string $topicName = null) {
-		$result = $this->zulipAPIService->sendMessage($this->userId, $type, $message, $channelId, $topicName);
+		$result = $this->zulipAPIService->sendMessage($this->userId, $messageType, $message, $channelId, $topicName);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {

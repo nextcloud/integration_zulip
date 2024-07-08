@@ -113,12 +113,12 @@ async function sendPublicLinks(messageType, channelId, channelName, topicName, c
 	return axios.post(SEND_PUBLIC_LINKS_URL, req)
 }
 
-const sendInternalLinks = async (channelId, comment) => {
+const sendInternalLinks = async (messageType, comment, channelId, topicName) => {
 	const getLink = (file) => window.location.protocol + '//' + window.location.host + generateUrl('/f/' + file.id)
 	const message = (comment !== ''
 		? `${comment}\n\n`
-		: '') + `${OCA.Zulip.filesToSend.map((file) => `${file.name}: ${getLink(file)}`).join('\n')}`
-	return sendMessage(channelId, message)
+		: '') + `${OCA.Zulip.filesToSend.map((file) => `[${file.name}](${getLink(file)})`).join('\n')}`
+	return sendMessage(messageType, message, channelId, topicName)
 }
 
 const sendFile
@@ -204,7 +204,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({
 			)
 		})
 	} else if (type === SEND_TYPE.internal_link.id) {
-		sendInternalLinks(channelId, comment).then(() => {
+		sendInternalLinks(messageType, comment, channelId, topicName).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',
