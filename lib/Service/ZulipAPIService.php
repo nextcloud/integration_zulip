@@ -171,29 +171,31 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
+	 * @param string $messageType
 	 * @param string $message
-	 * @param string $channelId
+	 * @param int $channelId
+	 * @param string|null $topicName
 	 * @return array|string[]
 	 * @throws PreConditionNotMetException
 	 */
-	public function sendMessage(string $userId, string $message, string $channelId): array {
+	public function sendMessage(string $userId, string $messageType, string $message,
+		int $channelId, ?string $topicName = null): array {
 		$params = [
-			'as_user' => true, // legacy but we'll use it for now
-			'link_names' => false, // we onlu send links (public and internal)
-			'parse' => 'full',
-			'unfurl_links' => true,
-			'unfurl_media' => true,
-			'channel' => $channelId,
-			'text' => $message,
+			'type' => $messageType,
+			'to' => $channelId,
+			'topic' => $topicName,
+			'content' => $message,
 		];
-		return $this->request($userId, 'chat.postMessage', $params, 'POST');
+		return $this->request($userId, 'messages', $params, 'POST');
 	}
 
 	/**
 	 * @param string $userId
 	 * @param array $fileIds
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $channelName
+	 * @param string $topicName
 	 * @param string $comment
 	 * @param string $permission
 	 * @param string|null $expirationDate
@@ -203,8 +205,8 @@ class ZulipAPIService {
 	 * @throws NotPermittedException
 	 * @throws PreConditionNotMetException
 	 */
-	public function sendPublicLinks(string $userId, array $fileIds,
-		string $channelId, string $channelName, string $comment,
+	public function sendPublicLinks(string $userId, array $fileIds, string $messageType,
+		int $channelId, string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): array {
 		$links = [];
 		$userFolder = $this->root->getUserFolder($userId);
@@ -227,7 +229,7 @@ class ZulipAPIService {
 
 				$share->setShareType(IShare::TYPE_LINK);
 				$share->setSharedBy($userId);
-				$share->setLabel('Zulip (' . $channelName . ')');
+				$share->setLabel('Zulip (' . $channelName . '/' . $topicName . ')');
 
 				if ($expirationDate !== null) {
 					$share->setExpirationDate(new DateTime($expirationDate));
@@ -271,9 +273,9 @@ class ZulipAPIService {
 
 		$message = ($comment !== ''
 			? $comment . "\n\n"
-			: '') .  join("\n", array_map(fn ($link) => $link['name'] . ': ' . $link['url'], $links));
+			: '') . join("\n", array_map(fn ($link) => '[' . $link['name'] . '](' . $link['url'] . ')', $links));
 
-		return $this->sendMessage($userId, $message, $channelId);
+		return $this->sendMessage($userId, $messageType, $message, $channelId, $topicName);
 	}
 
 	/**

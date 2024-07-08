@@ -97,11 +97,13 @@ function sendSelectedNodes(nodes) {
 	}
 }
 
-async function sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password) {
+async function sendPublicLinks(messageType, channelId, channelName, topicName, comment, permission, expirationDate, password) {
 	const req = {
 		fileIds: OCA.Zulip.filesToSend.map((f) => f.id),
+		messageType,
 		channelId,
 		channelName,
+		topicName,
 		comment,
 		permission,
 		expirationDate: expirationDate ? moment(expirationDate).format('YYYY-MM-DD') : undefined,
@@ -146,10 +148,12 @@ const sendFile
 		})
 	})
 
-async function sendMessage(channelId, message) {
+async function sendMessage(messageType, message, channelId, topicName) {
 	const req = {
+		messageType,
 		message,
 		channelId,
+		topicName,
 	}
 	return axios.post(SEND_MESSAGE_URL, req)
 }
@@ -166,7 +170,10 @@ OCA.Zulip.ZulipSendModalVue = new View().$mount(modalElement)
 OCA.Zulip.ZulipSendModalVue.$on('closed', () => {
 	if (DEBUG) console.debug('[Zulip] modal closed')
 })
-OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelName, type, comment, permission, expirationDate, password }) => {
+OCA.Zulip.ZulipSendModalVue.$on('validate', ({
+	filesToSend, messageType, channelId, channelName, topicName,
+	type, comment, permission, expirationDate, password,
+}) => {
 	if (filesToSend.length === 0) {
 		return
 	}
@@ -174,7 +181,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 	OCA.Zulip.filesToSend = filesToSend
 
 	if (type === SEND_TYPE.public_link.id) {
-		sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password).then(() => {
+		sendPublicLinks(messageType, channelId, channelName, topicName, comment, permission, expirationDate, password).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',

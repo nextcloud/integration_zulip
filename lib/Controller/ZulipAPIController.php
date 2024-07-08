@@ -96,12 +96,13 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param string $message
-	 * @param string $channelId
+	 * @param int $channelId
 	 * @return DataResponse
 	 * @throws Exception
 	 */
-	public function sendMessage(string $message, string $channelId) {
-		$result = $this->zulipAPIService->sendMessage($this->userId, $message, $channelId);
+	public function sendMessage(string $type, string $message, int $channelId,
+		?string $topicName = null) {
+		$result = $this->zulipAPIService->sendMessage($this->userId, $type, $message, $channelId, $topicName);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {
@@ -133,8 +134,10 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param array $fileIds
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $channelName
+	 * @param string $topicName
 	 * @param string $comment
 	 * @param string $permission
 	 * @param string|null $expirationDate
@@ -143,10 +146,11 @@ class ZulipAPIController extends Controller {
 	 * @throws NoUserException
 	 * @throws NotPermittedException
 	 */
-	public function sendPublicLinks(array $fileIds, string $channelId, string $channelName, string $comment,
+	public function sendPublicLinks(array $fileIds, string $messageType, int $channelId,
+		string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): DataResponse {
 		$result = $this->zulipAPIService->sendPublicLinks(
-			$this->userId, $fileIds, $channelId, $channelName,
+			$this->userId, $fileIds, $messageType, $channelId, $channelName, $topicName,
 			$comment, $permission, $expirationDate, $password
 		);
 		if (isset($result['error'])) {
