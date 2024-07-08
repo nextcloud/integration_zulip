@@ -122,71 +122,51 @@ class ZulipAPIService {
 	 * @throws PreConditionNotMetException
 	 */
 	public function getMyChannels(string $userId): array {
-		$channelResult = $this->request($userId, 'conversations.list', [
-			'exclude_archived' => true,
-			'types' => 'public_channel,private_channel,im,mpim'
+		$channelResult = $this->request($userId, 'streams', [
+			'include_web_public' => 'true',
 		]);
 
 		if (isset($channelResult['error'])) {
 			return (array) $channelResult;
 		}
 
-		if (!isset($channelResult['channels']) || !is_array($channelResult['channels'])) {
+		if (!isset($channelResult['streams']) || !is_array($channelResult['streams'])) {
 			return ['error' => 'No channels found'];
 		}
 
-		/* Cheat sheet:
-		 * is_channel, name  => channel
-		 * is_group,   topic => group
-		 * is_im,      user  => direct
-		 */
-
 		$channels = [];
 
-		foreach($channelResult['channels'] as $channel) {
-			if (
-				isset(
-					$channel['is_group'],
-					$channel['is_mpim'],
-					$channel['name'],
-					$channel['purpose'],
-					$channel['purpose']['value'],
-					$channel['topic'],
-					$channel['topic']['value']
-				) && ($channel['is_group'] || $channel['is_mpim'])
-			) {
-				$group_name = array_filter(
-					[$channel['topic']['value'], $channel['purpose']['value'], $channel['name'], 'Group'],
-					fn ($val) => $val !== ''
-				)[0];
-
-				$channels[] = [
-					'id' => $channel['id'],
-					'name' => $group_name,
-					'type' => 'group',
-					'updated' => $channel['updated'] ?? 0,
-				];
-			} elseif (isset($channel['is_channel'], $channel['name']) && $channel['is_channel']) {
-				$channels[] = [
-					'id' => $channel['id'],
-					'name' => $channel['name'],
-					'type' => 'channel',
-					'updated' => $channel['updated'] ?? 0,
-				];
-			} elseif (isset($channel['user'], $channel['is_im']) && $channel['is_im']) {
-				// need to make another request to get the real name
-				$realName = $this->getUserRealName($userId, $channel['user']);
-
-				$channels[] = [
-					'id' => $channel['user'],
-					'name' => $realName ?? $channel['user'],
-					'type' => 'direct',
-					'updated' => $channel['updated'] ?? 0,
-				];
-			}
+		foreach($channelResult['streams'] as $channel) {
+			$channels[] = [
+				'type' => 'channel',
+				'id' => $channel['stream_id'],
+				'name' => $channel['name'],
+				'invite_only' => $channel['invite_only'],
+				'is_web_public' => $channel['is_web_public'],
+			];
 		}
 
 		return $channels;
+	}
+
+	/**
+	 * @param string $userId
+	 * @param int $channelId
+	 * @return array
+	 * @throws PreConditionNotMetException
+	 */
+	public function getMyTopics(string $userId, int $channelId): array {
+		$topicResult = $this->request($userId, 'users/me/' . $channelId . '/topics');
+
+		if (isset($topicResult['error'])) {
+			return (array) $topicResult;
+		}
+
+		if (!isset($topicResult['topics']) || !is_array($topicResult['topics'])) {
+			return ['error' => 'No topics found'];
+		}
+
+		return $topicResult['topics'];
 	}
 
 	/**

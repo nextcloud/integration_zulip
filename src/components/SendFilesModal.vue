@@ -70,18 +70,12 @@
 					@search="query = $event">
 					<template #option="option">
 						<div class="select-option">
-							<NcAvatar v-if="option.type === 'channel'"
-								:size="34"
-								display-name="C" />
-							<NcAvatar v-else-if="option.type === 'group'">
-								<template #icon>
-									<AccountMultiple :size="34" />
-								</template>
-							</NcAvatar>
-							<NcAvatar v-else-if="option.type === 'direct'"
-								:size="34"
-								:url="getUserIconUrl(option.id)"
-								:display-name="option.name" />
+							<LockIcon v-if="option.invite_only"
+								:size="20" />
+							<EarthIcon v-else-if="option.is_web_public"
+								:size="20" />
+							<PoundIcon v-else
+								:size="20" />
 							<NcHighlight
 								:text="option.name"
 								:search="query"
@@ -89,18 +83,46 @@
 						</div>
 					</template>
 					<template #selected-option="option">
-						<NcAvatar v-if="option.type === 'channel'"
-							:size="34"
-							display-name="C" />
-						<NcAvatar v-else-if="option.type === 'group'">
-							<template #icon>
-								<AccountMultiple :size="34" />
-							</template>
-						</NcAvatar>
-						<NcAvatar v-else-if="option.type === 'direct'"
-							:size="34"
-							:url="getUserIconUrl(option.id)"
-							:display-name="option.name" />
+						<LockIcon v-if="option.invite_only"
+							:size="20" />
+						<EarthIcon v-else-if="option.is_web_public"
+							:size="20" />
+						<PoundIcon v-else
+							:size="20" />
+						<span class="multiselect-name">
+							{{ option.name }}
+						</span>
+					</template>
+				</NcSelect>
+				<span v-if="selectedChannel.type === 'channel'"
+					class="field-label">
+					<PoundIcon />
+					<span>
+						<strong>
+							{{ t('integration_zulip', 'Topic') }}
+						</strong>
+					</span>
+					<NcLoadingIcon v-if="topics === undefined" :size="20" />
+				</span>
+				<NcSelect v-if="selectedChannel.type === 'channel'"
+					v-model="selectedTopic"
+					class="channel-select"
+					label="name"
+					:clearable="false"
+					:options="topics"
+					:append-to-body="false"
+					:placeholder="t('integration_zulip', 'Select a topic')"
+					input-id="zulip-channel-select"
+					@search="query = $event">
+					<template #option="option">
+						<div class="select-option">
+							<NcHighlight
+								:text="option.name"
+								:search="query"
+								class="multiselect-name" />
+						</div>
+					</template>
+					<template #selected-option="option">
 						<span class="multiselect-name">
 							{{ option.name }}
 						</span>
@@ -223,9 +245,12 @@ import CheckCircleIcon from 'vue-material-design-icons/CheckCircle.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import CommentIcon from 'vue-material-design-icons/Comment.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import FileIcon from 'vue-material-design-icons/File.vue'
+import LockIcon from 'vue-material-design-icons/Lock.vue'
 import PackageUpIcon from 'vue-material-design-icons/PackageUp.vue'
 import PencilIcon from 'vue-material-design-icons/Pencil.vue'
+import PoundIcon from 'vue-material-design-icons/Pound.vue'
 import PoundBoxIcon from 'vue-material-design-icons/PoundBox.vue'
 import SendIcon from 'vue-material-design-icons/Send.vue'
 
@@ -256,14 +281,17 @@ export default {
 		NcLoadingIcon,
 		NcButton,
 		NcAvatar,
-		SendIcon,
-		PoundBoxIcon,
-		FileIcon,
-		PackageUpIcon,
-		CommentIcon,
-		CheckCircleIcon,
 		AlertBoxIcon,
+		CheckCircleIcon,
 		CloseIcon,
+		CommentIcon,
+		EarthIcon,
+		FileIcon,
+		LockIcon,
+		PackageUpIcon,
+		PoundIcon,
+		PoundBoxIcon,
+		SendIcon,
 		AccountMultiple,
 	},
 
@@ -279,6 +307,8 @@ export default {
 			fileStates: {},
 			channels: undefined, // undefined means loading
 			selectedChannel: null,
+			topics: undefined, // undefined means loading
+			selectedTopic: null,
 			selectedPermission: 'view',
 			expirationEnabled: false,
 			expirationDate: null,
@@ -308,6 +338,14 @@ export default {
 		},
 	},
 
+	watch: {
+		selectedChannel(newChannel, oldChannel) {
+			if (newChannel.type === 'channel') {
+				this.updateTopics()
+			}
+		},
+	},
+
 	mounted() {
 		this.reset()
 	},
@@ -315,9 +353,11 @@ export default {
 	methods: {
 		reset() {
 			this.selectedChannel = null
+			this.selectedTopic = null
 			this.files = []
 			this.fileStates = {}
 			this.channels = undefined
+			this.topics = undefined
 			this.comment = ''
 			this.sendType = SEND_TYPE.file.id
 			this.selectedPermission = 'view'
@@ -369,6 +409,20 @@ export default {
 				showError(t('integration_zulip', 'Failed to load Zulip channels'))
 				console.error(error)
 				this.channels = []
+			})
+		},
+		updateTopics() {
+			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.id}/topics`)
+			axios.get(url).then((response) => {
+				this.topics = response.data ?? []
+				this.topics.sort((a, b) => a.name.localeCompare(b.name))
+				if (this.topics.length > 0) {
+					this.selectedTopic = this.topics[0]
+				}
+			}).catch((error) => {
+				showError(t('integration_zulip', 'Failed to load Zulip topics'))
+				console.error(error)
+				this.topics = []
 			})
 		},
 		getFilePreviewUrl(fileId, fileType) {

@@ -20,6 +20,7 @@ return [
 		['name' => 'zulipAPI#sendPublicLinks', 'url' => '/sendPublicLinks', 'verb' => 'POST'],
 		['name' => 'zulipAPI#sendFile', 'url' => '/sendFile', 'verb' => 'POST'],
 		['name' => 'zulipAPI#getChannels', 'url' => '/channels', 'verb' => 'GET'],
+		['name' => 'zulipAPI#getTopics', 'url' => '/channels/{channelId}/topics', 'verb' => 'GET'],
 		['name' => 'zulipAPI#getUserAvatar', 'url' => '/users/{zulipUserId}/image', 'verb' => 'GET'],
 
 		['name' => 'files#getFileImage', 'url' => '/preview', 'verb' => 'GET'],

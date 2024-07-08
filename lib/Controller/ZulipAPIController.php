@@ -80,6 +80,21 @@ class ZulipAPIController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 *
+	 * @param int $channelId
+	 * @return DataResponse
+	 * @throws Exception
+	 */
+	public function getTopics(int $channelId) {
+		$result = $this->zulipAPIService->getMyTopics($this->userId, $channelId);
+		if (isset($result['error'])) {
+			return new DataResponse($result, Http::STATUS_BAD_REQUEST);
+		}
+		return new DataResponse($result);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
 	 * @param string $message
 	 * @param string $channelId
 	 * @return DataResponse
