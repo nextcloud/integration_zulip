@@ -27,7 +27,6 @@ use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\Lock\LockedException;
 use OCP\PreConditionNotMetException;
 use OCP\Security\ICrypto;
 use OCP\Share\IManager as ShareManager;

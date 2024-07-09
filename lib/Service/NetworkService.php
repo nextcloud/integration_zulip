@@ -142,7 +142,7 @@ class NetworkService {
 				],
 				'multipart' => [
 					[
-						'name'     => 'filename',
+						'name' => 'filename',
 						'contents' => $file->getContent(),
 						'filename' => $file->getName(),
 					],

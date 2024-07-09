@@ -13,7 +13,6 @@
 
 namespace OCA\Zulip\Controller;
 
-use Exception;
 use OCA\Zulip\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
