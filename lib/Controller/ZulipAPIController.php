@@ -7,8 +7,10 @@
  *
  * @author Julien Veyssier <julien-nc@posteo.net>
  * @author Anupam Kumar <kyteinsky@gmail.com>
+ * @author Edward Ly <contact@edward.ly>
  * @copyright Julien Veyssier 2022
  * @copyright Anupam Kumar 2023
+ * @copyright Edward Ly 2024
  */
 
 namespace OCA\Zulip\Controller;
@@ -95,13 +97,16 @@ class ZulipAPIController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 *
+	 * @param string $messageType
 	 * @param string $message
-	 * @param string $channelId
+	 * @param int $channelId
+	 * @param string|null $topicName
 	 * @return DataResponse
 	 * @throws Exception
 	 */
-	public function sendMessage(string $message, string $channelId) {
-		$result = $this->zulipAPIService->sendMessage($this->userId, $message, $channelId);
+	public function sendMessage(string $messageType, string $message, int $channelId,
+		?string $topicName = null) {
+		$result = $this->zulipAPIService->sendMessage($this->userId, $messageType, $message, $channelId, $topicName);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {
@@ -113,15 +118,18 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $fileId
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $comment
+	 * @param string|null $topicName
 	 * @return DataResponse
-	 * @throws NotPermittedException
 	 * @throws LockedException
 	 * @throws NoUserException
+	 * @throws NotPermittedException
 	 */
-	public function sendFile(int $fileId, string $channelId, string $comment = '') {
-		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $channelId, $comment);
+	public function sendFile(int $fileId, string $messageType, int $channelId,
+		string $comment = '', ?string $topicName = null) {
+		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $messageType, $channelId, $comment, $topicName);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);
 		} else {
@@ -133,8 +141,10 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param array $fileIds
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $channelName
+	 * @param string $topicName
 	 * @param string $comment
 	 * @param string $permission
 	 * @param string|null $expirationDate
@@ -143,10 +153,11 @@ class ZulipAPIController extends Controller {
 	 * @throws NoUserException
 	 * @throws NotPermittedException
 	 */
-	public function sendPublicLinks(array $fileIds, string $channelId, string $channelName, string $comment,
+	public function sendPublicLinks(array $fileIds, string $messageType, int $channelId,
+		string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): DataResponse {
 		$result = $this->zulipAPIService->sendPublicLinks(
-			$this->userId, $fileIds, $channelId, $channelName,
+			$this->userId, $fileIds, $messageType, $channelId, $channelName, $topicName,
 			$comment, $permission, $expirationDate, $password
 		);
 		if (isset($result['error'])) {

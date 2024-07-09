@@ -150,10 +150,12 @@
 							:value="type.id"
 							name="send_type_radio"
 							type="radio">
-							<component :is="type.icon" :size="20" />
-							<span class="option-title">
-								{{ type.label }}
-							</span>
+							<div class="select-option">
+								<component :is="type.icon" :size="20" />
+								<span class="option-title">
+									{{ type.label }}
+								</span>
+							</div>
 						</NcCheckboxRadioSwitch>
 					</div>
 					<RadioElementSet v-if="sendType === SEND_TYPE.public_link.id"
@@ -387,8 +389,10 @@ export default {
 			this.loading = true
 			this.$emit('validate', {
 				filesToSend: [...this.files],
+				messageType: this.selectedChannel.type,
 				channelId: this.selectedChannel.id,
 				channelName: this.selectedChannel.name,
+				topicName: this.selectedTopic.name,
 				type: this.sendType,
 				comment: this.comment,
 				permission: this.selectedPermission,

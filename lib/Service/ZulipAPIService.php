@@ -7,8 +7,10 @@
  *
  * @author Julien Veyssier <julien-nc@posteo.net>
  * @author Anupam Kumar <kyteinsky@gmail.com>
+ * @author Edward Ly <contact@edward.ly>
  * @copyright Julien Veyssier 2022
  * @copyright Anupam Kumar 2023
+ * @copyright Edward Ly 2024
  */
 
 namespace OCA\Zulip\Service;
@@ -27,7 +29,6 @@ use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\Lock\LockedException;
 use OCP\PreConditionNotMetException;
 use OCP\Security\ICrypto;
 use OCP\Share\IManager as ShareManager;
@@ -190,29 +191,31 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
+	 * @param string $messageType
 	 * @param string $message
-	 * @param string $channelId
+	 * @param int $channelId
+	 * @param string|null $topicName
 	 * @return array|string[]
 	 * @throws PreConditionNotMetException
 	 */
-	public function sendMessage(string $userId, string $message, string $channelId): array {
+	public function sendMessage(string $userId, string $messageType, string $message,
+		int $channelId, ?string $topicName = null): array {
 		$params = [
-			'as_user' => true, // legacy but we'll use it for now
-			'link_names' => false, // we onlu send links (public and internal)
-			'parse' => 'full',
-			'unfurl_links' => true,
-			'unfurl_media' => true,
-			'channel' => $channelId,
-			'text' => $message,
+			'type' => $messageType,
+			'to' => $channelId,
+			'topic' => $topicName,
+			'content' => $message,
 		];
-		return $this->request($userId, 'chat.postMessage', $params, 'POST');
+		return $this->request($userId, 'messages', $params, 'POST');
 	}
 
 	/**
 	 * @param string $userId
 	 * @param array $fileIds
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $channelName
+	 * @param string $topicName
 	 * @param string $comment
 	 * @param string $permission
 	 * @param string|null $expirationDate
@@ -222,8 +225,8 @@ class ZulipAPIService {
 	 * @throws NotPermittedException
 	 * @throws PreConditionNotMetException
 	 */
-	public function sendPublicLinks(string $userId, array $fileIds,
-		string $channelId, string $channelName, string $comment,
+	public function sendPublicLinks(string $userId, array $fileIds, string $messageType,
+		int $channelId, string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): array {
 		$links = [];
 		$userFolder = $this->root->getUserFolder($userId);
@@ -246,7 +249,7 @@ class ZulipAPIService {
 
 				$share->setShareType(IShare::TYPE_LINK);
 				$share->setSharedBy($userId);
-				$share->setLabel('Zulip (' . $channelName . ')');
+				$share->setLabel('Zulip (' . $channelName . '/' . $topicName . ')');
 
 				if ($expirationDate !== null) {
 					$share->setExpirationDate(new DateTime($expirationDate));
@@ -290,42 +293,45 @@ class ZulipAPIService {
 
 		$message = ($comment !== ''
 			? $comment . "\n\n"
-			: '') .  join("\n", array_map(fn ($link) => $link['name'] . ': ' . $link['url'], $links));
+			: '') . join("\n", array_map(fn ($link) => '[' . $link['name'] . '](' . $link['url'] . ')', $links));
 
-		return $this->sendMessage($userId, $message, $channelId);
+		return $this->sendMessage($userId, $messageType, $message, $channelId, $topicName);
 	}
 
 	/**
 	 * @param string $userId
 	 * @param int $fileId
-	 * @param string $channelId
+	 * @param string $messageType
+	 * @param int $channelId
 	 * @param string $comment
+	 * @param string|null $topicName
 	 * @return array|string[]
 	 * @throws NoUserException
 	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
-	public function sendFile(string $userId, int $fileId, string $channelId, string $comment = ''): array {
+	public function sendFile(string $userId, int $fileId, string $messageType,
+		int $channelId, string $comment = '', ?string $topicName = null): array {
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 		$userFolder = $this->root->getUserFolder($userId);
 		$files = $userFolder->getById($fileId);
 
 		if (count($files) > 0 && $files[0] instanceof File) {
 			$file = $files[0];
 
-			$params = [
-				'channels' => $channelId,
-				'filename' => $file->getName(),
-				'filetype' => 'auto',
-				'content' => $file->getContent(),
-			];
-			if ($comment !== '') {
-				$params['initial_comment'] = $comment;
-			}
-
-			$sendResult = $this->request($userId, 'files.upload', $params, 'POST');
+			$sendResult = $this->networkService->requestSendFile($userId, 'user_uploads', $file);
 
 			if (isset($sendResult['error'])) {
-				return (array) $sendResult;
+				return $sendResult;
+			}
+
+			$fileLink = rtrim($zulipUrl, '/') . $sendResult['uri'];
+			$message = ($comment !== '' ? $comment . "\n\n" : '')
+				. '[' . $file->getName() . '](' . $fileLink . ')';
+
+			$messageResult = $this->sendMessage($userId, $messageType, $message, $channelId, $topicName);
+
+			if (isset($messageResult['error'])) {
+				return $messageResult;
 			}
 
 			return ['success' => true];

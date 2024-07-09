@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2022 Julien Veyssier <julien-nc@posteo.net>
+ * Copyright (c) 2024 Edward Ly <contact@edward.ly>
  *
  * This file is licensed under the Affero General Public License version 3
  * or later.
@@ -97,11 +98,13 @@ function sendSelectedNodes(nodes) {
 	}
 }
 
-async function sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password) {
+async function sendPublicLinks(messageType, channelId, channelName, topicName, comment, permission, expirationDate, password) {
 	const req = {
 		fileIds: OCA.Zulip.filesToSend.map((f) => f.id),
+		messageType,
 		channelId,
 		channelName,
+		topicName,
 		comment,
 		permission,
 		expirationDate: expirationDate ? moment(expirationDate).format('YYYY-MM-DD') : undefined,
@@ -111,23 +114,25 @@ async function sendPublicLinks(channelId, channelName, comment, permission, expi
 	return axios.post(SEND_PUBLIC_LINKS_URL, req)
 }
 
-const sendInternalLinks = async (channelId, comment) => {
+const sendInternalLinks = async (messageType, comment, channelId, topicName) => {
 	const getLink = (file) => window.location.protocol + '//' + window.location.host + generateUrl('/f/' + file.id)
 	const message = (comment !== ''
 		? `${comment}\n\n`
-		: '') + `${OCA.Zulip.filesToSend.map((file) => `${file.name}: ${getLink(file)}`).join('\n')}`
-	return sendMessage(channelId, message)
+		: '') + `${OCA.Zulip.filesToSend.map((file) => `[${file.name}](${getLink(file)})`).join('\n')}`
+	return sendMessage(messageType, message, channelId, topicName)
 }
 
 const sendFile
-	= (channelId, channelName, comment) => (file, i) => new Promise((resolve, reject) => {
+	= (messageType, channelId, channelName, topicName, comment) => (file, i) => new Promise((resolve, reject) => {
 		OCA.Zulip.ZulipSendModalVue.fileStarted(file.id)
 
 		// send the comment only with the first file
 		const req = {
 			fileId: file.id,
+			messageType,
 			channelId,
 			...(i === 0 && { comment }),
+			topicName,
 		}
 
 		axios.post(SEND_FILE_URL, req).then((response) => {
@@ -146,10 +151,12 @@ const sendFile
 		})
 	})
 
-async function sendMessage(channelId, message) {
+async function sendMessage(messageType, message, channelId, topicName) {
 	const req = {
+		messageType,
 		message,
 		channelId,
+		topicName,
 	}
 	return axios.post(SEND_MESSAGE_URL, req)
 }
@@ -166,7 +173,10 @@ OCA.Zulip.ZulipSendModalVue = new View().$mount(modalElement)
 OCA.Zulip.ZulipSendModalVue.$on('closed', () => {
 	if (DEBUG) console.debug('[Zulip] modal closed')
 })
-OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelName, type, comment, permission, expirationDate, password }) => {
+OCA.Zulip.ZulipSendModalVue.$on('validate', ({
+	filesToSend, messageType, channelId, channelName, topicName,
+	type, comment, permission, expirationDate, password,
+}) => {
 	if (filesToSend.length === 0) {
 		return
 	}
@@ -174,7 +184,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 	OCA.Zulip.filesToSend = filesToSend
 
 	if (type === SEND_TYPE.public_link.id) {
-		sendPublicLinks(channelId, channelName, comment, permission, expirationDate, password).then(() => {
+		sendPublicLinks(messageType, channelId, channelName, topicName, comment, permission, expirationDate, password).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',
@@ -197,7 +207,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 			)
 		})
 	} else if (type === SEND_TYPE.internal_link.id) {
-		sendInternalLinks(channelId, comment).then(() => {
+		sendInternalLinks(messageType, comment, channelId, topicName).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',
@@ -233,7 +243,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({ filesToSend, channelId, channelNa
 		OCA.Zulip.sentFileNames = []
 		OCA.Zulip.filesToSend = filesToSend.filter((f) => f.type !== FileType.Folder)
 
-		Promise.all(OCA.Zulip.filesToSend.map(sendFile(channelId, channelName, comment))).then(() => {
+		Promise.all(OCA.Zulip.filesToSend.map(sendFile(messageType, channelId, channelName, topicName, comment))).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',
