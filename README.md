@@ -8,7 +8,8 @@ files, public links to the files, or as internal Nextcloud links.
 ### User settings
 
 The account configuration happens in the "Connected accounts" user settings section.
-It requires you to specify the URL of your Zulip instance and the API key
+It requires you to specify the URL of your Zulip instance
+and the email address and API key
 associated with your Zulip account in that instance.
 
 If those settings are not configured,
