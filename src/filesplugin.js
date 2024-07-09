@@ -122,14 +122,16 @@ const sendInternalLinks = async (messageType, comment, channelId, topicName) => 
 }
 
 const sendFile
-	= (channelId, channelName, comment) => (file, i) => new Promise((resolve, reject) => {
+	= (messageType, channelId, channelName, topicName, comment) => (file, i) => new Promise((resolve, reject) => {
 		OCA.Zulip.ZulipSendModalVue.fileStarted(file.id)
 
 		// send the comment only with the first file
 		const req = {
 			fileId: file.id,
+			messageType,
 			channelId,
 			...(i === 0 && { comment }),
+			topicName,
 		}
 
 		axios.post(SEND_FILE_URL, req).then((response) => {
@@ -240,7 +242,7 @@ OCA.Zulip.ZulipSendModalVue.$on('validate', ({
 		OCA.Zulip.sentFileNames = []
 		OCA.Zulip.filesToSend = filesToSend.filter((f) => f.type !== FileType.Folder)
 
-		Promise.all(OCA.Zulip.filesToSend.map(sendFile(channelId, channelName, comment))).then(() => {
+		Promise.all(OCA.Zulip.filesToSend.map(sendFile(messageType, channelId, channelName, topicName, comment))).then(() => {
 			showSuccess(
 				n(
 					'integration_zulip',
