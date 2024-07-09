@@ -281,13 +281,17 @@ class ZulipAPIService {
 	/**
 	 * @param string $userId
 	 * @param int $fileId
+	 * @param string $messageType
 	 * @param int $channelId
 	 * @param string $comment
+	 * @param string|null $topicName
 	 * @return array|string[]
 	 * @throws NoUserException
 	 * @throws NotPermittedException
 	 */
-	public function sendFile(string $userId, int $fileId, int $channelId, string $comment = ''): array {
+	public function sendFile(string $userId, int $fileId, string $messageType,
+		int $channelId, string $comment = '', ?string $topicName = null): array {
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 		$userFolder = $this->root->getUserFolder($userId);
 		$files = $userFolder->getById($fileId);
 
@@ -298,6 +302,16 @@ class ZulipAPIService {
 
 			if (isset($sendResult['error'])) {
 				return $sendResult;
+			}
+
+			$fileLink = rtrim($zulipUrl, '/') . $sendResult['uri'];
+			$message = ($comment !== '' ? $comment . "\n\n" : '')
+				. '[' . $file->getName() . '](' . $fileLink . ')';
+
+			$messageResult = $this->sendMessage($userId, $messageType, $message, $channelId, $topicName);
+
+			if (isset($messageResult['error'])) {
+				return $messageResult;
 			}
 
 			return ['success' => true];
