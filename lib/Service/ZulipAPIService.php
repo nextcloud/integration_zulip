@@ -107,6 +107,8 @@ class ZulipAPIService {
 	 * @throws PreConditionNotMetException
 	 */
 	public function getMyChannels(string $userId): array {
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+
 		$channelResult = $this->request($userId, 'streams', [
 			'include_web_public' => 'true',
 		]);
@@ -119,14 +121,16 @@ class ZulipAPIService {
 			return ['error' => 'No channels found'];
 		}
 
-		$userResult = $this->request($userId, 'users');
+		$userResult = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => 5000,
+			'num_after' => 0,
+			'narrow' => '[{"operator": "is", "operand": "dm"}]',
+			'client_gravatar' => 'true',
+		]);
 
 		if (isset($userResult['error'])) {
 			return (array) $userResult;
-		}
-
-		if (!isset($userResult['members']) || !is_array($userResult['members'])) {
-			return ['error' => 'No users found'];
 		}
 
 		$conversations = [];
@@ -141,16 +145,18 @@ class ZulipAPIService {
 			];
 		}
 
-		foreach($userResult['members'] as $user) {
-			$conversations[] = [
+		$users = [];
+
+		foreach($userResult['messages'] as $user) {
+			$users[$user['sender_id']] = [
 				'type' => 'direct',
-				'user_id' => $user['user_id'],
-				'name' => $user['full_name'],
-				// 'avatar_url' => $user['avatar_url'],
+				'user_id' => $user['sender_id'],
+				'name' => $user['sender_full_name'],
+				'avatar_url' => is_null($user['avatar_url']) ? null : rtrim($zulipUrl, '/') . $user['avatar_url'],
 			];
 		}
 
-		return $conversations;
+		return array_merge($conversations, $users);
 	}
 
 	/**
@@ -305,7 +311,7 @@ class ZulipAPIService {
 			$sendResult = $this->networkService->requestSendFile($userId, 'user_uploads', $file);
 
 			if (isset($sendResult['error'])) {
-				return $sendResult;
+				return (array) $sendResult;
 			}
 
 			$fileLink = rtrim($zulipUrl, '/') . $sendResult['uri'];

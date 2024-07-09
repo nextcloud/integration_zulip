@@ -72,6 +72,7 @@
 						<div class="select-option">
 							<NcAvatar v-if="option.type === 'direct'"
 								:size="20"
+								:url="option.avatar_url"
 								:display-name="option.name" />
 							<LockIcon v-else-if="option.invite_only"
 								:size="20" />
@@ -88,6 +89,7 @@
 					<template #selected-option="option">
 						<NcAvatar v-if="option.type === 'direct'"
 							:size="20"
+							:url="option.avatar_url"
 							:display-name="option.name" />
 						<LockIcon v-else-if="option.invite_only"
 							:size="20" />
