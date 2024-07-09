@@ -116,14 +116,14 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $fileId
-	 * @param string $channelId
+	 * @param int $channelId
 	 * @param string $comment
 	 * @return DataResponse
-	 * @throws NotPermittedException
 	 * @throws LockedException
 	 * @throws NoUserException
+	 * @throws NotPermittedException
 	 */
-	public function sendFile(int $fileId, string $channelId, string $comment = '') {
+	public function sendFile(int $fileId, int $channelId, string $comment = '') {
 		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $channelId, $comment);
 		if (isset($result['error'])) {
 			return new DataResponse($result['error'], Http::STATUS_BAD_REQUEST);

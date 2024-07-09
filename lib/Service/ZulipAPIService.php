@@ -281,34 +281,23 @@ class ZulipAPIService {
 	/**
 	 * @param string $userId
 	 * @param int $fileId
-	 * @param string $channelId
+	 * @param int $channelId
 	 * @param string $comment
 	 * @return array|string[]
 	 * @throws NoUserException
 	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
-	public function sendFile(string $userId, int $fileId, string $channelId, string $comment = ''): array {
+	public function sendFile(string $userId, int $fileId, int $channelId, string $comment = ''): array {
 		$userFolder = $this->root->getUserFolder($userId);
 		$files = $userFolder->getById($fileId);
 
 		if (count($files) > 0 && $files[0] instanceof File) {
 			$file = $files[0];
 
-			$params = [
-				'channels' => $channelId,
-				'filename' => $file->getName(),
-				'filetype' => 'auto',
-				'content' => $file->getContent(),
-			];
-			if ($comment !== '') {
-				$params['initial_comment'] = $comment;
-			}
-
-			$sendResult = $this->request($userId, 'files.upload', $params, 'POST');
+			$sendResult = $this->networkService->requestSendFile($userId, 'user_uploads', $file);
 
 			if (isset($sendResult['error'])) {
-				return (array) $sendResult;
+				return $sendResult;
 			}
 
 			return ['success' => true];
