@@ -120,6 +120,13 @@ class NetworkService {
 		}
 	}
 
+	/**
+	 * @param string $userId
+	 * @param string $endPoint
+	 * @param File $file
+	 * @return array|mixed|resource|string|string[]
+	 * @throws PreConditionNotMetException
+	 */
 	public function requestSendFile(string $userId, string $endPoint, File $file): array {
 		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($userId, Application::APP_ID, 'email');
