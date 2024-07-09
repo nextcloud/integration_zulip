@@ -103,22 +103,6 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
-	 * @param string $zulipUserId
-	 * @return string|null
-	 */
-	private function getUserRealName(string $userId, string $zulipUserId): string|null {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
-		if (isset($userInfo['error'])) {
-			return null;
-		}
-		if (!isset($userInfo['user'], $userInfo['user']['real_name'])) {
-			return null;
-		}
-		return $userInfo['user']['real_name'];
-	}
-
-	/**
-	 * @param string $userId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */
