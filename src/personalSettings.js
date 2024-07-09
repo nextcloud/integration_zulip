@@ -9,8 +9,10 @@
  *
  * @author Julien Veyssier <julien-nc@posteo.net>
  * @author Anupam Kumar <kyteinsky@gmail.com>
+ * @author Edward Ly <contact@edward.ly>
  * @copyright Julien Veyssier 2022
  * @copyright Anupam Kumar 2023
+ * @copyright Edward Ly 2024
  */
 
 import Vue from 'vue'
