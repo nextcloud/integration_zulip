@@ -175,7 +175,7 @@ class ZulipAPIService {
 		int $channelId, ?string $topicName = null): array {
 		$params = [
 			'type' => $messageType,
-			'to' => $channelId,
+			'to' => $messageType === 'channel' ? $channelId : '[' . $channelId . ']',
 			'topic' => $topicName,
 			'content' => $message,
 		];
