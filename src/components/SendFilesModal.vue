@@ -72,7 +72,7 @@
 						<div class="select-option">
 							<NcAvatar v-if="option.type === 'direct'"
 								:size="20"
-								:url="option.avatar_url"
+								:url="getUserIconUrl(option)"
 								:display-name="option.name" />
 							<LockIcon v-else-if="option.invite_only"
 								:size="20" />
@@ -89,7 +89,7 @@
 					<template #selected-option="option">
 						<NcAvatar v-if="option.type === 'direct'"
 							:size="20"
-							:url="option.avatar_url"
+							:url="getUserIconUrl(option)"
 							:display-name="option.name" />
 						<LockIcon v-else-if="option.invite_only"
 							:size="20" />
@@ -449,8 +449,12 @@ export default {
 		fileFinished(id) {
 			this.$set(this.fileStates, id, STATES.FINISHED)
 		},
-		getUserIconUrl(zulipUserId) {
-			return generateUrl('/apps/integration_zulip/users/{zulipUserId}/image', { zulipUserId })
+		getUserIconUrl(user) {
+			if (user.avatar_url === null) {
+				return undefined
+			}
+
+			return generateUrl(`/apps/integration_zulip/users/${user.user_id}/image`)
 		},
 		isDateDisabled(d) {
 			const now = new Date()

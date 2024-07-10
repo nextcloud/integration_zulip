@@ -58,47 +58,30 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
-	 * @param string $zulipUserId
+	 * @param int $zulipUserId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */
-	public function getUserAvatar(string $userId, string $zulipUserId): array {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
+	public function getUserAvatar(string $userId, int $zulipUserId): array {
+		$userInfo = $this->request($userId, 'users/' . $zulipUserId, [
+			'client_gravatar' => 'true',
+		]);
 
 		if (isset($userInfo['error'])) {
 			return ['displayName' => 'User'];
 		}
 
-		if (isset($userInfo['user'], $userInfo['user']['profile'], $userInfo['user']['profile']['image_48'])) {
-			// due to some Zulip API changes, we now have to sanitize the image url
-			//   for some of them
-			$parsedUrlObj = parse_url($userInfo['user']['profile']['image_48']);
-
-			if (isset($parsedUrlObj['query'])) {
-				parse_str($parsedUrlObj['query'], $params);
-				if (!isset($params['d'])) {
-					if (isset($userInfo['user'], $userInfo['user']['real_name'])) {
-						return ['displayName' => $userInfo['user']['real_name']];
-					}
-
-					return ['displayName' => 'User'];
-				}
-
-				$image = $this->request($userId, $params['d'], [], 'GET', false, false);
-			} else {
-				$image = $this->request($userId, $userInfo['user']['profile']['image_48'], [], 'GET', false, false);
-			}
-
-			if (!is_array($image)) {
-				return ['avatarContent' => $image];
-			}
+		if (is_null($userInfo['user']['avatar_url'])) {
+			return ['displayName' => $userInfo['user']['full_name']];
 		}
 
-		if (isset($userInfo['user'], $userInfo['user']['real_name'])) {
-			return ['displayName' => $userInfo['user']['real_name']];
+		$image = $this->networkService->requestAvatar($userId, $userInfo['user']['avatar_url']);
+
+		if (!is_array($image)) {
+			return ['avatarContent' => $image];
 		}
 
-		return ['displayName' => 'User'];
+		return ['displayName' => $userInfo['user']['full_name']];
 	}
 
 	/**
@@ -152,7 +135,7 @@ class ZulipAPIService {
 				'type' => 'direct',
 				'user_id' => $user['sender_id'],
 				'name' => $user['sender_full_name'],
-				'avatar_url' => is_null($user['avatar_url']) ? null : rtrim($zulipUrl, '/') . $user['avatar_url'],
+				'avatar_url' => $user['avatar_url'],
 			];
 		}
 
