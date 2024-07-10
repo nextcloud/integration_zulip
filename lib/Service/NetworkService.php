@@ -168,4 +168,34 @@ class NetworkService {
 			return ['error' => $e->getMessage()];
 		}
 	}
+
+	/**
+	 * @param string $userId
+	 * @param string $avatarUrl
+	 * @return array|mixed|resource|string|string[]
+	 * @throws PreConditionNotMetException
+	 */
+	public function requestAvatar(string $userId, string $avatarUrl): mixed {
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+
+		try {
+			$url = rtrim($zulipUrl, '/') . $avatarUrl;
+			$options = [
+				'headers' => [
+					'User-Agent' => Application::INTEGRATION_USER_AGENT,
+				],
+			];
+
+			$response = $this->client->get($url, $options);
+
+			return $response->getBody();
+		} catch (ServerException | ClientException $e) {
+			$body = $e->getResponse()->getBody();
+			$this->logger->warning('Zulip API error : ' . $body, ['app' => Application::APP_ID]);
+			return ['error' => $e->getMessage()];
+		} catch (Exception | Throwable $e) {
+			$this->logger->warning('Zulip API error', ['exception' => $e, 'app' => Application::APP_ID]);
+			return ['error' => $e->getMessage()];
+		}
+	}
 }

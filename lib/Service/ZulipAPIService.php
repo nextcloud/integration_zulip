@@ -58,63 +58,30 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
-	 * @param string $zulipUserId
+	 * @param int $zulipUserId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */
-	public function getUserAvatar(string $userId, string $zulipUserId): array {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
+	public function getUserAvatar(string $userId, int $zulipUserId): array {
+		$userInfo = $this->request($userId, 'users/' . $zulipUserId, [
+			'client_gravatar' => 'true',
+		]);
 
 		if (isset($userInfo['error'])) {
 			return ['displayName' => 'User'];
 		}
 
-		if (isset($userInfo['user'], $userInfo['user']['profile'], $userInfo['user']['profile']['image_48'])) {
-			// due to some Zulip API changes, we now have to sanitize the image url
-			//   for some of them
-			$parsedUrlObj = parse_url($userInfo['user']['profile']['image_48']);
-
-			if (isset($parsedUrlObj['query'])) {
-				parse_str($parsedUrlObj['query'], $params);
-				if (!isset($params['d'])) {
-					if (isset($userInfo['user'], $userInfo['user']['real_name'])) {
-						return ['displayName' => $userInfo['user']['real_name']];
-					}
-
-					return ['displayName' => 'User'];
-				}
-
-				$image = $this->request($userId, $params['d'], [], 'GET', false, false);
-			} else {
-				$image = $this->request($userId, $userInfo['user']['profile']['image_48'], [], 'GET', false, false);
-			}
-
-			if (!is_array($image)) {
-				return ['avatarContent' => $image];
-			}
+		if (is_null($userInfo['user']['avatar_url'])) {
+			return ['displayName' => $userInfo['user']['full_name']];
 		}
 
-		if (isset($userInfo['user'], $userInfo['user']['real_name'])) {
-			return ['displayName' => $userInfo['user']['real_name']];
+		$image = $this->networkService->requestAvatar($userId, $userInfo['user']['avatar_url']);
+
+		if (!is_array($image)) {
+			return ['avatarContent' => $image];
 		}
 
-		return ['displayName' => 'User'];
-	}
-
-	/**
-	 * @param string $userId
-	 * @param string $zulipUserId
-	 * @return string|null
-	 */
-	private function getUserRealName(string $userId, string $zulipUserId): string|null {
-		$userInfo = $this->request($userId, 'users.info', ['user' => $zulipUserId]);
-		if (isset($userInfo['error'])) {
-			return null;
-		}
-		if (!isset($userInfo['user'], $userInfo['user']['real_name'])) {
-			return null;
-		}
-		return $userInfo['user']['real_name'];
+		return ['displayName' => $userInfo['user']['full_name']];
 	}
 
 	/**
@@ -123,6 +90,8 @@ class ZulipAPIService {
 	 * @throws PreConditionNotMetException
 	 */
 	public function getMyChannels(string $userId): array {
+		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+
 		$channelResult = $this->request($userId, 'streams', [
 			'include_web_public' => 'true',
 		]);
@@ -135,19 +104,42 @@ class ZulipAPIService {
 			return ['error' => 'No channels found'];
 		}
 
-		$channels = [];
+		$userResult = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => 5000,
+			'num_after' => 0,
+			'narrow' => '[{"operator": "is", "operand": "dm"}]',
+			'client_gravatar' => 'true',
+		]);
+
+		if (isset($userResult['error'])) {
+			return (array) $userResult;
+		}
+
+		$conversations = [];
 
 		foreach($channelResult['streams'] as $channel) {
-			$channels[] = [
+			$conversations[] = [
 				'type' => 'channel',
-				'id' => $channel['stream_id'],
+				'channel_id' => $channel['stream_id'],
 				'name' => $channel['name'],
 				'invite_only' => $channel['invite_only'],
 				'is_web_public' => $channel['is_web_public'],
 			];
 		}
 
-		return $channels;
+		$users = [];
+
+		foreach($userResult['messages'] as $user) {
+			$users[$user['sender_id']] = [
+				'type' => 'direct',
+				'user_id' => $user['sender_id'],
+				'name' => $user['sender_full_name'],
+				'avatar_url' => $user['avatar_url'],
+			];
+		}
+
+		return array_merge($conversations, $users);
 	}
 
 	/**
@@ -183,7 +175,7 @@ class ZulipAPIService {
 		int $channelId, ?string $topicName = null): array {
 		$params = [
 			'type' => $messageType,
-			'to' => $channelId,
+			'to' => $messageType === 'channel' ? $channelId : '[' . $channelId . ']',
 			'topic' => $topicName,
 			'content' => $message,
 		];
@@ -302,7 +294,7 @@ class ZulipAPIService {
 			$sendResult = $this->networkService->requestSendFile($userId, 'user_uploads', $file);
 
 			if (isset($sendResult['error'])) {
-				return $sendResult;
+				return (array) $sendResult;
 			}
 
 			$fileLink = rtrim($zulipUrl, '/') . $sendResult['uri'];

@@ -70,7 +70,11 @@
 					@search="query = $event">
 					<template #option="option">
 						<div class="select-option">
-							<LockIcon v-if="option.invite_only"
+							<NcAvatar v-if="option.type === 'direct'"
+								:size="20"
+								:url="getUserIconUrl(option)"
+								:display-name="option.name" />
+							<LockIcon v-else-if="option.invite_only"
 								:size="20" />
 							<EarthIcon v-else-if="option.is_web_public"
 								:size="20" />
@@ -83,7 +87,11 @@
 						</div>
 					</template>
 					<template #selected-option="option">
-						<LockIcon v-if="option.invite_only"
+						<NcAvatar v-if="option.type === 'direct'"
+							:size="20"
+							:url="getUserIconUrl(option)"
+							:display-name="option.name" />
+						<LockIcon v-else-if="option.invite_only"
 							:size="20" />
 						<EarthIcon v-else-if="option.is_web_public"
 							:size="20" />
@@ -384,7 +392,7 @@ export default {
 			this.$emit('validate', {
 				filesToSend: [...this.files],
 				messageType: this.selectedChannel.type,
-				channelId: this.selectedChannel.id,
+				channelId: this.selectedChannel.channel_id ?? this.selectedChannel.user_id,
 				channelName: this.selectedChannel.name,
 				topicName: this.selectedTopic.name,
 				type: this.sendType,
@@ -416,7 +424,7 @@ export default {
 			})
 		},
 		updateTopics() {
-			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.id}/topics`)
+			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.channel_id}/topics`)
 			axios.get(url).then((response) => {
 				this.topics = response.data ?? []
 				this.topics.sort((a, b) => a.name.localeCompare(b.name))
@@ -441,8 +449,12 @@ export default {
 		fileFinished(id) {
 			this.$set(this.fileStates, id, STATES.FINISHED)
 		},
-		getUserIconUrl(zulipUserId) {
-			return generateUrl('/apps/integration_zulip/users/{zulipUserId}/image', { zulipUserId })
+		getUserIconUrl(user) {
+			if (user.avatar_url === null) {
+				return undefined
+			}
+
+			return generateUrl(`/apps/integration_zulip/users/${user.user_id}/image`)
 		},
 		isDateDisabled(d) {
 			const now = new Date()

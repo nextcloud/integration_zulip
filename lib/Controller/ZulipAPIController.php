@@ -46,12 +46,12 @@ class ZulipAPIController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $zulipUserId
+	 * @param int $zulipUserId
 	 * @param int $useFallback
 	 * @return DataDisplayResponse|RedirectResponse
 	 * @throws \Exception
 	 */
-	public function getUserAvatar(string $zulipUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
+	public function getUserAvatar(int $zulipUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
 		$result = $this->zulipAPIService->getUserAvatar($this->userId, $zulipUserId);
 		if (isset($result['avatarContent'])) {
 			$response = new DataDisplayResponse($result['avatarContent']);
