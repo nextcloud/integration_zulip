@@ -1,16 +1,18 @@
 # Zulip integration into Nextcloud
 
-This integration is helpful in sending files to your Zulip workspace as original
-files, public links to the files, or as internal Nextcloud links.
+This integration allows you to send Nextcloud files to your Zulip chat instance
+as uploaded files, public shared links, or internal shared links.
 
 ## 🔧 Configuration
 
 ### User settings
 
-The account configuration happens in the "Connected accounts" user settings section.
+Account configuration happens in the "Connected accounts" user settings section.
 It requires you to specify the URL of your Zulip instance
 and the email address and API key
 associated with your Zulip account in that instance.
+These values can be found in and copied from your Zulip account's `zuliprc` file
+located in `Personal settings -> Account & privacy -> API key`.
 
 If those settings are not configured,
 A link to the "Connected accounts" user settings section will be displayed
