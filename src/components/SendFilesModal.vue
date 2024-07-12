@@ -2,9 +2,10 @@
 	<div class="zulip-modal-container">
 		<NcModal v-if="show"
 			size="normal"
+			label-id="zulip-modal-title"
 			@close="closeModal">
 			<div class="zulip-modal-content">
-				<h2 class="modal-title">
+				<h2 id="zulip-modal-title" class="modal-title">
 					<ZulipIcon />
 					<span>
 						{{ sendType === SEND_TYPE.file.id
@@ -51,22 +52,23 @@
 				</div>
 				<span class="field-label">
 					<PoundBoxIcon />
-					<span>
+					<label for="zulip-channel-select">
 						<strong>
 							{{ t('integration_zulip', 'Conversation') }}
 						</strong>
-					</span>
-					<NcLoadingIcon v-if="channels === undefined" :size="20" />
+					</label>
 				</span>
 				<NcSelect
 					v-model="selectedChannel"
 					class="channel-select"
 					label="name"
-					:clearable="false"
+					:clearable="true"
 					:options="channels"
 					:append-to-body="false"
 					:placeholder="t('integration_zulip', 'Choose a conversation')"
 					input-id="zulip-channel-select"
+					:label-outside="true"
+					:loading="channels === undefined"
 					@search="query = $event">
 					<template #option="option">
 						<div class="select-option">
@@ -102,40 +104,44 @@
 						</span>
 					</template>
 				</NcSelect>
-				<span v-if="selectedChannel.type === 'channel'"
-					class="field-label">
-					<PoundIcon />
-					<span>
-						<strong>
-							{{ t('integration_zulip', 'Topic') }}
-						</strong>
+				<div v-if="selectedChannel && selectedChannel.type === 'channel'"
+					class="topic-field">
+					<span
+						class="field-label">
+						<PoundIcon />
+						<label for="zulip-topic-select">
+							<strong>
+								{{ t('integration_zulip', 'Topic') }}
+							</strong>
+						</label>
 					</span>
-					<NcLoadingIcon v-if="topics === undefined" :size="20" />
-				</span>
-				<NcSelect v-if="selectedChannel.type === 'channel'"
-					v-model="selectedTopic"
-					class="channel-select"
-					label="name"
-					:clearable="false"
-					:options="topics"
-					:append-to-body="false"
-					:placeholder="t('integration_zulip', 'Select a topic')"
-					input-id="zulip-channel-select"
-					@search="query = $event">
-					<template #option="option">
-						<div class="select-option">
-							<NcHighlight
-								:text="option.name"
-								:search="query"
-								class="multiselect-name" />
-						</div>
-					</template>
-					<template #selected-option="option">
-						<span class="multiselect-name">
-							{{ option.name }}
-						</span>
-					</template>
-				</NcSelect>
+					<NcSelect
+						v-model="selectedTopic"
+						class="topic-select"
+						label="name"
+						:clearable="true"
+						:options="topics"
+						:append-to-body="false"
+						:placeholder="t('integration_zulip', 'Select a topic')"
+						input-id="zulip-topic-select"
+						:label-outside="true"
+						:loading="topics === undefined"
+						@search="query = $event">
+						<template #option="option">
+							<div class="select-option">
+								<NcHighlight
+									:text="option.name"
+									:search="query"
+									class="multiselect-name" />
+							</div>
+						</template>
+						<template #selected-option="option">
+							<span class="multiselect-name">
+								{{ option.name }}
+							</span>
+						</template>
+					</NcSelect>
+				</div>
 				<div class="advanced-options">
 					<span class="field-label">
 						<PackageUpIcon />
@@ -343,6 +349,7 @@ export default {
 		},
 		canValidate() {
 			return this.selectedChannel !== null
+				&& this.selectedTopic !== null
 				&& (this.sendType !== SEND_TYPE.file.id || !this.onlyDirectories)
 				&& this.files.length > 0
 		},
@@ -410,13 +417,12 @@ export default {
 			this.loading = false
 		},
 		updateChannels() {
+			this.channels = undefined
+			this.selectedChannel = null
 			const url = generateUrl('apps/integration_zulip/channels')
 			axios.get(url).then((response) => {
 				this.channels = response.data ?? []
 				this.channels.sort((a, b) => a.name.localeCompare(b.name))
-				if (this.channels.length > 0) {
-					this.selectedChannel = this.channels[0]
-				}
 			}).catch((error) => {
 				showError(t('integration_zulip', 'Failed to load Zulip channels'))
 				console.error(error)
@@ -424,13 +430,12 @@ export default {
 			})
 		},
 		updateTopics() {
+			this.topics = undefined
+			this.selectedTopic = null
 			const url = generateUrl(`apps/integration_zulip/channels/${this.selectedChannel.channel_id}/topics`)
 			axios.get(url).then((response) => {
 				this.topics = response.data ?? []
 				this.topics.sort((a, b) => a.name.localeCompare(b.name))
-				if (this.topics.length > 0) {
-					this.selectedTopic = this.topics[0]
-				}
 			}).catch((error) => {
 				showError(t('integration_zulip', 'Failed to load Zulip topics'))
 				console.error(error)
@@ -497,14 +502,18 @@ export default {
 		display: flex;
 		align-items: center;
 		margin: 12px 0;
-		span {
-			margin-left: 8px;
-		}
+		gap: 8px;
 	}
 
-	> *:not(.field-label):not(.advanced-options):not(.zulip-footer):not(.warning-container),
-	.advanced-options > *:not(.field-label) {
+	> *:not(.field-label):not(.advanced-options):not(.zulip-footer):not(.warning-container):not(.topic-field),
+	.advanced-options > *:not(.field-label),
+	.topic-select {
 		margin-left: 10px;
+	}
+
+	.topic-field {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.advanced-options {
