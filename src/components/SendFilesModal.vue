@@ -65,7 +65,7 @@
 					:clearable="true"
 					:options="channels"
 					:append-to-body="false"
-					:placeholder="t('integration_zulip', 'Choose a conversation')"
+					:placeholder="t('integration_zulip', 'Select a channel or user')"
 					input-id="zulip-channel-select"
 					:label-outside="true"
 					:loading="channels === undefined"
