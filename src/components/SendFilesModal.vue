@@ -357,7 +357,7 @@ export default {
 
 	watch: {
 		selectedChannel(newChannel, oldChannel) {
-			if (newChannel.type === 'channel') {
+			if (newChannel?.type === 'channel') {
 				this.updateTopics()
 			}
 		},
