@@ -348,10 +348,15 @@ export default {
 			return this.files.filter((f) => f.type !== 'dir').length === 0
 		},
 		canValidate() {
-			return this.selectedChannel !== null
-				&& this.selectedTopic !== null
+			const isValid = this.selectedChannel !== null
 				&& (this.sendType !== SEND_TYPE.file.id || !this.onlyDirectories)
 				&& this.files.length > 0
+
+			if (this.selectedChannel?.type === 'channel') {
+				return isValid && this.selectedTopic !== null
+			}
+
+			return isValid
 		},
 	},
 
@@ -401,7 +406,7 @@ export default {
 				messageType: this.selectedChannel.type,
 				channelId: this.selectedChannel.channel_id ?? this.selectedChannel.user_id,
 				channelName: this.selectedChannel.name,
-				topicName: this.selectedTopic.name,
+				topicName: this.selectedTopic?.name ?? '',
 				type: this.sendType,
 				comment: this.comment,
 				permission: this.selectedPermission,
