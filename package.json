@@ -1,6 +1,6 @@
 {
 	"name": "integration_zulip",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Zulip integration",
 	"scripts": {
 		"build": "NODE_ENV=production webpack --progress --config webpack.js",
