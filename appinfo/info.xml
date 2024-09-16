@@ -16,6 +16,8 @@
 	<bugs>https://github.com/nextcloud/integration_zulip/issues</bugs>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_zulip/main/img/screenshot1.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_zulip/main/img/screenshot2.png</screenshot>
+	<donation title="Donate via Liberapay">https://liberapay.com/edward-ly/donate</donation>
+	<donation title="Donate via PayPal" type="paypal">https://paypal.me/ledlight7</donation>
 	<dependencies>
 		<nextcloud min-version="28" max-version="30"/>
 	</dependencies>
