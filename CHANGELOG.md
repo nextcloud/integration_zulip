@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.2] - 2024-09-16
+
+### Added
+
+- Donation links to app metadata.
+
 ## [1.0.1] - 2024-08-22
 
 ### Changed
@@ -24,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.0.1...HEAD
-[1.0.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.1
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.2
+[1.0.1]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.1
 [1.0.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.0
