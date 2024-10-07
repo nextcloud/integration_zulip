@@ -13,6 +13,8 @@
  * @copyright Edward Ly 2024
  */
 
+declare(strict_types=1);
+
 namespace OCA\Zulip\AppInfo;
 
 use OCA\Zulip\Listener\FilesMenuListener;

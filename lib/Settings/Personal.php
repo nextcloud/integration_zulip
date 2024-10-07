@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OCA\Zulip\Settings;
 
 use OCA\Zulip\AppInfo\Application;

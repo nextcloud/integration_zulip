@@ -10,6 +10,8 @@
  * @copyright Julien Veyssier 2022
  */
 
+declare(strict_types=1);
+
 namespace OCA\Zulip\Service;
 
 use OCP\Files\File;

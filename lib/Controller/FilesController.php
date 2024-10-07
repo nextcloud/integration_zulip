@@ -9,6 +9,8 @@
  * @copyright Julien Veyssier 2022
  */
 
+declare(strict_types=1);
+
 namespace OCA\Zulip\Controller;
 
 use Exception;
