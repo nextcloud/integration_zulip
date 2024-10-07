@@ -20,6 +20,8 @@ use OC\User\NoUserException;
 use OCA\Zulip\Service\ZulipAPIService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -43,14 +45,14 @@ class ZulipAPIController extends Controller {
 
 	/**
 	 * Get Zulip user avatar
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
 	 *
 	 * @param int $zulipUserId
 	 * @param int $useFallback
 	 * @return DataDisplayResponse|RedirectResponse
 	 * @throws \Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function getUserAvatar(int $zulipUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
 		$result = $this->zulipAPIService->getUserAvatar($this->userId, $zulipUserId);
 		if (isset($result['avatarContent'])) {
@@ -66,11 +68,10 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @return DataResponse
 	 * @throws Exception
 	 */
+	#[NoAdminRequired]
 	public function getChannels() {
 		$result = $this->zulipAPIService->getMyChannels($this->userId);
 		if (isset($result['error'])) {
@@ -80,12 +81,11 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $channelId
 	 * @return DataResponse
 	 * @throws Exception
 	 */
+	#[NoAdminRequired]
 	public function getTopics(int $channelId) {
 		$result = $this->zulipAPIService->getMyTopics($this->userId, $channelId);
 		if (isset($result['error'])) {
@@ -95,8 +95,6 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param string $messageType
 	 * @param string $message
 	 * @param int $channelId
@@ -104,6 +102,7 @@ class ZulipAPIController extends Controller {
 	 * @return DataResponse
 	 * @throws Exception
 	 */
+	#[NoAdminRequired]
 	public function sendMessage(string $messageType, string $message, int $channelId,
 		?string $topicName = null) {
 		$result = $this->zulipAPIService->sendMessage($this->userId, $messageType, $message, $channelId, $topicName);
@@ -115,8 +114,6 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $fileId
 	 * @param string $messageType
 	 * @param int $channelId
@@ -127,6 +124,7 @@ class ZulipAPIController extends Controller {
 	 * @throws NoUserException
 	 * @throws NotPermittedException
 	 */
+	#[NoAdminRequired]
 	public function sendFile(int $fileId, string $messageType, int $channelId,
 		string $comment = '', ?string $topicName = null) {
 		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $messageType, $channelId, $comment, $topicName);
@@ -138,8 +136,6 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param array $fileIds
 	 * @param string $messageType
 	 * @param int $channelId
@@ -153,6 +149,7 @@ class ZulipAPIController extends Controller {
 	 * @throws NoUserException
 	 * @throws NotPermittedException
 	 */
+	#[NoAdminRequired]
 	public function sendPublicLinks(array $fileIds, string $messageType, int $channelId,
 		string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): DataResponse {
