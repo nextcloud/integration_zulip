@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OCA\Zulip\Controller;
 
 use OCA\Zulip\AppInfo\Application;
+use OCA\Zulip\Service\SecretService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
@@ -31,6 +32,7 @@ class ConfigController extends Controller {
 		string $appName,
 		IRequest $request,
 		private IConfig $config,
+		private SecretService $secretService,
 		private ?string $userId
 	) {
 		parent::__construct($appName, $request);
@@ -43,7 +45,7 @@ class ConfigController extends Controller {
 	public function isUserConnected(): DataResponse {
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($this->userId, Application::APP_ID, 'email');
-		$apiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'api_key');
+		$apiKey = $this->secretService->getEncryptedUserValue($this->userId, 'api_key');
 
 		return new DataResponse([
 			'connected' => ($url !== '' && $email !== '' && $apiKey !== ''),
@@ -60,7 +62,11 @@ class ConfigController extends Controller {
 	#[NoAdminRequired]
 	public function setConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
-			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+			if ($key === 'api_key') {
+				$this->secretService->setEncryptedUserValue($this->userId, $key, $value);
+			} else {
+				$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+			}
 		}
 
 		return new DataResponse([]);

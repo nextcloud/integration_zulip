@@ -41,6 +41,7 @@ class NetworkService {
 		private IConfig $config,
 		IClientService $clientService,
 		private LoggerInterface $logger,
+		private SecretService $secretService,
 		private IL10N $l10n
 	) {
 		$this->client = $clientService->newClient();
@@ -60,7 +61,7 @@ class NetworkService {
 		bool $jsonResponse = true, bool $zulipApiRequest = true) {
 		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($userId, Application::APP_ID, 'email');
-		$apiKey = $this->config->getUserValue($userId, Application::APP_ID, 'api_key');
+		$apiKey = $this->secretService->getEncryptedUserValue($userId, 'api_key');
 
 		try {
 			$url = rtrim($zulipUrl, '/') . '/api/v1/' . $endPoint;
@@ -134,7 +135,7 @@ class NetworkService {
 	public function requestSendFile(string $userId, string $endPoint, File $file): array {
 		$zulipUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($userId, Application::APP_ID, 'email');
-		$apiKey = $this->config->getUserValue($userId, Application::APP_ID, 'api_key');
+		$apiKey = $this->secretService->getEncryptedUserValue($userId, 'api_key');
 
 		try {
 			$url = rtrim($zulipUrl, '/') . '/api/v1/' . $endPoint;
