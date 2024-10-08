@@ -20,6 +20,7 @@ namespace OCA\Zulip\Controller;
 use OCA\Zulip\AppInfo\Application;
 use OCA\Zulip\Service\SecretService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IConfig;
@@ -42,6 +43,7 @@ class ConfigController extends Controller {
 	 * @return DataResponse
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/is-connected')]
 	public function isUserConnected(): DataResponse {
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($this->userId, Application::APP_ID, 'email');
@@ -60,6 +62,7 @@ class ConfigController extends Controller {
 	 * @throws PreConditionNotMetException
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'PUT', url: '/config')]
 	public function setConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			if ($key === 'api_key') {

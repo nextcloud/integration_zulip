@@ -22,6 +22,7 @@ use OC\User\NoUserException;
 use OCA\Zulip\Service\ZulipAPIService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataDisplayResponse;
@@ -55,6 +56,7 @@ class ZulipAPIController extends Controller {
 	 */
 	#[NoAdminRequired]
 	#[NoCSRFRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/users/{zulipUserId}/image')]
 	public function getUserAvatar(int $zulipUserId, int $useFallback = 1): DataDisplayResponse|RedirectResponse {
 		$result = $this->zulipAPIService->getUserAvatar($this->userId, $zulipUserId);
 		if (isset($result['avatarContent'])) {
@@ -74,6 +76,7 @@ class ZulipAPIController extends Controller {
 	 * @throws Exception
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/channels')]
 	public function getChannels() {
 		$result = $this->zulipAPIService->getMyChannels($this->userId);
 		if (isset($result['error'])) {
@@ -88,6 +91,7 @@ class ZulipAPIController extends Controller {
 	 * @throws Exception
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/channels/{channelId}/topics')]
 	public function getTopics(int $channelId) {
 		$result = $this->zulipAPIService->getMyTopics($this->userId, $channelId);
 		if (isset($result['error'])) {
@@ -105,6 +109,7 @@ class ZulipAPIController extends Controller {
 	 * @throws Exception
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'POST', url: '/sendMessage')]
 	public function sendMessage(string $messageType, string $message, int $channelId,
 		?string $topicName = null) {
 		$result = $this->zulipAPIService->sendMessage($this->userId, $messageType, $message, $channelId, $topicName);
@@ -127,6 +132,7 @@ class ZulipAPIController extends Controller {
 	 * @throws NotPermittedException
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'POST', url: '/sendFile')]
 	public function sendFile(int $fileId, string $messageType, int $channelId,
 		string $comment = '', ?string $topicName = null) {
 		$result = $this->zulipAPIService->sendFile($this->userId, $fileId, $messageType, $channelId, $comment, $topicName);
@@ -152,6 +158,7 @@ class ZulipAPIController extends Controller {
 	 * @throws NotPermittedException
 	 */
 	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'POST', url: '/sendPublicLinks')]
 	public function sendPublicLinks(array $fileIds, string $messageType, int $channelId,
 		string $channelName, string $topicName, string $comment,
 		string $permission, ?string $expirationDate = null, ?string $password = null): DataResponse {

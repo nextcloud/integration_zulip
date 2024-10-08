@@ -17,6 +17,7 @@ use Exception;
 use OCA\Zulip\Service\ImageService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataDownloadResponse;
@@ -47,6 +48,7 @@ class FilesController extends Controller {
 	 */
 	#[NoAdminRequired]
 	#[NoCSRFRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/preview')]
 	public function getFileImage(int $id, int $x = 100, int $y = 100): Response {
 		try {
 			$preview = $this->imageService->getFilePreviewFile($id, $this->userId, $x, $y);
