@@ -9,6 +9,8 @@
  * @copyright Copyright (c) 2023 Anupam Kumar <kyteinsky@gmail.com>
  */
 
+declare(strict_types=1);
+
 namespace OCA\Zulip\Listener;
 
 use OCA\Zulip\AppInfo\Application;
