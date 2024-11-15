@@ -20,8 +20,10 @@ namespace OCA\Zulip\Controller;
 use OCA\Zulip\AppInfo\Application;
 use OCA\Zulip\Service\SecretService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IConfig;
 use OCP\IRequest;
@@ -64,6 +66,28 @@ class ConfigController extends Controller {
 	#[NoAdminRequired]
 	#[FrontpageRoute(verb: 'PUT', url: '/config')]
 	public function setConfig(array $values): DataResponse {
+		foreach ($values as $key => $value) {
+			if ($key === 'api_key') {
+				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			}
+
+			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+		}
+
+		return new DataResponse([]);
+	}
+
+	/**
+	 * set sensitive config values
+	 *
+	 * @param array $values
+	 * @return DataResponse
+	 * @throws PreConditionNotMetException
+	 */
+	#[NoAdminRequired]
+	#[PasswordConfirmationRequired]
+	#[FrontpageRoute(verb: 'PUT', url: '/sensitive-config')]
+	public function setSensitiveConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			if ($key === 'api_key') {
 				$this->secretService->setEncryptedUserValue($this->userId, $key, $value);

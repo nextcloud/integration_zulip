@@ -44,7 +44,7 @@
 						v-model="state.api_key"
 						type="password"
 						:placeholder="t('integration_zulip', 'Zulip API key')"
-						@input="onInput">
+						@input="onSensitiveInput">
 				</div>
 			</div>
 			<br>
@@ -67,10 +67,11 @@ import ZulipIcon from './icons/ZulipIcon.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
-import { loadState } from '@nextcloud/initial-state'
-import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { confirmPassword } from '@nextcloud/password-confirmation'
+import { generateUrl } from '@nextcloud/router'
 import { delay } from '../utils.js'
 
 export default {
@@ -113,6 +114,19 @@ export default {
 				this.saveOptions({
 					url: this.state.url,
 					email: this.state.email,
+				})
+			}, 2000)()
+		},
+		onSensitiveInput() {
+			this.loading = true
+			delay(async () => {
+				if (this.state.api_key === 'dummyKey') {
+					return
+				}
+
+				await confirmPassword()
+
+				this.saveOptions({
 					api_key: this.state.api_key,
 				})
 			}, 2000)()
@@ -121,7 +135,7 @@ export default {
 			const req = {
 				values,
 			}
-			const url = generateUrl('/apps/integration_zulip/config')
+			const url = generateUrl(`/apps/integration_zulip/${values.api_key !== undefined ? 'sensitive-' : ''}config`)
 			axios.put(url, req)
 				.then((response) => {
 					showSuccess(t('integration_zulip', 'Zulip options saved'))
