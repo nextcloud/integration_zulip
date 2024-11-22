@@ -27,7 +27,7 @@ class Personal implements ISettings {
 	public function getForm(): TemplateResponse {
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url');
 		$email = $this->config->getUserValue($this->userId, Application::APP_ID, 'email');
-		$apiKey = $this->secretService->getEncryptedUserValue($this->userId, 'api_key');
+		$apiKey = $this->secretService->getEncryptedUserValue($this->userId, 'api_key') ? 'dummyKey' : '';
 		$fileActionEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'file_action_enabled', '1') === '1';
 
 		$userConfig = [
