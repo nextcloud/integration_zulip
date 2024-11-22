@@ -76,19 +76,7 @@ class NetworkService {
 
 			if (count($params) > 0) {
 				if ($method === 'GET') {
-					// manage array parameters
-					$paramsContent = '';
-					foreach ($params as $key => $value) {
-						if (is_array($value)) {
-							foreach ($value as $oneArrayValue) {
-								$paramsContent .= $key . '[]=' . urlencode($oneArrayValue) . '&';
-							}
-							unset($params[$key]);
-						}
-					}
-					$paramsContent .= http_build_query($params);
-
-					$url .= '?' . $paramsContent;
+					$url .= '?' . http_build_query($params);
 				} else {
 					$options['body'] = $params;
 				}
