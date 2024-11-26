@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OCA\Zulip\AppInfo;
 
 use OCA\Zulip\Listener\FilesMenuListener;
+use OCA\Zulip\Search\ZulipSearchMessagesProvider;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -34,6 +35,7 @@ class Application extends App implements IBootstrap {
 
 	public function register(IRegistrationContext $context): void {
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesMenuListener::class);
+		$context->registerSearchProvider(ZulipSearchMessagesProvider::class);
 	}
 
 	public function boot(IBootContext $context): void {
