@@ -29,12 +29,14 @@ class Personal implements ISettings {
 		$email = $this->config->getUserValue($this->userId, Application::APP_ID, 'email');
 		$apiKey = $this->secretService->getEncryptedUserValue($this->userId, 'api_key') ? 'dummyKey' : '';
 		$fileActionEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'file_action_enabled', '1') === '1';
+		$searchMessagesEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_messages_enabled', '0') === '1';
 
 		$userConfig = [
 			'url' => $url,
 			'email' => $email,
 			'api_key' => $apiKey,
 			'file_action_enabled' => $fileActionEnabled,
+			'search_messages_enabled' => $searchMessagesEnabled,
 		];
 		$this->initialStateService->provideInitialState('user-config', $userConfig);
 		return new TemplateResponse(Application::APP_ID, 'personalSettings');
