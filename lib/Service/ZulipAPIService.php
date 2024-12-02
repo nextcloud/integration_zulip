@@ -60,6 +60,29 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
+	 * @return array
+	 * @throws PreConditionNotMetException
+	 */
+	public function searchMessages(string $userId, string $term, int $offset = 0, int $limit = 5): array {
+		$result = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => $offset + $limit,
+			'num_after' => 0,
+			'narrow' => '[{"operator": "search", "operand": "' . $term . '"}]',
+			'client_gravatar' => 'true',
+		]);
+
+		if (isset($result['error'])) {
+			return (array) $result;
+		}
+
+		// sort by most recent
+		$messages = array_reverse($result['messages'] ?? []);
+		return array_slice($messages, $offset, $limit);
+	}
+
+	/**
+	 * @param string $userId
 	 * @param int $zulipUserId
 	 * @return array
 	 * @throws PreConditionNotMetException

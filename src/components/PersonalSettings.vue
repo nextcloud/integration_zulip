@@ -53,6 +53,11 @@
 				@update:checked="onCheckboxChanged($event, 'file_action_enabled')">
 				{{ t('integration_zulip', 'Add file action to send files to Zulip') }}
 			</NcCheckboxRadioSwitch>
+			<NcCheckboxRadioSwitch
+				:checked.sync="state.search_messages_enabled"
+				@update:checked="onCheckboxChanged($event, 'search_messages_enabled')">
+				{{ t('integration_zulip', 'Enable searching for messages') }}
+			</NcCheckboxRadioSwitch>
 		</div>
 	</div>
 </template>
