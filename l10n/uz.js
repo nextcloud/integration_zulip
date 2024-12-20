@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
-    "Files" : "ຟາຍ"
+    "Files" : "Files",
+    "Set expiration date" : "Set expiration date"
 },
 "nplurals=1; plural=0;");

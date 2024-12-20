@@ -1,6 +1,6 @@
 OC.L10N.register(
     "integration_zulip",
     {
-    "Files" : "ຟາຍ"
+    "Files" : "Fail-fail"
 },
 "nplurals=1; plural=0;");

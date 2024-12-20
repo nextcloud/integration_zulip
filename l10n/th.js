@@ -1,11 +1,8 @@
 OC.L10N.register(
     "integration_zulip",
     {
-    "Client ID" : "รหัสไคลเอ็นต์",
-    "Type" : "ประเภท",
     "Set expiration date" : "กำหนดวันหมดอายุ",
     "Comment" : "ความคิดเห็น",
-    "Cancel" : "ยกเลิก",
     "password" : "รหัสผ่าน",
     "View only" : "ดูเท่านั้น",
     "Edit" : "แก้ไข",

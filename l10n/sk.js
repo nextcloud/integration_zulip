@@ -1,28 +1,15 @@
 OC.L10N.register(
     "integration_zulip",
     {
-    "Invalid client secret" : "Neplatný tajný kľúč klienta",
-    "Error getting OAuth access token. " : "Chyba pri získavaní prístupového tokenu OAuth.",
-    "Error during OAuth exchanges" : "Chyba počas výmeny OAuth",
     "Bad HTTP method" : "Zlá metóda HTTP",
     "Bad credentials" : "Nesprávne prihlasovacie údaje",
-    "OAuth access token refused" : "Prístupový token OAuth bol zamietnutý",
-    "Connected accounts" : "Prepojené účty",
-    "Client ID" : "Client ID",
-    "Application secret" : "Aplikačný tajný kľúč",
-    "Use a popup to authenticate" : "Pre overenie použite kontextové okno",
-    "Invalid access token" : "Nesprávny prístupový token",
     "Files" : "Súbory",
-    "Type" : "Typ",
     "Set expiration date" : "Nastaviť dátum expirácie",
-    "Comment" : "Komentár",
-    "Cancel" : "Zrušiť",
     "password" : "heslo",
     "View only" : "Iba pre čítanie",
     "Edit" : "Upraviť",
     "_Send link_::_Send links_" : ["Odoslať odkaz","Odoslať odkazy","Odoslať odkaz","Odoslať odkazy"],
     "Go to settings" : "Prejsť do nastavení",
-    "Upload files" : "Nahrať súbory",
     "Public links" : "Verejné odkazy"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

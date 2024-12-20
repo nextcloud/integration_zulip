@@ -1,10 +1,6 @@
 { "translations": {
-    "Client ID" : "ID klienti",
     "Files" : "Skedarë",
-    "Type" : "Tipi",
     "Set expiration date" : "Caktoni datë skadimi",
-    "Comment" : "Koment",
-    "Cancel" : "Anuloje",
     "Edit" : "Përpuno"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
