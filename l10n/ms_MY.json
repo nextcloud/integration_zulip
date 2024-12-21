@@ -1,4 +1,6 @@
 { "translations": {
-    "Files" : "Fail-fail"
+    "Files" : "Fail-fail",
+    "Type" : "Jenis",
+    "Edit" : "Sunting"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -1,4 +1,31 @@
 { "translations": {
-    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} bylo úspěšně odesláno do {channelName}","Všechny {number} soubory byly odeslány do {channelName}","Všechny {number} souborů bylo odesláno do {channelName}","Všechny {number} soubory byly odeslány do {channelName}"]
+    "Bad HTTP method" : "Nesprávná HTTP metoda",
+    "Bad credentials" : "Nesprávné přihlašovací údaje",
+    "Connected accounts" : "Propojené účty",
+    "Enable searching for messages" : "Zapnout vyhledávání ve zprávách",
+    "Files" : "Soubory",
+    "Remove file from list" : "Odebrat soubor ze seznamu",
+    "Conversation" : "Konverzace",
+    "Type" : "Typ",
+    "Set expiration date" : "Nastavit datum skončení platnosti",
+    "Expires on" : "Platnost skončí",
+    "Set link password" : "Nastavit heslo pro odkaz",
+    "Comment" : "Komentář",
+    "Directories will be skipped, they can only be sent as links." : "Složky budou přeskočeny – je možné je posílat pouze jako odkazy.",
+    "Cancel" : "Storno",
+    "password" : "heslo",
+    "Message to send with the files" : "Zpráva kterou poslat společně se soubory",
+    "View only" : "Pouze prohlížet",
+    "Edit" : "Upravit",
+    "_Send file_::_Send files_" : ["Poslat soubor","Poslat soubory","Poslat soubory","Poslat soubory"],
+    "_Send link_::_Send links_" : ["Poslat odkaz","Poslat odkazy","Poslat odkazy","Poslat odkazy"],
+    "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["Odkaz na {fileName} byl odeslán do {channelName}","Všechny {number} odkazy byly odeslány do {channelName}","Všech {number} odkazů bylo odesláno do {channelName}","Všechny {number} odkazy byly odeslány do {channelName}"],
+    "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Nepodařilo se odeslat interní odkaz do {channelName}","Nepodařilo se odeslat interní odkazy do {channelName}","Nepodařilo se odeslat interní odkazy do {channelName}","Nepodařilo se odeslat interní odkazy do {channelName}"],
+    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} bylo úspěšně odesláno do {channelName}","Všechny {number} soubory byly odeslány do {channelName}","Všechny {number} souborů bylo odesláno do {channelName}","Všechny {number} soubory byly odeslány do {channelName}"],
+    "Do you want to go to your \"Connect accounts\" personal settings?" : "Chcete přejít do svých osobních nastavení „Připojit účty“?",
+    "Go to settings" : "Přejít do nastavení",
+    "Upload files" : "Nahrát soubory",
+    "Public links" : "Veřejné odkazy",
+    "Internal links (Only works for users with access to the files)" : "Interním odkazy (funguje pouze pro uživatele, kteří mají k těmto souborům přístup)"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

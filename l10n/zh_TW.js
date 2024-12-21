@@ -8,6 +8,7 @@ OC.L10N.register(
     "Files" : "檔案",
     "Remove file from list" : "從清單移除檔案",
     "Conversation" : "對話",
+    "Type" : "類型",
     "Set expiration date" : "設定到期日",
     "Expires on" : "過期於",
     "Set link password" : "設定連結密碼",
@@ -25,6 +26,7 @@ OC.L10N.register(
     "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["全部 {number} 個檔案已傳送至 {channelName}"],
     "Do you want to go to your \"Connect accounts\" personal settings?" : "您想要到您的「連結帳號」個人設定嗎？",
     "Go to settings" : "到設定",
+    "Upload files" : "上傳檔案",
     "Public links" : "公開連結",
     "Internal links (Only works for users with access to the files)" : "內部連結（僅對有權存取此檔案的使用者有效）"
 },

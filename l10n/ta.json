@@ -1,4 +1,6 @@
 { "translations": {
+    "Type" : "வகை",
+    "Cancel" : "ரத்து செய்",
     "Edit" : "தொகுக்க"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

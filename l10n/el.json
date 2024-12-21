@@ -1,0 +1,28 @@
+{ "translations": {
+    "Bad HTTP method" : "Κακή μέθοδος HTTP",
+    "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",
+    "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
+    "Files" : "Αρχεία",
+    "Type" : "Τύπος",
+    "Set expiration date" : "Ορισμός ημερομηνίας λήξης",
+    "Expires on" : "Λήξη στις",
+    "Set link password" : "Ορισμός συνθηματικού για τον σύνδεσμο",
+    "Comment" : "Σχόλιο",
+    "Directories will be skipped, they can only be sent as links." : "Οι κατάλογοι θα παραληφθούν, μπορούν να σταλούν μόνο ως σύνδεσμοι.",
+    "Cancel" : "Ακύρωση",
+    "password" : "συνθηματικό",
+    "Message to send with the files" : "Μήνυμα προς αποστολή με τα αρχεία",
+    "View only" : "Μόνο για προβολή",
+    "Edit" : "Επεξεργασία",
+    "_Send file_::_Send files_" : ["Αποστολή αρχείου","Αποστολή αρχείων"],
+    "_Send link_::_Send links_" : ["Αποστολή συνδέσμου","Αποστολή συνδέσμων"],
+    "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["Ένας σύνδεσμος για το {fileName} εστάλη στο {channelName}","Όλοι οι {number} σύνδεσμοι εστάλησαν στο {channelName}"],
+    "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Αποτυχία αποστολής του εσωτερικού συνδέσμου στο {channelName}","Αποτυχία αποστολής των εσωτερικών συνδέσμων στο {channelName}"],
+    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["Το {fileName} στάλθηκε επιτυχώς στο {channelName}","Όλα τα {number} αρχεία στάλθηκαν στο {channelName}"],
+    "Do you want to go to your \"Connect accounts\" personal settings?" : "Θέλετε να πάτε στις προσωπικές σας ρυθμίσεις \"Σύνδεση λογαριασμών\";",
+    "Go to settings" : "Μετάβαση στις ρυθμίσεις",
+    "Upload files" : "Αποστολή αρχείων",
+    "Public links" : "Δημόσιοι σύνδεσμοι",
+    "Internal links (Only works for users with access to the files)" : "Εσωτερικοί σύνδεσμοι (Λειτουργεί μόνο για χρήστες με πρόσβαση στα αρχεία)"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
