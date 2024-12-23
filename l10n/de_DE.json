@@ -48,7 +48,7 @@
     "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Fehler beim Senden des internen Links an  {channelName}","Fehler beim Senden interner Links an {channelName}"],
     "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} wurde an {channelName} gesendet","Alle {number} Dateien wurden an {channelName} gesendet"],
     "You need to connect a Zulip app before using the Zulip integration." : "Sie müssen eine Zulip-App verbinden, bevor Sie die Zulip-Einbindung verwenden können.",
-    "Do you want to go to your \"Connect accounts\" personal settings?" : "Möchten Sie zu „Konten verbinden“ in Ihren Ihren persönlichen Einstellungen springen?",
+    "Do you want to go to your \"Connect accounts\" personal settings?" : "Möchten Sie zu „Konten verbinden“ in Ihren persönlichen Einstellungen springen?",
     "Connect to Zulip" : "Mit Zulip verbinden",
     "Go to settings" : "Gehe zu den Einstellungen",
     "Upload files" : "Dateien hochladen",

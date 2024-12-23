@@ -16,7 +16,7 @@
     "password" : "Passwort",
     "Message to send with the files" : "Nachricht die mit den Dateien versandt werden soll",
     "View only" : "Nur anzeigen",
-    "Edit" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "Edit" : "Bearbeiten",
     "_Send file_::_Send files_" : ["Datei senden","Dateien senden"],
     "_Send link_::_Send links_" : ["Link teilen","Links senden"],
     "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["Ein Link zu {fileName} wurde an {channelName} gesendet","Alle {number} Links wurden an {channelName} gesendet"],
