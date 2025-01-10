@@ -1,5 +1,6 @@
 { "translations": {
     "Files" : "Files",
-    "Set expiration date" : "Set expiration date"
+    "Set expiration date" : "Set expiration date",
+    "Cancel" : "Cancel"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
