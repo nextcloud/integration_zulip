@@ -1,15 +1,25 @@
 { "translations": {
+    "Zulip messages" : "„Zulip“ žinutės",
     "Bad HTTP method" : "Blogas HTTP metodas",
     "Bad credentials" : "Blogi prisijungimo duomenys",
     "Connected accounts" : "Prijungtos paskyros",
+    "Zulip Integration" : "„Zulip“ integracija",
+    "Zulip integration" : "„Zulip“ integracija",
+    "Zulip instance address" : "„Zulip“ egzemplioriaus adresas",
+    "Zulip account email" : "„Zulip“ paskyros el. paštas",
+    "Zulip API key" : "„Zulip“ API raktas",
+    "Zulip options saved" : "„Zulip“ parinktys įrašytos",
+    "Failed to save Zulip options" : "Nepavyko įrašyti „Zulip“ parinkčių",
     "Files" : "Failai",
     "Remove file from list" : "Šalinti failą iš sąrašo",
     "Type" : "Tipas",
     "Set expiration date" : "Nustatyti galiojimo pabaigos datą",
+    "Expires on" : "Baigia galioti",
     "Comment" : "Komentaras",
     "Cancel" : "Atsisakyti",
     "password" : "slaptažodis",
     "View only" : "Tik peržiūrėti",
-    "Edit" : "Taisyti"
+    "Edit" : "Taisyti",
+    "Failed to load Zulip channels" : "Nepavyko įkelti „Zulip“ kanalų"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }
