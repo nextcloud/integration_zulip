@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-01-23
+
+### Added
+
+- Search and return Zulip messages in unified search results. #33
+
+### Changed
+
+- Multiple dependency upgrades. #37
+
+### Fixed
+
+- Enable translation updates from Transifex.
+
 ## [1.0.5] - 2024-11-22
 
 ### Added
@@ -58,7 +72,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.0.5...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.0
 [1.0.5]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.5
 [1.0.4]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.4
 [1.0.3]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.3
