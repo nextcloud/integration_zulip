@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Files" : "Failid",
     "Type" : "Tüüp",
     "Set expiration date" : "Määra aegumise kuupäev",
     "Comment" : "Kommentaar",
