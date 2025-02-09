@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Bad credentials" : "Forkerte legitimationsoplysninger",
     "Connected accounts" : "Forbundne konti",
     "Files" : "Filer",
     "Topic" : "Emne",
