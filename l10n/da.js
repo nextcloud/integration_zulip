@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Bad HTTP method" : "Dårlig HTTP-metode",
     "Bad credentials" : "Forkerte legitimationsoplysninger",
     "Connected accounts" : "Forbundne konti",
     "Files" : "Filer",
