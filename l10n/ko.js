@@ -2,6 +2,8 @@ OC.L10N.register(
     "integration_zulip",
     {
     "Zulip messages" : "Zulip 메시지",
+    "%s in #%s > %s at %s" : "#%s중 %s > %s에 %s",
+    "%s in %s at %s" : "%s에 %s중 %s",
     "Bad HTTP method" : "옳지 않은 HTTP 메소드",
     "Bad credentials" : "옳지 않은 자격 증명",
     "Connected accounts" : "계정 연결됨",
