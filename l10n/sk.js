@@ -12,14 +12,21 @@ OC.L10N.register(
     "Expires on" : "Koniec platnosti",
     "Set link password" : "Nastaviť heslo odkazu",
     "Comment" : "Komentár",
+    "Directories will be skipped, they can only be sent as links." : "Adresáre budú preskočené, môžu byť odoslané iba ako odkaz.",
     "Cancel" : "Zrušiť",
     "password" : "heslo",
+    "Message to send with the files" : "Správa ktorá bude odoslaná so súbormi",
     "View only" : "Iba pre čítanie",
     "Edit" : "Upraviť",
     "_Send file_::_Send files_" : ["Odoslať súbor","Odoslať súbory","Odoslať súbory","Odoslať súbory"],
     "_Send link_::_Send links_" : ["Odoslať odkaz","Odoslať odkazy","Odoslať odkaz","Odoslať odkazy"],
+    "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["Odkaz {fileName} bol odoslaný do {channelName}","Všetky {number} odkazy boli odoslané do {channelName}","Všetkých {number} odkazov bolo odoslaných do {channelName}","Všetkých {number} odkazov bolo odoslaných do {channelName}"],
+    "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Nepodarilo sa odoslať interný odkaz do {channelName}","Nepodarilo sa odoslať interné odkazy do {channelName}","Nepodarilo sa odoslať interné odkazy do {channelName}","Nepodarilo sa odoslať interné odkazy do {channelName}"],
+    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} súbor bol odoslaný do {channelName}","Všetky {number} súbory boli odoslané do {channelName}","Všetkých {number} súborov bolo odoslaných do {channelName}","Všetkých {number} súborov bolo odoslaných do {channelName}"],
+    "Do you want to go to your \"Connect accounts\" personal settings?" : "Chcete prejsť do osobných nastavení „Pripojiť účty“?",
     "Go to settings" : "Prejsť do nastavení",
     "Upload files" : "Nahrať súbory",
-    "Public links" : "Verejné odkazy"
+    "Public links" : "Verejné odkazy",
+    "Internal links (Only works for users with access to the files)" : "Interné odkazy (funguje iba pre užívateľov s prístupom k súborom)"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
