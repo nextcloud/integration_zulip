@@ -1,7 +1,7 @@
 { "translations": {
+    "Edit" : "შეცვლა",
     "Set expiration date" : "მიუთითეთ ვადის გასვლის დრო",
     "Comment" : "კომენტარი",
-    "Cancel" : "გაუქმება",
-    "Edit" : "შეცვლა"
+    "Cancel" : "გაუქმება"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

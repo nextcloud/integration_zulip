@@ -8,6 +8,8 @@
     "Zulip Integration" : "مكاملة Zulip",
     "Integration of Zulip" : "مكاملة Zulip",
     "This integration allows you to send Nextcloud files to your Zulip chat instance as uploaded files, public shared links, or internal shared links.\n\n## 🔧 Configuration\n\n### User settings\n\nAccount configuration happens in the \"Connected accounts\" user settings section.\nIt requires you to specify the URL of your Zulip instance, as well as the email address and API key associated with your Zulip account in that instance.\nThese values can be found in and copied from your Zulip account's `zuliprc` file located in **Personal settings > Account & privacy > API key**.\n\nIf those settings are not configured, a link to the \"Connected accounts\" user settings page will be displayed when attempting to send a file to a Zulip user/topic.\nThe context menu to send a file can be accessed by right clicking on the file/folder to be shared or selecting them and clicking on the \"Actions\" button." : "يتيح لك هذا التكامل إرسال ملفات نكست كلاود إلى خادوم الدردشة Zulip الخاص بك كملفات تم تحميلها أو روابط مشتركة عامة أو روابط مشتركة داخلية. \n\n## 🔧 التكوين \n\n### إعدادات المستخدم؛ يحدث تكوين الحساب في قسم إعدادات المستخدم \"الحسابات المتصلة\". \nيتطلب منك تحديد عنوان URL لخادوم Zulip الخاص بك، بالإضافة إلى عنوان البريد الإلكتروني ومفتاح API المرتبط بحساب Zulip الخاص بك في هذا الخادوم. يمكن العثور على هذه القيم ونسخها من ملف `zuliprc` الخاص بحساب Zulip الخاص بك الموجود في **الإعدادات الشخصية > الحساب والخصوصية > مفتاح API**. \n\nإذا لم يتم تكوين هذه الإعدادات، فسيتم عرض رابط إلى صفحة إعدادات المستخدم \"الحسابات المتصلة\" عند محاولة إرسال ملف إلى مستخدم/موضوع Zulip. \nيمكن الوصول إلى قائمة السياق لإرسال ملف بالنقر بزر الماوس الأيمن على الملف/المجلد الذي تريد مشاركته أو تحديدهما والنقر على زر \"الإجراءات\".",
+    "Zulip options saved" : "تمّ حفظ خيارات Zulip",
+    "Failed to save Zulip options" : "تعذّر حفظ خيارات Zulip",
     "Zulip integration" : "مكاملة Zulip",
     "You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key." : "يمكنك إنشاء مفتاح API الخاص بـ Zulip والوصول إليه من الإعدادات الشخصية -> الحساب والخصوصية -> مفتاح API.",
     "Then copy the values in the provided zuliprc file into the fields below." : "ثم قُم بنسخ القيم المُعطاة في ملف zuliprc إلى الحقول أدناه.",
@@ -16,8 +18,11 @@
     "Zulip API key" : "مفتاح API لـ Zulip",
     "Add file action to send files to Zulip" : "أضِف إجراء \"إرسال ملفات إلى Zulip\" إلى قائمة إجراءات الملفات",
     "Enable searching for messages" : "تمكين البحث عن الرسائل",
-    "Zulip options saved" : "تمّ حفظ خيارات Zulip",
-    "Failed to save Zulip options" : "تعذّر حفظ خيارات Zulip",
+    "password" : "كلمة المرور",
+    "Message to send with the files" : "الرسالة التي سيتم إرسالها مع الملفات",
+    "View only" : "للعرض فقط",
+    "Edit" : "تحرير",
+    "Failed to load Zulip channels" : "تعذّر تحميل قنوات Zulip",
     "Files" : "الملفّات",
     "Remove file from list" : "حذف ملف من القائمة",
     "Conversation" : "محادثة",
@@ -31,12 +36,6 @@
     "Comment" : "تعليق",
     "Directories will be skipped, they can only be sent as links." : "سيتم تخطي الأدلة، و لا يمكن إرسالها إلاّ كروابط فقط.",
     "Cancel" : "إلغاء",
-    "password" : "كلمة المرور",
-    "Message to send with the files" : "الرسالة التي سيتم إرسالها مع الملفات",
-    "View only" : "للعرض فقط",
-    "Edit" : "تحرير",
-    "Failed to load Zulip channels" : "تعذّر تحميل قنوات Zulip",
-    "Failed to load Zulip topics" : "تعذّر تحميل موضوعات Zulip",
     "_Send file to Zulip_::_Send files to Zulip_" : ["إرسال ملفات إلى Zulip","إرسال ملف إلى Zulip","إرسال ملفين إلى Zulip","إرسال ملفات إلى Zulip","إرسال ملفات إلى Zulip","إرسال ملفات إلى Zulip"],
     "_Send link to Zulip_::_Send links to Zulip_" : ["إرسال روابط إلى Zulip","إرسال رابط إلى Zulip","إرسال رابطين إلى Zulip","إرسال روابط إلى Zulip","إرسال روابط إلى Zulip","إرسال روابط إلى Zulip"],
     "_Send file_::_Send files_" : ["إرسال ملفات","إرسال ملف","إرسال ملفات","إرسال ملفات","إرسال ملفات","إرسال ملفات"],

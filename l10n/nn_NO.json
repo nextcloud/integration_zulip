@@ -1,8 +1,8 @@
 { "translations": {
     "Connected accounts" : "Tilkopla kontoar",
+    "Edit" : "Rediger",
     "Type" : "Skriv",
     "Set expiration date" : "Set utløpsdato",
-    "Comment" : "Kommentér",
-    "Edit" : "Rediger"
+    "Comment" : "Kommentér"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
