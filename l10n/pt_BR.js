@@ -1,9 +1,12 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip messages" : "Mensagens Zulip",
     "Bad HTTP method" : "Método HTTP incorreto",
     "Bad credentials" : "Credenciais inválidas",
     "Connected accounts" : "Contas conectadas",
+    "Zulip Integration" : "Integração Zulip",
+    "Zulip integration" : "Integração Zulip",
     "Enable searching for messages" : "Ativar pesquisa de mensagens",
     "password" : "senha",
     "Message to send with the files" : "Mensagem para enviar com os arquivos",
@@ -12,6 +15,7 @@ OC.L10N.register(
     "Files" : "Arquivos",
     "Remove file from list" : "Remover arquivo da lista",
     "Conversation" : "Conversa",
+    "Topic" : "Tema",
     "Type" : "Tipo",
     "Set expiration date" : "Definir data de expiração",
     "Expires on" : "Expira em",
