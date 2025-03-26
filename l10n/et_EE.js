@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "View only" : "Ainult vaatamine",
     "Edit" : "Redigeeri",
     "Files" : "Failid",
     "Type" : "Tüüp",
