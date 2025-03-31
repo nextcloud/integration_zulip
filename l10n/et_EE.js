@@ -1,6 +1,9 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Bad HTTP method" : "Vigane HTTP-meetod",
+    "Bad credentials" : "Vale kasutajanimi, salasõna või tunnusluba",
+    "Connected accounts" : "Ühendatud kasutajakontod",
     "View only" : "Ainult vaatamine",
     "Edit" : "Redigeeri",
     "Files" : "Failid",
