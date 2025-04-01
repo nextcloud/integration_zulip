@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - Zulip
  *
@@ -42,7 +43,7 @@ class NetworkService {
 		IClientService $clientService,
 		private LoggerInterface $logger,
 		private SecretService $secretService,
-		private IL10N $l10n
+		private IL10N $l10n,
 	) {
 		$this->client = $clientService->newClient();
 	}
@@ -103,11 +104,11 @@ class NetworkService {
 				return json_decode($body, true);
 			}
 			return $body;
-		} catch (ServerException | ClientException $e) {
+		} catch (ServerException|ClientException $e) {
 			$body = $e->getResponse()->getBody();
 			$this->logger->warning('Zulip API error : ' . $body, ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Zulip API error', ['exception' => $e, 'app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
@@ -150,11 +151,11 @@ class NetworkService {
 				return ['error' => $this->l10n->t('Bad credentials')];
 			}
 			return json_decode($body, true);
-		} catch (ServerException | ClientException $e) {
+		} catch (ServerException|ClientException $e) {
 			$body = $e->getResponse()->getBody();
 			$this->logger->warning('Zulip API error : ' . $body, ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Zulip API error', ['exception' => $e, 'app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
@@ -180,11 +181,11 @@ class NetworkService {
 			$response = $this->client->get($url, $options);
 
 			return $response->getBody();
-		} catch (ServerException | ClientException $e) {
+		} catch (ServerException|ClientException $e) {
 			$body = $e->getResponse()->getBody();
 			$this->logger->warning('Zulip API error : ' . $body, ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Zulip API error', ['exception' => $e, 'app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}

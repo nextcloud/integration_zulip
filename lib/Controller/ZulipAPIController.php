@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - Zulip
  *
@@ -37,12 +38,13 @@ use OCP\Lock\LockedException;
 class ZulipAPIController extends Controller {
 
 	public function __construct(
-		string                  $appName,
-		IRequest                $request,
-		private IConfig         $config,
-		private IURLGenerator   $urlGenerator,
+		string $appName,
+		IRequest $request,
+		private IConfig $config,
+		private IURLGenerator $urlGenerator,
 		private ZulipAPIService $zulipAPIService,
-		private ?string         $userId) {
+		private ?string $userId,
+	) {
 		parent::__construct($appName, $request);
 	}
 

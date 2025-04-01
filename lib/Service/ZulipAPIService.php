@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - Zulip
  *
@@ -53,7 +54,7 @@ class ZulipAPIService {
 		private IURLGenerator $urlGenerator,
 		private ICrypto $crypto,
 		private NetworkService $networkService,
-		IClientService $clientService
+		IClientService $clientService,
 	) {
 		$this->client = $clientService->newClient();
 	}
@@ -73,7 +74,7 @@ class ZulipAPIService {
 		]);
 
 		if (isset($result['error'])) {
-			return (array) $result;
+			return (array)$result;
 		}
 
 		// sort by most recent
@@ -122,7 +123,7 @@ class ZulipAPIService {
 		]);
 
 		if (isset($channelResult['error'])) {
-			return (array) $channelResult;
+			return (array)$channelResult;
 		}
 
 		if (!isset($channelResult['streams']) || !is_array($channelResult['streams'])) {
@@ -138,12 +139,12 @@ class ZulipAPIService {
 		]);
 
 		if (isset($userResult['error'])) {
-			return (array) $userResult;
+			return (array)$userResult;
 		}
 
 		$conversations = [];
 
-		foreach($channelResult['streams'] as $channel) {
+		foreach ($channelResult['streams'] as $channel) {
 			$conversations[] = [
 				'type' => 'channel',
 				'channel_id' => $channel['stream_id'],
@@ -155,7 +156,7 @@ class ZulipAPIService {
 
 		$users = [];
 
-		foreach($userResult['messages'] as $user) {
+		foreach ($userResult['messages'] as $user) {
 			$users[$user['sender_id']] = [
 				'type' => 'direct',
 				'user_id' => $user['sender_id'],
@@ -177,7 +178,7 @@ class ZulipAPIService {
 		$topicResult = $this->request($userId, 'users/me/' . $channelId . '/topics');
 
 		if (isset($topicResult['error'])) {
-			return (array) $topicResult;
+			return (array)$topicResult;
 		}
 
 		if (!isset($topicResult['topics']) || !is_array($topicResult['topics'])) {
@@ -319,7 +320,7 @@ class ZulipAPIService {
 			$sendResult = $this->networkService->requestSendFile($userId, 'user_uploads', $file);
 
 			if (isset($sendResult['error'])) {
-				return (array) $sendResult;
+				return (array)$sendResult;
 			}
 
 			$fileLink = rtrim($zulipUrl, '/') . $sendResult['uri'];

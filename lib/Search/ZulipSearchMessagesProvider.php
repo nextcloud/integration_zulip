@@ -49,7 +49,7 @@ class ZulipSearchMessagesProvider implements IProvider {
 		private IDateTimeFormatter $dateTimeFormatter,
 		private IDateTimeZone $dateTimeZone,
 		private SecretService $secretService,
-		private ZulipAPIService $apiService
+		private ZulipAPIService $apiService,
 	) {
 	}
 

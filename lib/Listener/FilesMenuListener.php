@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - Zulip
  *
@@ -25,7 +26,10 @@ use OCP\Util;
  */
 class FilesMenuListener implements IEventListener {
 
-	public function __construct(private IConfig $config, private ?string $userId) {
+	public function __construct(
+		private IConfig $config,
+		private ?string $userId,
+	) {
 	}
 
 	public function handle(Event $event): void {
