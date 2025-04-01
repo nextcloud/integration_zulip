@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - Zulip
  *
@@ -36,7 +37,7 @@ class ConfigController extends Controller {
 		IRequest $request,
 		private IConfig $config,
 		private SecretService $secretService,
-		private ?string $userId
+		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
 	}
