@@ -4,6 +4,7 @@ OC.L10N.register(
     "Bad HTTP method" : "Поганий метод HTTP",
     "Bad credentials" : "Погані дані авторизації",
     "Connected accounts" : "Підключені облікові записи",
+    "password" : "пароль",
     "View only" : "Лише перегляд",
     "Edit" : "Редагувати",
     "Files" : "Файли",

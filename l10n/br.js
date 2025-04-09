@@ -2,7 +2,7 @@ OC.L10N.register(
     "integration_zulip",
     {
     "Edit" : "Embann",
-    "Type" : "Stumm",
+    "Type" : "Seurt",
     "Set expiration date" : "Lakaat un deizat termen",
     "Comment" : "Displegadenn",
     "Cancel" : "Nullañ",
