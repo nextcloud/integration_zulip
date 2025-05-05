@@ -47,7 +47,7 @@ OC.L10N.register(
     "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["Um link para {fileName} foi enviado para {channelName}","Todos os {number} links foram enviados para {channelName}","Todos os {number} links foram enviados para {channelName}"],
     "Failed to send links to Zulip" : "Falha ao enviar links para Zulip",
     "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Falha ao enviar link interno para {channelName}","Falha ao enviar links internos para {channelName}","Falha ao enviar links internos para {channelName}"],
-    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} foi enviada com sucesso para {channelName}","Todos os {number} arquivos foram enviados para {channelName}","Todos os {number} arquivos foram enviados para {channelName}"],
+    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} foi enviado com sucesso para {channelName}","Todos os {number} arquivos foram enviados para {channelName}","Todos os {number} arquivos foram enviados para {channelName}"],
     "You need to connect a Zulip app before using the Zulip integration." : "Você precisa conectar um aplicativo Zulip antes de usar a integração Zulip.",
     "Do you want to go to your \"Connect accounts\" personal settings?" : "Deseja ir para as configurações pessoais de \"Conectar contas\"?",
     "Connect to Zulip" : "Conectar ao Zulip",
