@@ -18,15 +18,7 @@
 		"cs:fix": "php-cs-fixer fix",
 		"psalm": "psalm.phar --threads=1 --no-cache",
 		"test:unit": "phpunit tests -c tests/phpunit.xml --colors=always --fail-on-warning --fail-on-risky",
-		"rector": "rector && composer cs:fix",
-		"post-install-cmd": [
-			"@composer bin all install --ansi",
-			"composer dump-autoload"
-		],
-		"post-update-cmd": [
-			"@composer bin all update --ansi",
-			"composer dump-autoload"
-		]
+		"rector": "rector && composer cs:fix"
 	},
 	"config": {
 		"optimize-autoloader": true,
