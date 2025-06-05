@@ -1,9 +1,8 @@
 OC.L10N.register(
     "integration_zulip",
     {
-    "Files" : "Lêer ",
-    "Set expiration date" : "Stel vervaldatum",
-    "Comment" : "Kommentaar",
+    "Edit" : "Dəyişiklik et",
+    "Comment" : "Komentariya",
     "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

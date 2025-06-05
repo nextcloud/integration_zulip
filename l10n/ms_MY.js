@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Edit" : "Sunting",
     "Files" : "Fail-fail",
-    "Type" : "Jenis"
+    "Type" : "Jenis",
+    "Cancel" : "Cancel"
 },
 "nplurals=1; plural=0;");
