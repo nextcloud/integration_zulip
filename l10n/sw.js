@@ -2,6 +2,8 @@ OC.L10N.register(
     "integration_zulip",
     {
     "Edit" : "Hariri",
+    "Files" : "Mafaili",
+    "Type" : "Aina",
     "Set expiration date" : "Panga tarehe ya mwisho wa matumizi",
     "Cancel" : "Cancel"
 },
