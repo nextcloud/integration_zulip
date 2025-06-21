@@ -1,6 +1,9 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Bad HTTP method" : "Njia mbaya ya HTTP ",
+    "Bad credentials" : "Sifa mbaya",
+    "Connected accounts" : "Akaunti zilizounganishwa",
     "Edit" : "Hariri",
     "Files" : "Mafaili",
     "Type" : "Aina",
