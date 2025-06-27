@@ -26,6 +26,7 @@ OC.L10N.register(
     "Expires on" : "Aegub",
     "Set link password" : "Sisesta lingi salasõna",
     "Comment" : "Kommentaar",
+    "Directories will be skipped, they can only be sent as links." : "Kaustad jäävad vahele - neid võib saata vaid linkidena.",
     "Cancel" : "Tühista",
     "_Send file to Zulip_::_Send files to Zulip_" : ["Saada fail Zulipi teenusesse","Saada failid Zulipi teenusesse"],
     "_Send link to Zulip_::_Send links to Zulip_" : ["Saada link Zulipi teenusesse","Saada lingid Zulipi teenusesse"],
