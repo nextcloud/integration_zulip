@@ -24,6 +24,7 @@ OC.L10N.register(
     "View only" : "Pouze prohlížet",
     "Edit" : "Upravit",
     "Failed to load Zulip channels" : "Nepodařilo se načíst Zulip kanály",
+    "Failed to load Zulip topics" : "Nepodařilo se načíst Zulip témata",
     "Files" : "Soubory",
     "Remove file from list" : "Odebrat soubor ze seznamu",
     "Conversation" : "Konverzace",

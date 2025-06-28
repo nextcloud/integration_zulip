@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "Yalnızca görüntüleme",
     "Edit" : "Düzenle",
     "Failed to load Zulip channels" : "Zulip kanalları yüklenemedi",
+    "Failed to load Zulip topics" : "Zulip konuları yüklenemedi",
     "Files" : "Dosyalar",
     "Remove file from list" : "Listeden kaldır",
     "Conversation" : "Görüşme",

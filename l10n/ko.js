@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "읽기 전용",
     "Edit" : "편집",
     "Failed to load Zulip channels" : "Zulip 채널을 불러오는데 실패했습니다",
+    "Failed to load Zulip topics" : "Zulip 토픽을 불러오는데 실패했습니다",
     "Files" : "파일",
     "Remove file from list" : "리스트에서 파일 삭제",
     "Conversation" : "대화",

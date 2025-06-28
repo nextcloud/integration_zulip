@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "僅供檢視",
     "Edit" : "編輯",
     "Failed to load Zulip channels" : "載入 Zulip 站台失敗",
+    "Failed to load Zulip topics" : "載入 Zulip 主題失敗",
     "Files" : "檔案",
     "Remove file from list" : "從清單移除檔案",
     "Conversation" : "對話",

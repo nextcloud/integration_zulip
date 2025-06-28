@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "Само преглед",
     "Edit" : "Измени",
     "Failed to load Zulip channels" : "Није успело учитавање Zulip канала",
+    "Failed to load Zulip topics" : "Није успело учитавање Zulip тема",
     "Files" : "Фајлови",
     "Remove file from list" : "Уклони фајл са листе",
     "Conversation" : "Разговор",

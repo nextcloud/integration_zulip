@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "للعرض فقط",
     "Edit" : "تحرير",
     "Failed to load Zulip channels" : "تعذّر تحميل قنوات Zulip",
+    "Failed to load Zulip topics" : "تعذّر تحميل موضوعات Zulip",
     "Files" : "الملفّات",
     "Remove file from list" : "حذف ملف من القائمة",
     "Conversation" : "محادثة",

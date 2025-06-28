@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "Amharc amháin",
     "Edit" : "Cuir in eagar",
     "Failed to load Zulip channels" : "Theip ar luchtú cainéil Zulip",
+    "Failed to load Zulip topics" : "Theip ar lódáil topaicí Zulip",
     "Files" : "Comhaid",
     "Remove file from list" : "Bain an comhad ón liosta",
     "Conversation" : "Comhrá",
