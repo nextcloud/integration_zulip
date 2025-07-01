@@ -15,7 +15,7 @@
 					</span>
 				</h2>
 				<span class="field-label">
-					<FileIcon />
+					<FileOutlineIcon />
 					<span>
 						<strong>
 							{{ t('integration_zulip', 'Files') }}
@@ -28,7 +28,7 @@
 						class="file">
 						<NcLoadingIcon v-if="fileStates[f.id] === STATES.IN_PROGRESS"
 							:size="20" />
-						<CheckCircleIcon v-else-if="fileStates[f.id] === STATES.FINISHED"
+						<CheckCircleOutlineIcon v-else-if="fileStates[f.id] === STATES.FINISHED"
 							class="check-icon"
 							:size="24" />
 						<img v-else
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 				<span class="field-label">
-					<PoundBoxIcon />
+					<PoundBoxOutlineIcon />
 					<label for="zulip-channel-select">
 						<strong>
 							{{ t('integration_zulip', 'Conversation') }}
@@ -76,7 +76,7 @@
 								:size="20"
 								:url="getUserIconUrl(option)"
 								:display-name="option.name" />
-							<LockIcon v-else-if="option.invite_only"
+							<LockOutlineIcon v-else-if="option.invite_only"
 								:size="20" />
 							<EarthIcon v-else-if="option.is_web_public"
 								:size="20" />
@@ -93,7 +93,7 @@
 							:size="20"
 							:url="getUserIconUrl(option)"
 							:display-name="option.name" />
-						<LockIcon v-else-if="option.invite_only"
+						<LockOutlineIcon v-else-if="option.invite_only"
 							:size="20" />
 						<EarthIcon v-else-if="option.is_web_public"
 							:size="20" />
@@ -144,7 +144,7 @@
 				</div>
 				<div class="advanced-options">
 					<span class="field-label">
-						<PackageUpIcon />
+						<UploadBoxOutlineIcon />
 						<span>
 							<strong>
 								{{ t('integration_zulip', 'Type') }}
@@ -198,7 +198,7 @@
 							:placeholder="passwordPlaceholder">
 					</div>
 					<span class="field-label">
-						<CommentIcon />
+						<CommentOutlineIcon />
 						<span>
 							<strong>
 								{{ t('integration_zulip', 'Comment') }}
@@ -213,7 +213,7 @@
 				</div>
 				<span v-if="warnAboutSendingDirectories"
 					class="warning-container">
-					<AlertBoxIcon class="warning-icon" />
+					<AlertBoxOutlineIcon class="warning-icon" />
 					<label>
 						{{ t('integration_zulip', 'Directories will be skipped, they can only be sent as links.') }}
 					</label>
@@ -233,7 +233,7 @@
 							: n('integration_zulip', 'Send link', 'Send links', files.length)"
 						@click="onSendClick">
 						<template #icon>
-							<SendIcon />
+							<SendOutlineIcon />
 						</template>
 						{{ sendType === SEND_TYPE.file.id
 							? n('integration_zulip', 'Send file', 'Send files', files.length)
@@ -255,20 +255,19 @@ import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
 import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
-import AccountMultiple from 'vue-material-design-icons/AccountMultiple.vue'
-import AlertBoxIcon from 'vue-material-design-icons/AlertBox.vue'
-import CheckCircleIcon from 'vue-material-design-icons/CheckCircle.vue'
+import AlertBoxOutlineIcon from 'vue-material-design-icons/AlertBoxOutline.vue'
+import CheckCircleOutlineIcon from 'vue-material-design-icons/CheckCircleOutline.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
-import CommentIcon from 'vue-material-design-icons/Comment.vue'
-import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import CommentOutlineIcon from 'vue-material-design-icons/CommentOutline.vue'
+import EyeOutlineIcon from 'vue-material-design-icons/EyeOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import FileIcon from 'vue-material-design-icons/File.vue'
-import LockIcon from 'vue-material-design-icons/Lock.vue'
-import PackageUpIcon from 'vue-material-design-icons/PackageUp.vue'
-import PencilIcon from 'vue-material-design-icons/Pencil.vue'
+import FileOutlineIcon from 'vue-material-design-icons/FileOutline.vue'
+import LockOutlineIcon from 'vue-material-design-icons/LockOutline.vue'
+import PencilOutlineIcon from 'vue-material-design-icons/PencilOutline.vue'
 import PoundIcon from 'vue-material-design-icons/Pound.vue'
-import PoundBoxIcon from 'vue-material-design-icons/PoundBox.vue'
-import SendIcon from 'vue-material-design-icons/Send.vue'
+import PoundBoxOutlineIcon from 'vue-material-design-icons/PoundBoxOutline.vue'
+import SendOutlineIcon from 'vue-material-design-icons/SendOutline.vue'
+import UploadBoxOutlineIcon from 'vue-material-design-icons/UploadBoxOutline.vue'
 
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
@@ -297,18 +296,17 @@ export default {
 		NcLoadingIcon,
 		NcButton,
 		NcAvatar,
-		AlertBoxIcon,
-		CheckCircleIcon,
+		AlertBoxOutlineIcon,
+		CheckCircleOutlineIcon,
 		CloseIcon,
-		CommentIcon,
+		CommentOutlineIcon,
 		EarthIcon,
-		FileIcon,
-		LockIcon,
-		PackageUpIcon,
+		FileOutlineIcon,
+		LockOutlineIcon,
 		PoundIcon,
-		PoundBoxIcon,
-		SendIcon,
-		AccountMultiple,
+		PoundBoxOutlineIcon,
+		SendOutlineIcon,
+		UploadBoxOutlineIcon,
 	},
 
 	data() {
@@ -334,8 +332,8 @@ export default {
 			STATES,
 			commentPlaceholder: t('integration_zulip', 'Message to send with the files'),
 			permissionOptions: {
-				view: { label: t('integration_zulip', 'View only'), icon: EyeIcon },
-				edit: { label: t('integration_zulip', 'Edit'), icon: PencilIcon },
+				view: { label: t('integration_zulip', 'View only'), icon: EyeOutlineIcon },
+				edit: { label: t('integration_zulip', 'Edit'), icon: PencilOutlineIcon },
 			},
 		}
 	},

@@ -26,7 +26,7 @@
 				</div>
 				<div class="line">
 					<label for="zulip-email">
-						<AccountIcon :size="20" class="icon" />
+						<AccountOutlineIcon :size="20" class="icon" />
 						{{ t('integration_zulip', 'Zulip account email') }}
 					</label>
 					<input id="zulip-email"
@@ -37,7 +37,7 @@
 				</div>
 				<div class="line">
 					<label for="zulip-key">
-						<KeyIcon :size="20" class="icon" />
+						<KeyOutlineIcon :size="20" class="icon" />
 						{{ t('integration_zulip', 'Zulip API key') }}
 					</label>
 					<input id="zulip-key"
@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import AccountIcon from 'vue-material-design-icons/Account.vue'
+import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import KeyIcon from 'vue-material-design-icons/Key.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 import ZulipIcon from './icons/ZulipIcon.vue'
@@ -83,9 +83,9 @@ export default {
 	name: 'PersonalSettings',
 
 	components: {
-		AccountIcon,
+		AccountOutlineIcon,
 		EarthIcon,
-		KeyIcon,
+		KeyOutlineIcon,
 		InformationOutlineIcon,
 		ZulipIcon,
 		NcCheckboxRadioSwitch,
