@@ -33,7 +33,7 @@ The context menu to send a file can be accessed by right clicking on the file/fo
 	<donation title="Donate via Liberapay">https://liberapay.com/edward-ly/donate</donation>
 	<donation title="Donate via PayPal" type="paypal">https://paypal.me/ledlight7</donation>
 	<dependencies>
-		<nextcloud min-version="28" max-version="31"/>
+		<nextcloud min-version="28" max-version="32"/>
 	</dependencies>
 	<settings>
 		<admin>OCA\Zulip\Settings\Admin</admin>
