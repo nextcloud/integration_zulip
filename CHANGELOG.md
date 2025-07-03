@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-07-02
+
+### Changed
+
+- Switch to outlined icons. #53
+- Update npm packages. #39 #41 #42 #43 #46 #48 #49 #52
+- Update PHP packages. #44
+
 ## [1.1.0] - 2025-01-23
 
 ### Added
@@ -72,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.1
 [1.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.0
 [1.0.5]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.5
 [1.0.4]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.4
