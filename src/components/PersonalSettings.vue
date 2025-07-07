@@ -37,7 +37,7 @@
 				</div>
 				<div class="line">
 					<label for="zulip-key">
-						<KeyOutlineIcon :size="20" class="icon" />
+						<KeyIcon :size="20" class="icon" />
 						{{ t('integration_zulip', 'Zulip API key') }}
 					</label>
 					<input id="zulip-key"
@@ -65,7 +65,7 @@
 <script>
 import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
+import KeyIcon from 'vue-material-design-icons/Key.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 import ZulipIcon from './icons/ZulipIcon.vue'
@@ -85,7 +85,7 @@ export default {
 	components: {
 		AccountOutlineIcon,
 		EarthIcon,
-		KeyOutlineIcon,
+		KeyIcon,
 		InformationOutlineIcon,
 		ZulipIcon,
 		NcCheckboxRadioSwitch,
