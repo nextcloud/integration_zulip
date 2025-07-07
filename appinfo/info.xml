@@ -20,7 +20,7 @@ The context menu to send a file can be accessed by right clicking on the file/fo
 	]]></description>
 	<version>1.1.2</version>
 	<licence>agpl</licence>
-	<author>Edward Ly</author>
+	<author mail="contact@edward.ly" homepage="https://edward.ly/">Edward Ly</author>
 	<namespace>Zulip</namespace>
 	<documentation>
 		<developer>https://github.com/nextcloud/integration_zulip</developer>
