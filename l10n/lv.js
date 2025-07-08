@@ -1,9 +1,17 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip messages" : "Zulip ziņojumi",
+    "%s in #%s > %s at %s" : "%s #%s > %s %s",
+    "%s in %s at %s" : "%s %s %s",
     "Bad HTTP method" : "Nederīgs HTTP pieprasījuma veids",
     "Bad credentials" : "Nederīgi pieteikšanās dati",
     "Connected accounts" : "Sasaistītie konti",
+    "Zulip Integration" : "Zulip iekļaušana",
+    "Integration of Zulip" : "Zulip iekļaušana",
+    "Zulip options saved" : "Zulip iespējas saglabātas",
+    "Failed to save Zulip options" : "Neizdevās saglabāt Zulip iespējas",
+    "Zulip integration" : "Zulip iekļaušana",
     "password" : "parole",
     "View only" : "Tikai skatīt",
     "Edit" : "Labot",
