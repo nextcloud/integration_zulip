@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.2] - 2025-07-08
+
+### Fixed
+
+- Revert outlining key icon. #56
+
 ## [1.1.1] - 2025-07-03
 
 ### Changed
@@ -80,7 +86,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.2
 [1.1.1]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.1
 [1.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.0
 [1.0.5]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.0.5
