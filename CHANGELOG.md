@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.3] - 2025-07-22
+
+### Changed
+
+- Update npm packages. #59 #60
+
+### Fixed
+
+- Revert "revert outlining key icon". #61
+
 ## [1.1.2] - 2025-07-08
 
 ### Fixed
@@ -86,7 +96,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.3
 [1.1.2]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.2
 [1.1.1]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.1
 [1.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.0
