@@ -5,10 +5,10 @@ OC.L10N.register(
     "Bad credentials" : "Akkaunt ma'lumotlari xato",
     "Connected accounts" : "Ulangan akkauntlar",
     "Edit" : "Tahrirlash",
-    "Files" : "Files",
+    "Files" : "Fayllar",
     "Type" : "Turi",
     "Set expiration date" : "Set expiration date",
     "Comment" : "Izoh",
-    "Cancel" : "Cancel"
+    "Cancel" : "Bekor qilish"
 },
 "nplurals=1; plural=0;");
