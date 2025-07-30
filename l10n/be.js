@@ -1,6 +1,8 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "View only" : "Толькі прагляд",
+    "Edit" : "Рэдагаваць",
     "Files" : "Файлы",
     "Type" : "Тып",
     "Cancel" : "Скасаваць"
