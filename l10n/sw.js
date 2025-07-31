@@ -10,6 +10,7 @@ OC.L10N.register(
     "Type" : "Aina",
     "Set expiration date" : "Panga tarehe ya mwisho wa matumizi",
     "Comment" : "Maoni",
-    "Cancel" : "Cancel"
+    "Cancel" : "Cancel",
+    "Upload files" : "Upload files"
 },
 "nplurals=2; plural=(n != 1);");
