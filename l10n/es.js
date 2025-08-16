@@ -25,6 +25,7 @@ OC.L10N.register(
     "View only" : "Solo lectura",
     "Edit" : "Editar",
     "Failed to load Zulip channels" : "Fallo al cargar canales Zulip",
+    "Failed to load Zulip topics" : "Fallo al cargar tópicos Zulip",
     "Files" : "Archivos",
     "Remove file from list" : "Quitar archivo de la lista",
     "Conversation" : "Conversación",
