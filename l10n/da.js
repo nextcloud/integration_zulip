@@ -7,7 +7,7 @@ OC.L10N.register(
     "password" : "adgangskode",
     "Message to send with the files" : "Besked der skal sendes med filerne",
     "View only" : "Kun visning",
-    "Edit" : "Rediger",
+    "Edit" : "Redigér",
     "Files" : "Filer",
     "Topic" : "Emne",
     "Select a topic" : "Vælg et emne",
