@@ -9,6 +9,8 @@ OC.L10N.register(
     "View only" : "Μόνο για προβολή",
     "Edit" : "Επεξεργασία",
     "Files" : "Αρχεία",
+    "Remove file from list" : "Αφαίρεση αρχείου από τη λίστα",
+    "Conversation" : "Συνομιλία",
     "Type" : "Τύπος",
     "Set expiration date" : "Ορισμός ημερομηνίας λήξης",
     "Expires on" : "Λήξη στις",
