@@ -4,6 +4,7 @@ OC.L10N.register(
     "Bad HTTP method" : "Κακή μέθοδος HTTP",
     "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",
     "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
+    "Enable searching for messages" : "Ενεργοποίηση αναζήτησης μηνυμάτων",
     "password" : "συνθηματικό",
     "Message to send with the files" : "Μήνυμα προς αποστολή με τα αρχεία",
     "View only" : "Μόνο για προβολή",
