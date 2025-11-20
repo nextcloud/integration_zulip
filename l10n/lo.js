@@ -6,6 +6,7 @@ OC.L10N.register(
     "Files" : "ຟາຍ",
     "Type" : "ພິມ",
     "Set expiration date" : "ກໍານົດວັນໝົດອາຍຸ",
+    "Comment" : "Comment",
     "Cancel" : "ຍົກເລີກ",
     "Upload files" : "ອັບໂຫຼດຟາຍ"
 },
