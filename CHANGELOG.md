@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.4] - 2025-11-21
+
+### Changed
+
+- Bump max supported Nextcloud version to 33.
+- Update npm packages. #63 #65 #66 #68 #69 #70 #71 #73
+
 ## [1.1.3] - 2025-07-22
 
 ### Changed
@@ -28,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Switch to outlined icons. #53
+- Bump max supported Nextcloud version to 32.
 - Update npm packages. #39 #41 #42 #43 #46 #48 #49 #52
 - Update PHP packages. #44
 
@@ -53,6 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Bump max supported Nextcloud version to 31.
 - Multiple dependency upgrades. #28
 
 ### Fixed
@@ -96,7 +105,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.4
 [1.1.3]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.3
 [1.1.2]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.2
 [1.1.1]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.1
