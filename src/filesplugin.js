@@ -59,12 +59,12 @@ function openChannelSelector(files) {
 
 const sendAction = new FileAction({
 	id: 'zulipSend',
-	displayName: (nodes) => {
+	displayName: ({ nodes }) => {
 		return nodes.length > 1
 			? t('integration_zulip', 'Send files to Zulip')
 			: t('integration_zulip', 'Send file to Zulip')
 	},
-	enabled(nodes, view) {
+	enabled({ nodes, view }) {
 		return !OCA.Zulip.actionIgnoreLists.includes(view.id)
 			&& nodes.length > 0
 			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
@@ -72,11 +72,11 @@ const sendAction = new FileAction({
 		// && nodes.every(({ mime }) => mime === 'application/some+type')
 	},
 	iconSvgInline: () => ZulipIcon,
-	async exec(node) {
-		sendSelectedNodes([node])
+	async exec({ nodes }) {
+		sendSelectedNodes([nodes[0]])
 		return null
 	},
-	async execBatch(nodes) {
+	async execBatch({ nodes }) {
 		sendSelectedNodes(nodes)
 		return nodes.map(_ => null)
 	},
