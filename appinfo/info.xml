@@ -18,7 +18,7 @@ These values can be found in and copied from your Zulip account's `zuliprc` file
 If those settings are not configured, a link to the "Connected accounts" user settings page will be displayed when attempting to send a file to a Zulip user/topic.
 The context menu to send a file can be accessed by right clicking on the file/folder to be shared or selecting them and clicking on the "Actions" button.
 	]]></description>
-	<version>1.1.4</version>
+	<version>1.1.5</version>
 	<licence>agpl</licence>
 	<author mail="contact@edward.ly" homepage="https://edward.ly/">Edward Ly</author>
 	<namespace>Zulip</namespace>
