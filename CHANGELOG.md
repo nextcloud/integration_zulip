@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.5] - 2025-12-17
+
+### Changed
+
+- Update settings dialog text. #78
+- Update npm packages. #75 #76 #77
+
+### Fixed
+
+- Rebuild settings dialog for Nextcloud 33. #78
+
 ## [1.1.4] - 2025-11-21
 
 ### Changed
@@ -105,7 +116,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v1.1.5...HEAD
+[1.1.5]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.5
 [1.1.4]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.4
 [1.1.3]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.3
 [1.1.2]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.2
