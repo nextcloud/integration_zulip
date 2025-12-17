@@ -1,4 +1,3 @@
-import { generateUrl } from '@nextcloud/router'
 import FileOutlineIcon from 'vue-material-design-icons/FileOutline.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import LinkVariantIcon from 'vue-material-design-icons/LinkVariant.vue'
@@ -13,30 +12,6 @@ export function delay(callback, ms) {
 			callback.apply(context, args)
 		}, ms || 0)
 	}
-}
-
-export function gotoSettingsConfirmDialog() {
-	const settingsLink = generateUrl('/settings/user/connected-accounts')
-	OC.dialogs.message(
-		t('integration_zulip', 'You need to connect a Zulip app before using the Zulip integration.')
-		+ '<br><br>'
-		+ t('integration_zulip', 'Do you want to go to your "Connect accounts" personal settings?'),
-		t('integration_zulip', 'Connect to Zulip'),
-		'none',
-		{
-			type: OC.dialogs.YES_NO_BUTTONS,
-			confirm: t('integration_zulip', 'Go to settings'),
-			confirmClasses: 'success',
-			cancel: t('integration_zulip', 'Cancel'),
-		},
-		(result) => {
-			if (result) {
-				window.location.replace(settingsLink)
-			}
-		},
-		true,
-		true,
-	)
 }
 
 export function humanFileSize(bytes, approx = false, si = false, dp = 1) {

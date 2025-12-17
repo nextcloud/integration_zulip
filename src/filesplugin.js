@@ -8,6 +8,7 @@
  * See the COPYING-README file.
  *
  */
+import GoToSettingsDialog from './components/GoToSettingsDialog.vue'
 import SendFilesModal from './components/SendFilesModal.vue'
 
 import axios from '@nextcloud/axios'
@@ -15,7 +16,7 @@ import moment from '@nextcloud/moment'
 import { generateUrl } from '@nextcloud/router'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
-import { gotoSettingsConfirmDialog, SEND_TYPE } from './utils.js'
+import { SEND_TYPE } from './utils.js'
 import {
 	registerFileAction, Permission, FileAction, FileType,
 } from '@nextcloud/files'
@@ -94,7 +95,7 @@ function sendSelectedNodes(nodes) {
 	if (OCA.Zulip.zulipConnected) {
 		openChannelSelector(formattedNodes)
 	} else {
-		gotoSettingsConfirmDialog()
+		OCA.Zulip.ZulipSettingsDialogVue.showDialog()
 	}
 }
 
@@ -161,17 +162,30 @@ async function sendMessage(messageType, message, channelId, topicName) {
 	return axios.post(SEND_MESSAGE_URL, req)
 }
 
+// settings dialog
+const dialogId = 'zulipSettingsDialog'
+const dialogElement = document.createElement('div')
+dialogElement.id = dialogId
+document.body.append(dialogElement)
+
+const GoToSettingsDialogView = Vue.extend(GoToSettingsDialog)
+OCA.Zulip.ZulipSettingsDialogVue = new GoToSettingsDialogView().$mount(dialogElement)
+
+OCA.Zulip.ZulipSettingsDialogVue.$on('closing', () => {
+	if (DEBUG) console.debug('[Zulip] settings dialog closed')
+})
+
 // send file modal
 const modalId = 'zulipSendModal'
 const modalElement = document.createElement('div')
 modalElement.id = modalId
 document.body.append(modalElement)
 
-const View = Vue.extend(SendFilesModal)
-OCA.Zulip.ZulipSendModalVue = new View().$mount(modalElement)
+const SendFilesModalView = Vue.extend(SendFilesModal)
+OCA.Zulip.ZulipSendModalVue = new SendFilesModalView().$mount(modalElement)
 
 OCA.Zulip.ZulipSendModalVue.$on('closed', () => {
-	if (DEBUG) console.debug('[Zulip] modal closed')
+	if (DEBUG) console.debug('[Zulip] send modal closed')
 })
 OCA.Zulip.ZulipSendModalVue.$on('validate', ({
 	filesToSend, messageType, channelId, channelName, topicName,
