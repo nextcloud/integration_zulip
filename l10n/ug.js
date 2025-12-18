@@ -4,6 +4,8 @@ OC.L10N.register(
     "Bad HTTP method" : "ناچار HTTP ئۇسۇلى",
     "Bad credentials" : "ناچار كىنىشكا",
     "Connected accounts" : "ئۇلانغان ھېساباتلار",
+    "Cancel" : "بىكار قىلىش",
+    "Go to settings" : "تەڭشەكلەرگە بېرىڭ",
     "Enable searching for messages" : "ئۇچۇر ئىزدەشنى قوزغىتىڭ",
     "password" : "پارول",
     "Message to send with the files" : "ھۆججەتلەر بىلەن ئەۋەتىدىغان ئۇچۇر",
@@ -18,9 +20,6 @@ OC.L10N.register(
     "Set link password" : "ئۇلىنىش پارولىنى بەلگىلەڭ",
     "Comment" : "باھا",
     "Directories will be skipped, they can only be sent as links." : "مۇندەرىجە ئاتلىنىدۇ ، ئۇلارنى پەقەت ئۇلىنىش قىلىپلا ئەۋەتكىلى بولىدۇ.",
-    "Cancel" : "بىكار قىلىش",
-    "Do you want to go to your \"Connect accounts\" personal settings?" : "«ئۇلىنىش ھېساباتى» شەخسىي تەڭشەكلىرىڭىزگە بارماقچىمۇ؟",
-    "Go to settings" : "تەڭشەكلەرگە بېرىڭ",
     "Upload files" : "ھۆججەتلەرنى يۈكلەڭ",
     "Public links" : "ئاممىۋى ئۇلىنىش",
     "Internal links (Only works for users with access to the files)" : "ئىچكى ئۇلىنىش (پەقەت ھۆججەتلەرنى زىيارەت قىلالايدىغان ئىشلەتكۈچىلەر ئۈچۈن ئىشلەيدۇ)"

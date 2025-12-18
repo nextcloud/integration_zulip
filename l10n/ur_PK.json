@@ -1,6 +1,6 @@
 { "translations": {
+    "Cancel" : "Cancel",
     "Edit" : "تدوین کریں",
-    "Set expiration date" : "تاریخ معیاد سیٹ کریں",
-    "Cancel" : "Cancel"
+    "Set expiration date" : "تاریخ معیاد سیٹ کریں"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

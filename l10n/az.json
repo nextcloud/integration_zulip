@@ -1,6 +1,6 @@
 { "translations": {
+    "Cancel" : "Cancel",
     "Edit" : "Dəyişiklik et",
-    "Comment" : "Komentariya",
-    "Cancel" : "Cancel"
+    "Comment" : "Komentariya"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,8 +1,8 @@
 { "translations": {
+    "Cancel" : "Cancel",
     "Edit" : "Modifi",
     "Type" : "Tipo",
     "Set expiration date" : "Uzi limdaton",
-    "Comment" : "Komento",
-    "Cancel" : "Cancel"
+    "Comment" : "Komento"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

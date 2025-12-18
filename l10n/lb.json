@@ -1,9 +1,9 @@
 { "translations": {
+    "Cancel" : "Cancel",
     "Edit" : "Änneren",
     "Files" : "Dateien",
     "Type" : "Typ",
     "Set expiration date" : "Verfallsdatum setzen",
-    "Comment" : "Kommentar",
-    "Cancel" : "Cancel"
+    "Comment" : "Kommentar"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

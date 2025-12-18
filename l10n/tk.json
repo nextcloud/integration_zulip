@@ -1,8 +1,8 @@
 { "translations": {
+    "Cancel" : "ýatyrmak",
     "Edit" : "Redaktirläň",
     "Type" : "Görnüşi",
     "Set expiration date" : "Möhlet möhletini belläň",
-    "Cancel" : "ýatyrmak",
     "Upload files" : "Faýllary ýükläň"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

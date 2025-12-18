@@ -1,6 +1,8 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Cancel" : "Цуцлах",
+    "Go to settings" : "Тохиргоонд очих",
     "password" : "нууц үг",
     "View only" : "Зөвхөн үзэх",
     "Edit" : "Өөрчлөх",
@@ -10,10 +12,8 @@ OC.L10N.register(
     "Expires on" : "Дуусах хугацаа",
     "Set link password" : "Холбоосын нууц үг тохируулах",
     "Comment" : "Сэтгэгдэл",
-    "Cancel" : "Цуцлах",
     "_Send file_::_Send files_" : ["Файл илгээх","Файл илгээх"],
     "_Send link_::_Send links_" : ["Холбоос илгээх","Холбоос илгээх"],
-    "Go to settings" : "Тохиргоонд очих",
     "Upload files" : "Файл оруулах",
     "Public links" : "Нээлттэй холбоос"
 },

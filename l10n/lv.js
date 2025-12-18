@@ -9,6 +9,7 @@ OC.L10N.register(
     "Connected accounts" : "Sasaistītie konti",
     "Zulip Integration" : "Zulip iekļaušana",
     "Integration of Zulip" : "Zulip iekļaušana",
+    "Cancel" : "Atcelt",
     "Zulip options saved" : "Zulip iespējas saglabātas",
     "Failed to save Zulip options" : "Neizdevās saglabāt Zulip iespējas",
     "Zulip integration" : "Zulip iekļaušana",
@@ -19,9 +20,7 @@ OC.L10N.register(
     "Type" : "Veids",
     "Set expiration date" : "Iestatīt derīguma beigu datumu",
     "Comment" : "Piebilde",
-    "Cancel" : "Atcelt",
     "_Send file_::_Send files_" : ["Nosūtīt datnes","Nosūtīt datni","Nosūtīt datnes"],
-    "Do you want to go to your \"Connect accounts\" personal settings?" : "Vai doties uz saviem \"Savienot kontus\" personīgajiem iestatījumiem?",
     "Upload files" : "Augšupielādēt datnes"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

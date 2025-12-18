@@ -4,6 +4,8 @@ OC.L10N.register(
     "Bad HTTP method" : "Virheellinen HTTP-metodi",
     "Bad credentials" : "Virheelliset kirjautumistiedot",
     "Connected accounts" : "Yhdistetyt tilit",
+    "Cancel" : "Peruuta",
+    "Go to settings" : "Mene asetuksiin",
     "View only" : "Vain katselu",
     "Edit" : "Muokkaa",
     "Files" : "Tiedostot",
@@ -12,8 +14,6 @@ OC.L10N.register(
     "Expires on" : "Vanhenee",
     "Set link password" : "Aseta linkin salasana",
     "Comment" : "Kommentti",
-    "Cancel" : "Peruuta",
-    "Go to settings" : "Mene asetuksiin",
     "Upload files" : "Lataa tiedostoja",
     "Public links" : "Julkiset linkit"
 },

@@ -4,11 +4,11 @@ OC.L10N.register(
     "Bad HTTP method" : "Metode HTTP tidak benar",
     "Bad credentials" : "Kredensial tidak benar",
     "Connected accounts" : "Akun terhubung",
+    "Cancel" : "Batal",
     "View only" : "Hanya lihat",
     "Edit" : "Sunting",
     "Type" : "tipe",
     "Set expiration date" : "Atur tanggal kedaluwarsa",
-    "Comment" : "Komentar",
-    "Cancel" : "Batal"
+    "Comment" : "Komentar"
 },
 "nplurals=1; plural=0;");

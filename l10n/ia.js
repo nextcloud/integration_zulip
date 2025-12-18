@@ -1,10 +1,10 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Cancel" : "Cancel",
     "Edit" : "Modificar",
     "Type" : "Typo",
     "Set expiration date" : "Assignar data de expiration",
-    "Comment" : "Commentario",
-    "Cancel" : "Cancel"
+    "Comment" : "Commentario"
 },
 "nplurals=2; plural=(n != 1);");

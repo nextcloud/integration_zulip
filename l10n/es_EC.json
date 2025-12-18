@@ -2,6 +2,8 @@
     "Bad HTTP method" : "Método HTTP incorrecto",
     "Bad credentials" : "Credenciales incorrectas",
     "Connected accounts" : "Cuentas conectadas",
+    "Cancel" : "Cancelar",
+    "Go to settings" : "Ir a configuración",
     "Enable searching for messages" : "Habilitar búsqueda de mensajes",
     "password" : "contraseña",
     "Message to send with the files" : "Mensaje para enviar con los archivos",
@@ -14,11 +16,8 @@
     "Set link password" : "Establecer contraseña del enlace",
     "Comment" : "Comentario",
     "Directories will be skipped, they can only be sent as links." : "Se omitirán los directorios, solo se pueden enviar como enlaces.",
-    "Cancel" : "Cancelar",
     "_Send file_::_Send files_" : ["Enviar archivo","Enviar archivos","Enviar archivos"],
     "_Send link_::_Send links_" : ["Enviar enlace","Enviar enlaces","Enviar enlaces"],
-    "Do you want to go to your \"Connect accounts\" personal settings?" : "¿Deseas ir a la configuración personal de \"Conectar cuentas\"?",
-    "Go to settings" : "Ir a configuración",
     "Public links" : "Enlaces públicos",
     "Internal links (Only works for users with access to the files)" : "Enlaces internos (solo funciona para usuarios con acceso a los archivos)"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

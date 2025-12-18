@@ -6,6 +6,7 @@ OC.L10N.register(
     "Bad credentials" : "Blogi prisijungimo duomenys",
     "Connected accounts" : "Prijungtos paskyros",
     "Zulip Integration" : "„Zulip“ integracija",
+    "Cancel" : "Atsisakyti",
     "Zulip options saved" : "„Zulip“ parinktys įrašytos",
     "Failed to save Zulip options" : "Nepavyko įrašyti „Zulip“ parinkčių",
     "Zulip integration" : "„Zulip“ integracija",
@@ -22,7 +23,6 @@ OC.L10N.register(
     "Set expiration date" : "Nustatyti galiojimo pabaigos datą",
     "Expires on" : "Baigia galioti",
     "Comment" : "Komentaras",
-    "Cancel" : "Atsisakyti",
     "Upload files" : "Įkelti failus"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

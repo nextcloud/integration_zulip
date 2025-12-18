@@ -2,6 +2,8 @@
     "Bad HTTP method" : "Dårlig HTTP metode",
     "Bad credentials" : "Forkerte legitimationsoplysninger",
     "Connected accounts" : "Forbundne konti",
+    "Cancel" : "Annuller",
+    "Go to settings" : "Gå til indstillinger",
     "password" : "adgangskode",
     "Message to send with the files" : "Besked der skal sendes med filerne",
     "View only" : "Kun visning",
@@ -14,8 +16,6 @@
     "Expires on" : "Udløber den",
     "Set link password" : "Sæt link adgangskode",
     "Comment" : "Kommenter",
-    "Cancel" : "Annuller",
-    "Go to settings" : "Gå til indstillinger",
     "Upload files" : "Send filer",
     "Public links" : "Offentlige links",
     "Internal links (Only works for users with access to the files)" : "Interne links (virker kun for brugere med adgang til filerne)"

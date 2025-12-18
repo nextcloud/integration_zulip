@@ -1,7 +1,7 @@
 { "translations": {
+    "Cancel" : "Cancel",
     "Files" : "Lêer ",
     "Set expiration date" : "Stel vervaldatum",
-    "Comment" : "Kommentaar",
-    "Cancel" : "Cancel"
+    "Comment" : "Kommentaar"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
