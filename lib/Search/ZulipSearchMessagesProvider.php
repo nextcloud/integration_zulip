@@ -34,12 +34,12 @@ use OCP\IDateTimeZone;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
-use OCP\Search\IProvider;
+use OCP\Search\IExternalProvider;
 use OCP\Search\ISearchQuery;
 use OCP\Search\SearchResult;
 use OCP\Search\SearchResultEntry;
 
-class ZulipSearchMessagesProvider implements IProvider {
+class ZulipSearchMessagesProvider implements IExternalProvider {
 
 	public function __construct(
 		private IAppManager $appManager,
@@ -77,6 +77,13 @@ class ZulipSearchMessagesProvider implements IProvider {
 		}
 
 		return 20;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function isExternalProvider(): bool {
+		return true;
 	}
 
 	/**
