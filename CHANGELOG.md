@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-12-19
+
+### Changed
+
+- Mark unified search provider as external. #82
+
 ## [2.0.0] - 2025-12-18
 
 ### Changed
@@ -127,7 +133,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.1.0
 [2.0.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.0.0
 [1.1.5]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.5
 [1.1.4]: https://github.com/nextcloud/integration_zulip/releases/tag/v1.1.4
