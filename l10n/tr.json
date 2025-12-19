@@ -11,6 +11,8 @@
     "Connect to Zulip" : "Zulip bağlantı kur",
     "Cancel" : "İptal",
     "Go to settings" : "Ayarlara git",
+    "You must connect a Zulip account to perform this operation." : "Bu işlemi yapabilmek için bir Zulip hesabı ile bağlantı kurmalısınız.",
+    "Go to \"Connected accounts\" personal settings?" : "Kişisel ayarlarınızdaki \"Hesapları ilişkilendir\" bölümüne gitmek ister misiniz?",
     "Zulip options saved" : "Zulip seçenekleri kaydedildi",
     "Failed to save Zulip options" : "Zulip seçenekleri kaydedilemedi",
     "Zulip integration" : "Zulip bütünleştirmesi",

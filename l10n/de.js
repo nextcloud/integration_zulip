@@ -13,6 +13,8 @@ OC.L10N.register(
     "Connect to Zulip" : "Mit Zulip verbinden",
     "Cancel" : "Abbrechen",
     "Go to settings" : "Gehe zu den Einstellungen",
+    "You must connect a Zulip account to perform this operation." : "Um diesen Vorgang durchzuführen, musst du ein Zulip-Konto verbinden",
+    "Go to \"Connected accounts\" personal settings?" : "Möchtest du zu \"Verbundene Konten\" in den persönlichen Einstellungen wechseln?",
     "Zulip options saved" : "Zulip-Einstellungen gespeichert",
     "Failed to save Zulip options" : "Zulip-Einstellungen konnten nicht gespeichert werden",
     "Zulip integration" : "Zulip-Einbindung",

@@ -13,6 +13,8 @@ OC.L10N.register(
     "Connect to Zulip" : "Ceangail le Zulip",
     "Cancel" : "Cealaigh",
     "Go to settings" : "Téigh go dtí socruithe",
+    "You must connect a Zulip account to perform this operation." : "Ní mór duit cuntas Zulip a nascadh chun an oibríocht seo a dhéanamh.",
+    "Go to \"Connected accounts\" personal settings?" : "Dul chuig socruithe pearsanta \"Cuntais Cheangailte\"?",
     "Zulip options saved" : "Roghanna Zulip sábháilte",
     "Failed to save Zulip options" : "Theip ar shábháil roghanna Zulip",
     "Zulip integration" : "Comhtháthú Zulip",
