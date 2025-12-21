@@ -13,6 +13,8 @@ OC.L10N.register(
     "Connect to Zulip" : "連線至 Zulip",
     "Cancel" : "取消",
     "Go to settings" : "前往設定",
+    "You must connect a Zulip account to perform this operation." : "您必須連結 Zulip 帳戶以執行此操作。",
+    "Go to \"Connected accounts\" personal settings?" : "前往「已連線的帳號」個人設定？",
     "Zulip options saved" : "已儲存 Zulip 選項",
     "Failed to save Zulip options" : "儲存 Zulip 選項失敗",
     "Zulip integration" : "Zulip 整合",
