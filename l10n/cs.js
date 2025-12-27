@@ -12,6 +12,8 @@ OC.L10N.register(
     "Connect to Zulip" : "Připojit k Zulip",
     "Cancel" : "Storno",
     "Go to settings" : "Přejít do nastavení",
+    "You must connect a Zulip account to perform this operation." : "Aby bylo možné provést tuto operaci, je třeba připojit Zulip účet.",
+    "Go to \"Connected accounts\" personal settings?" : "Přejít do osobních nastavení „Připojené účty“?",
     "Zulip options saved" : "Předvolby pro Zulip uloženy",
     "Failed to save Zulip options" : "Nepodařilo se uložit předvolby pro Zulip",
     "Zulip integration" : "Napojení na Zulip",
