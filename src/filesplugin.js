@@ -11,9 +11,11 @@
 import GoToSettingsDialog from './components/GoToSettingsDialog.vue'
 import SendFilesModal from './components/SendFilesModal.vue'
 
+import { createApp } from 'vue'
+
 import axios from '@nextcloud/axios'
 import moment from '@nextcloud/moment'
-import { generateUrl } from '@nextcloud/router'
+import { generateUrl, linkTo } from '@nextcloud/router'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
 import { SEND_TYPE } from './utils.js'
@@ -23,8 +25,10 @@ import {
 import { subscribe } from '@nextcloud/event-bus'
 import ZulipIcon from '../img/app-dark.svg'
 
-import Vue from 'vue'
-import './bootstrap.js'
+import { getCSPNonce } from '@nextcloud/auth'
+
+__webpack_nonce__ = getCSPNonce() // eslint-disable-line
+__webpack_public_path__ = linkTo('integration_zulip', 'js/') // eslint-disable-line
 
 const DEBUG = false
 
@@ -168,10 +172,11 @@ const dialogElement = document.createElement('div')
 dialogElement.id = dialogId
 document.body.append(dialogElement)
 
-const GoToSettingsDialogView = Vue.extend(GoToSettingsDialog)
-OCA.Zulip.ZulipSettingsDialogVue = new GoToSettingsDialogView().$mount(dialogElement)
+const dialogApp = createApp(GoToSettingsDialog)
+dialogApp.mixin({ methods: { t, n } })
+OCA.Zulip.ZulipSettingsDialogVue = dialogApp.mount(dialogElement)
 
-OCA.Zulip.ZulipSettingsDialogVue.$on('closing', () => {
+dialogElement.addEventListener('closing', () => {
 	if (DEBUG) console.debug('[Zulip] settings dialog closed')
 })
 
@@ -181,16 +186,19 @@ const modalElement = document.createElement('div')
 modalElement.id = modalId
 document.body.append(modalElement)
 
-const SendFilesModalView = Vue.extend(SendFilesModal)
-OCA.Zulip.ZulipSendModalVue = new SendFilesModalView().$mount(modalElement)
+const modalApp = createApp(SendFilesModal)
+modalApp.mixin({ methods: { t, n } })
+OCA.Zulip.ZulipSendModalVue = modalApp.mount(modalElement)
 
-OCA.Zulip.ZulipSendModalVue.$on('closed', () => {
+modalElement.addEventListener('closed', () => {
 	if (DEBUG) console.debug('[Zulip] send modal closed')
 })
-OCA.Zulip.ZulipSendModalVue.$on('validate', ({
-	filesToSend, messageType, channelId, channelName, topicName,
-	type, comment, permission, expirationDate, password,
-}) => {
+modalElement.addEventListener('validate', (data) => {
+	const {
+		filesToSend, messageType, channelId, channelName, topicName,
+		type, comment, permission, expirationDate, password,
+	} = data.detail
+
 	if (filesToSend.length === 0) {
 		return
 	}
