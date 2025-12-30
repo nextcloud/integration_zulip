@@ -154,7 +154,7 @@
 					<div>
 						<NcCheckboxRadioSwitch v-for="(type, key) in SEND_TYPE"
 							:key="key"
-							:checked.sync="sendType"
+							v-model="sendType"
 							:value="type.id"
 							name="send_type_radio"
 							type="radio">
@@ -174,7 +174,7 @@
 						@update:value="selectedPermission = $event" />
 					<div v-show="sendType === SEND_TYPE.public_link.id"
 						class="expiration-field">
-						<NcCheckboxRadioSwitch :checked.sync="expirationEnabled">
+						<NcCheckboxRadioSwitch v-model="expirationEnabled">
 							{{ t('integration_zulip', 'Set expiration date') }}
 						</NcCheckboxRadioSwitch>
 						<div class="spacer" />
@@ -187,7 +187,7 @@
 					</div>
 					<div v-show="sendType === SEND_TYPE.public_link.id"
 						class="password-field">
-						<NcCheckboxRadioSwitch :checked.sync="passwordEnabled">
+						<NcCheckboxRadioSwitch v-model="passwordEnabled">
 							{{ t('integration_zulip', 'Set link password') }}
 						</NcCheckboxRadioSwitch>
 						<div class="spacer" />
@@ -225,7 +225,7 @@
 						@click="closeModal">
 						{{ t('integration_zulip', 'Cancel') }}
 					</NcButton>
-					<NcButton type="primary"
+					<NcButton variant="primary"
 						:class="{ loading, okButton: true }"
 						:disabled="!canValidate"
 						:aria-label="sendType === SEND_TYPE.file.id
@@ -246,14 +246,14 @@
 </template>
 
 <script>
-import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
-import NcHighlight from '@nextcloud/vue/dist/Components/NcHighlight.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcAvatar from '@nextcloud/vue/components/NcAvatar'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcDateTimePicker from '@nextcloud/vue/components/NcDateTimePicker'
+import NcHighlight from '@nextcloud/vue/components/NcHighlight'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import NcModal from '@nextcloud/vue/components/NcModal'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 import AlertBoxOutlineIcon from 'vue-material-design-icons/AlertBoxOutline.vue'
 import CheckCircleOutlineIcon from 'vue-material-design-icons/CheckCircleOutline.vue'
@@ -399,7 +399,7 @@ export default {
 		},
 		onSendClick() {
 			this.loading = true
-			this.$emit('validate', {
+			const _data = {
 				filesToSend: [...this.files],
 				messageType: this.selectedChannel.type,
 				channelId: this.selectedChannel.channel_id ?? this.selectedChannel.user_id,
@@ -410,7 +410,13 @@ export default {
 				permission: this.selectedPermission,
 				expirationDate: this.sendType === SEND_TYPE.public_link.id && this.expirationEnabled ? this.expirationDate : null,
 				password: this.sendType === SEND_TYPE.public_link.id && this.passwordEnabled ? this.password : null,
-			})
+			}
+			this.$el.dispatchEvent(
+				new CustomEvent('validate', {
+					detail: _data,
+					bubbles: true,
+				}),
+			)
 		},
 		success() {
 			this.loading = false
@@ -452,10 +458,10 @@ export default {
 			return generateUrl('/apps/integration_zulip/preview?id={fileId}&x=24&y=24', { fileId })
 		},
 		fileStarted(id) {
-			this.$set(this.fileStates, id, STATES.IN_PROGRESS)
+			this.fileStates[id] = STATES.IN_PROGRESS
 		},
 		fileFinished(id) {
-			this.$set(this.fileStates, id, STATES.FINISHED)
+			this.fileStates[id] = STATES.FINISHED
 		},
 		getUserIconUrl(user) {
 			if (user.avatar_url === null) {

@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-
 /**
  * Nextcloud - Zulip
  *
@@ -15,9 +13,9 @@
  * @copyright Edward Ly 2024
  */
 
-import Vue from 'vue'
-import './bootstrap.js'
+import { createApp } from 'vue'
 import PersonalSettings from './components/PersonalSettings.vue'
 
-const VuePersonalSettings = Vue.extend(PersonalSettings)
-new VuePersonalSettings().$mount('#zulip_prefs')
+const app = createApp(PersonalSettings)
+app.mixin({ methods: { t, n } })
+app.mount('#zulip_prefs')

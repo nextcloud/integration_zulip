@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
 
 import { generateUrl } from '@nextcloud/router'
 
@@ -55,7 +55,7 @@ export default {
 		},
 		closeDialog() {
 			this.show = false
-			this.$emit('closing')
+			this.$el.dispatchEvent(new CustomEvent('closing', { bubbles: true }))
 		},
 	},
 }

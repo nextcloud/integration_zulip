@@ -49,13 +49,13 @@
 			</div>
 			<br>
 			<NcCheckboxRadioSwitch
-				:checked.sync="state.file_action_enabled"
-				@update:checked="onCheckboxChanged($event, 'file_action_enabled')">
+				v-model="state.file_action_enabled"
+				@update:model-value="onCheckboxChanged($event, 'file_action_enabled')">
 				{{ t('integration_zulip', 'Add file action to send files to Zulip') }}
 			</NcCheckboxRadioSwitch>
 			<NcCheckboxRadioSwitch
-				:checked.sync="state.search_messages_enabled"
-				@update:checked="onCheckboxChanged($event, 'search_messages_enabled')">
+				v-model="state.search_messages_enabled"
+				@update:model-value="onCheckboxChanged($event, 'search_messages_enabled')">
 				{{ t('integration_zulip', 'Enable searching for messages') }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -70,7 +70,7 @@ import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline
 
 import ZulipIcon from './icons/ZulipIcon.vue'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
