@@ -391,7 +391,7 @@ export default {
 		},
 		closeModal() {
 			this.show = false
-			this.$emit('closed')
+			this.$el.dispatchEvent(new CustomEvent('closed', { bubbles: true }))
 			this.reset()
 		},
 		setFiles(files) {

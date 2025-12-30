@@ -30,7 +30,7 @@ import { getCSPNonce } from '@nextcloud/auth'
 __webpack_nonce__ = getCSPNonce() // eslint-disable-line
 __webpack_public_path__ = linkTo('integration_zulip', 'js/') // eslint-disable-line
 
-const DEBUG = true
+const DEBUG = false
 
 const SEND_MESSAGE_URL = generateUrl('/apps/integration_zulip/sendMessage')
 const SEND_FILE_URL = generateUrl('/apps/integration_zulip/sendFile')

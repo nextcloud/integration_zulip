@@ -6,58 +6,59 @@
 		</h2>
 		<div id="zulip-content">
 			<div id="zulip-connect-block">
-				<p class="settings-hint">
-					<InformationOutlineIcon :size="24" class="icon" />
+				<NcNoteCard type="info">
 					{{ t('integration_zulip', 'You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key.') }}
-				</p>
-				<p class="settings-hint">
+					<br>
 					{{ t('integration_zulip', 'Then copy the values in the provided zuliprc file into the fields below.') }}
-				</p>
-				<div class="line">
-					<label for="zulip-url">
-						<EarthIcon :size="20" class="icon" />
-						{{ t('integration_zulip', 'Zulip instance address') }}
-					</label>
-					<input id="zulip-url"
-						v-model="state.url"
-						type="text"
-						:placeholder="t('integration_zulip', 'Zulip instance address')"
-						@input="onInput">
-				</div>
-				<div class="line">
-					<label for="zulip-email">
-						<AccountOutlineIcon :size="20" class="icon" />
-						{{ t('integration_zulip', 'Zulip account email') }}
-					</label>
-					<input id="zulip-email"
-						v-model="state.email"
-						type="text"
-						:placeholder="t('integration_zulip', 'Zulip account email')"
-						@input="onInput">
-				</div>
-				<div class="line">
-					<label for="zulip-key">
-						<KeyOutlineIcon :size="20" class="icon" />
-						{{ t('integration_zulip', 'Zulip API key') }}
-					</label>
-					<input id="zulip-key"
-						v-model="state.api_key"
-						type="password"
-						:placeholder="t('integration_zulip', 'Zulip API key')"
-						@input="onSensitiveInput">
-				</div>
+				</NcNoteCard>
+				<NcTextField
+					v-model="state.url"
+					:label="t('integration_zulip', 'Zulip instance address')"
+					:placeholder="t('integration_zulip', 'Zulip instance address')"
+					:show-trailing-button="!!state.url"
+					@trailing-button-click="state.url = ''; onInput()"
+					@update:model-value="onInput">
+					<template #icon>
+						<EarthIcon :size="20" />
+					</template>
+				</NcTextField>
+				<NcTextField
+					v-model="state.email"
+					:label="t('integration_zulip', 'Zulip account email')"
+					:placeholder="t('integration_zulip', 'Zulip account email')"
+					:show-trailing-button="!!state.email"
+					@trailing-button-click="state.email = ''; onInput()"
+					@update:model-value="onInput">
+					<template #icon>
+						<AccountOutlineIcon :size="20" />
+					</template>
+				</NcTextField>
+				<NcTextField
+					v-model="state.api_key"
+					type="password"
+					:label="t('integration_zulip', 'Zulip API key')"
+					:placeholder="t('integration_zulip', 'Zulip API key')"
+					:show-trailing-button="!!state.api_key"
+					@trailing-button-click="state.api_key = ''; onSensitiveInput()"
+					@update:model-value="onSensitiveInput">
+					<template #icon>
+						<KeyOutlineIcon :size="20" />
+					</template>
+				</NcTextField>
 			</div>
 			<br>
-			<NcCheckboxRadioSwitch
-				v-model="state.file_action_enabled"
-				@update:model-value="onCheckboxChanged($event, 'file_action_enabled')">
-				{{ t('integration_zulip', 'Add file action to send files to Zulip') }}
-			</NcCheckboxRadioSwitch>
-			<NcCheckboxRadioSwitch
-				v-model="state.search_messages_enabled"
-				@update:model-value="onCheckboxChanged($event, 'search_messages_enabled')">
-				{{ t('integration_zulip', 'Enable searching for messages') }}
-			</NcCheckboxRadioSwitch>
+			<NcFormBox>
+				<NcFormBoxSwitch
+					v-model="state.file_action_enabled"
+					@update:model-value="onCheckboxChanged($event, 'file_action_enabled')">
+					{{ t('integration_zulip', 'Add file action to send files to Zulip') }}
+				</NcFormBoxSwitch>
+				<NcFormBoxSwitch
+					v-model="state.search_messages_enabled"
+					@update:model-value="onCheckboxChanged($event, 'search_messages_enabled')">
+					{{ t('integration_zulip', 'Enable searching for messages') }}
+				</NcFormBoxSwitch>
+			</NcFormBox>
 		</div>
 	</div>
 </template>
@@ -66,11 +67,13 @@
 import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
-import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 import ZulipIcon from './icons/ZulipIcon.vue'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcFormBox from '@nextcloud/vue/components/NcFormBox'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
@@ -86,9 +89,11 @@ export default {
 		AccountOutlineIcon,
 		EarthIcon,
 		KeyOutlineIcon,
-		InformationOutlineIcon,
 		ZulipIcon,
-		NcCheckboxRadioSwitch,
+		NcFormBox,
+		NcFormBoxSwitch,
+		NcTextField,
+		NcNoteCard,
 	},
 
 	props: [],
@@ -164,31 +169,17 @@ export default {
 #zulip_prefs {
 	#zulip-content {
 		margin-left: 40px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		max-width: 800px;
 	}
 
-	h2,
-	.line,
-	.settings-hint {
+	h2 {
 		display: flex;
 		align-items: center;
-		.icon {
-			margin-right: 4px;
-		}
-	}
-
-	h2 .icon {
-		margin-right: 8px;
-	}
-
-	.line {
-		> label {
-			width: 250px;
-			display: flex;
-			align-items: center;
-		}
-		> input {
-			width: 350px;
-		}
+		gap: 8px;
+		justify-content: start;
 	}
 }
 </style>
