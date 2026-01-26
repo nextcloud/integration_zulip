@@ -37,7 +37,7 @@ OC.L10N.register(
     "Select a channel or user" : "قانال ياكى ئىشلەتكۈچى تاللاڭ",
     "Topic" : "تېما",
     "Select a topic" : "تېما تاللاڭ",
-    "Type" : "Type",
+    "Type" : "تىپ",
     "Set expiration date" : "مۇددىتى توشۇش ۋاقتىنى بەلگىلەڭ",
     "Expires on" : "ۋاقتى توشىدۇ",
     "Set link password" : "ئۇلىنىش پارولىنى بەلگىلەڭ",
