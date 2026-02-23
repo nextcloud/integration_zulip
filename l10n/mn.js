@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Bad HTTP method" : "Буруу HTTP арга",
     "Bad credentials" : "Буруу нэвтрэх мэдээлэл",
+    "Connected accounts" : "Холбогдсон бүртгэлүүд",
     "Cancel" : "–¶—É—Ü–ª–∞—Ö",
     "Go to settings" : "–¢–æ—Ö–∏—Ä–≥–æ–æ–Ω–¥ –æ—á–∏—Ö",
     "password" : "–Ω—É—É—Ü “Ø–≥",
