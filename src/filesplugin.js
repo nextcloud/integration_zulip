@@ -20,7 +20,7 @@ import { showSuccess, showError } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
 import { SEND_TYPE } from './utils.js'
 import {
-	registerFileAction, Permission, FileAction, FileType,
+	registerFileAction, Permission, FileType,
 } from '@nextcloud/files'
 import { subscribe } from '@nextcloud/event-bus'
 import ZulipIcon from '../img/app-dark.svg'
@@ -61,7 +61,7 @@ function openChannelSelector(files) {
 	modalVue.showModal()
 }
 
-const sendAction = new FileAction({
+const sendAction = {
 	id: 'zulipSend',
 	displayName: ({ nodes }) => {
 		return nodes.length > 1
@@ -84,7 +84,7 @@ const sendAction = new FileAction({
 		sendSelectedNodes(nodes)
 		return nodes.map(_ => null)
 	},
-})
+}
 registerFileAction(sendAction)
 
 function sendSelectedNodes(nodes) {
