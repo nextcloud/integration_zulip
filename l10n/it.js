@@ -12,6 +12,7 @@ OC.L10N.register(
     "Conversation" : "Conversazione",
     "Type" : "Tipo",
     "Set expiration date" : "Imposta data di scadenza",
-    "Comment" : "Commento"
+    "Comment" : "Commento",
+    "Public links" : "Link pubblici"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
