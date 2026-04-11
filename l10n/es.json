@@ -11,6 +11,8 @@
     "Connect to Zulip" : "Conectarse a Zulip",
     "Cancel" : "Cancelar",
     "Go to settings" : "Ir a las configuraciones",
+    "You must connect a Zulip account to perform this operation." : "Debes conectarte a una cuenta de Zulip para ejecutar esta operación.",
+    "Go to \"Connected accounts\" personal settings?" : "¿Ir a la configuración personal de \"cuentas conectadas\"?",
     "Zulip options saved" : "Opciones de Zulip guardadas",
     "Failed to save Zulip options" : "Fallo al guardar opciones de Zulip",
     "Zulip integration" : "Integración Zulip",
