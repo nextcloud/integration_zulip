@@ -14,6 +14,8 @@ OC.L10N.register(
     "Expires on" : "Vanhenee",
     "Set link password" : "Aseta linkin salasana",
     "Comment" : "Kommentti",
+    "_Send file_::_Send files_" : ["Lähetä tiedosto","Lähetä tiedostot"],
+    "_Send link_::_Send links_" : ["Lähetä linkki","Lähetä linkit"],
     "Upload files" : "Lataa tiedostoja",
     "Public links" : "Julkiset linkit"
 },
