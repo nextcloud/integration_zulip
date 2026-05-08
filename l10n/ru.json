@@ -5,13 +5,20 @@
     "Cancel" : "Отмена",
     "Go to settings" : "Перейти к настройкам",
     "Enable searching for messages" : "Включить поиск сообщений",
+    "Message to send with the files" : "Сообщение для отправки с файлами",
     "View only" : "Для просмотра",
     "Edit" : "Редактирование",
     "Files" : "Файлы",
     "Type" : "Тип",
     "Set expiration date" : "Установить крайний срок для ответов",
+    "Expires on" : "Заканчивается",
+    "Set link password" : "Установить пароль для ссылки",
     "Comment" : "Комментарий",
     "Directories will be skipped, they can only be sent as links." : "Каталоги будут пропущены, их можно отправлять только как ссылки.",
-    "Upload files" : "Отправить файлы"
+    "_Send file_::_Send files_" : ["Отправить файл","Отправить файлы","Отправить файлы","Отправить файлы"],
+    "_Send link_::_Send links_" : ["Отправить ссылку","Отправить ссылки","Отправить ссылки","Отправить ссылки"],
+    "Upload files" : "Отправить файлы",
+    "Public links" : "Общедоступные ссылки",
+    "Internal links (Only works for users with access to the files)" : "Внутренние ссылки (работает только для пользователей, имеющих доступ к файлам)"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }
