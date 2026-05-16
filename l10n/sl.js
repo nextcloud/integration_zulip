@@ -6,12 +6,21 @@ OC.L10N.register(
     "Connected accounts" : "Povezani računi",
     "Cancel" : "Prekliči",
     "Go to settings" : "Skoči na nastavitve",
+    "password" : "geslo",
     "View only" : "Le ogled",
     "Edit" : "Uredi",
     "Files" : "Datoteke",
+    "Remove file from list" : "Odstrani datoteko s seznama",
+    "Conversation" : "Pogovor",
     "Type" : "Vrsta",
     "Set expiration date" : "Nastavi datum preteka",
+    "Expires on" : "Poteče",
+    "Set link password" : "Nastavi geslo povezavo",
     "Comment" : "Opomba",
-    "Upload files" : "Pošlji datoteke"
+    "Directories will be skipped, they can only be sent as links." : "Mape bodo izpuščene, poslati jih je mogoče le kot povezave.",
+    "_Send file_::_Send files_" : ["Pošlji datoteko","Pošlji datoteki","Pošlji datoteke","Pošlji datoteke"],
+    "_Send link_::_Send links_" : ["Pošlji povezavo","Pošlji povezavi","Pošlji povezave","Pošlji povezave"],
+    "Upload files" : "Pošlji datoteke",
+    "Public links" : "Javne povezave"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");
