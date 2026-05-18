@@ -14,7 +14,7 @@ OC.L10N.register(
     "Cancel" : "İptal",
     "Go to settings" : "Ayarlara git",
     "You must connect a Zulip account to perform this operation." : "Bu işlemi yapabilmek için bir Zulip hesabı ile bağlantı kurmalısınız.",
-    "Go to \"Connected accounts\" personal settings?" : "Kişisel ayarlarınızdaki \"Hesapları ilişkilendir\" bölümüne gitmek ister misiniz?",
+    "Go to \"Connected accounts\" personal settings?" : "Kişisel ayarlarınızda \"Bağlı hesaplar\" bölümüne gitmek ister misiniz?",
     "Zulip options saved" : "Zulip seçenekleri kaydedildi",
     "Failed to save Zulip options" : "Zulip seçenekleri kaydedilemedi",
     "Zulip integration" : "Zulip bütünleştirmesi",
