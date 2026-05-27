@@ -15,7 +15,7 @@ OC.L10N.register(
     "Zulip API key" : "„Zulip“ API raktas",
     "password" : "slaptažodis",
     "View only" : "Tik peržiūrėti",
-    "Edit" : "Taisyti",
+    "Edit" : "Redaguoti",
     "Failed to load Zulip channels" : "Nepavyko įkelti „Zulip“ kanalų",
     "Files" : "Failai",
     "Remove file from list" : "Šalinti failą iš sąrašo",
