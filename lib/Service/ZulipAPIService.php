@@ -61,6 +61,30 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
+	 * @param int $limit
+	 * @return array
+	 * @throws PreConditionNotMetException
+	 */
+	public function getRecentMessages(string $userId, int $limit = 10): array {
+		$result = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => $limit,
+			'num_after' => 0,
+			'narrow' => '[]',
+			'client_gravatar' => 'true',
+			'apply_markdown' => 'false',
+		]);
+
+		if (isset($result['error'])) {
+			return (array)$result;
+		}
+
+		$messages = array_reverse($result['messages'] ?? []);
+		return array_slice($messages, 0, $limit);
+	}
+
+	/**
+	 * @param string $userId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */

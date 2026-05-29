@@ -1,0 +1,9 @@
+.icon-zulip {
+	background-image: url('../img/app-dark.svg');
+	min-width: 32px;
+	filter: var(--background-invert-if-dark);
+}
+
+body.theme--dark .icon-zulip {
+	background-image: url('../img/app.svg');
+}

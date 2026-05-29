@@ -74,6 +74,21 @@ class ZulipAPIController extends Controller {
 	}
 
 	/**
+	 * @param int $limit
+	 * @return DataResponse
+	 * @throws Exception
+	 */
+	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/feed')]
+	public function getFeed(int $limit = 10): DataResponse {
+		$result = $this->zulipAPIService->getRecentMessages($this->userId, min($limit, 50));
+		if (isset($result['error'])) {
+			return new DataResponse($result, Http::STATUS_BAD_REQUEST);
+		}
+		return new DataResponse($result);
+	}
+
+	/**
 	 * @return DataResponse
 	 * @throws Exception
 	 */

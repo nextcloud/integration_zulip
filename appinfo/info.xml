@@ -26,6 +26,7 @@ The context menu to send a file can be accessed by right clicking on the file/fo
 		<developer>https://github.com/nextcloud/integration_zulip</developer>
 	</documentation>
 	<category>integration</category>
+	<category>dashboard</category>
 	<website>https://github.com/nextcloud/integration_zulip</website>
 	<bugs>https://github.com/nextcloud/integration_zulip/issues</bugs>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_zulip/main/img/screenshot1.png</screenshot>
