@@ -126,7 +126,9 @@ export default {
 
 		getSubText(msg) {
 			if (msg.type === 'stream') {
-				return '#' + msg.display_recipient + (msg.subject ? ' › ' + msg.subject : '')
+				const subject = msg.subject || ''
+				const isDefaultTopic = subject === '' || subject.toLowerCase() === 'general chat'
+				return '#' + msg.display_recipient + (isDefaultTopic ? '' : ' › ' + subject)
 			}
 			return t('integration_zulip', 'Direct message from {name}', { name: msg.sender_full_name })
 		},
