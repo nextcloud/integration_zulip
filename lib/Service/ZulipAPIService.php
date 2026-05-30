@@ -104,7 +104,22 @@ class ZulipAPIService {
 
 		return array_map(function (array $msg): array {
 			if (isset($msg['content'])) {
-				$text = preg_replace('/<[^>]+>/', ' ', $msg['content']);
+				$text = $msg['content'];
+				// Convert standard Zulip emoji spans to Unicode characters.
+				// Zulip renders :emoji: as <span class="emoji emoji-1f603">:emoji:</span>
+				// where the hex code point is in the class name (supports compound emoji like flags: 1f1e8-1f1e6).
+				$text = preg_replace_callback(
+					'/<span\b[^>]*\bemoji-([0-9a-f][0-9a-f-]*)\b[^>]*>.*?<\/span>/si',
+					function (array $m): string {
+						return implode('', array_map(
+							fn(string $hex): string => mb_chr(hexdec($hex), 'UTF-8'),
+							explode('-', $m[1])
+						));
+					},
+					$text
+				);
+				// Strip remaining HTML (custom emoji <img> tags, markup, etc.)
+				$text = preg_replace('/<[^>]+>/', ' ', $text ?? '');
 				$text = html_entity_decode($text ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
 				$msg['content'] = preg_replace('/\s+/', ' ', trim($text));
 			}
