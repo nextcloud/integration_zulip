@@ -1,8 +1,8 @@
 <template>
 	<NcDashboardWidget
 		:items="items"
-		:show-more-url="zulipUrl || undefined"
-		:show-more-text="t('integration_zulip', 'Open Zulip')"
+		:show-more-url="feedUrl || undefined"
+		:show-more-text="t('integration_zulip', 'Open Zulip feed')"
 		:loading="loading">
 		<template #empty-content>
 			<NcEmptyContent
@@ -61,9 +61,11 @@ export default {
 
 	data() {
 		const config = loadState('integration_zulip', 'dashboard-config', {})
+		const base = (config.url ?? '').replace(/\/$/, '')
 		return {
 			isConnected: config.is_connected ?? false,
-			zulipUrl: config.url ?? '',
+			zulipUrl: base,
+			feedUrl: base ? base + '/#feed' : '',
 			messages: [],
 			loading: true,
 			error: false,
@@ -79,7 +81,7 @@ export default {
 				targetUrl: this.getMessageUrl(msg),
 				avatarUrl: generateUrl('/apps/integration_zulip/users/{zulipUserId}/image', { zulipUserId: msg.sender_id }),
 				avatarUsername: msg.sender_full_name,
-				mainText: this.getMessageContent(msg),
+				mainText: this.cleanContent(msg.content ?? ''),
 				subText: this.getSubText(msg),
 			}))
 		},
@@ -114,29 +116,37 @@ export default {
 			}
 		},
 
-		getMessageContent(msg) {
-			const text = (msg.content ?? '').replace(/\n/g, ' ').trim()
-			return text.length > 120 ? text.slice(0, 120) + '…' : text
+		cleanContent(raw) {
+			const doc = new DOMParser().parseFromString(raw, 'text/html')
+			return (doc.body.textContent || '')
+				.replace(/[\n\r]+/g, ' ')
+				.replace(/\s{2,}/g, ' ')
+				.trim()
 		},
 
 		getSubText(msg) {
 			if (msg.type === 'stream') {
-				return '#' + msg.display_recipient + ' › ' + (msg.subject || '')
+				return '#' + msg.display_recipient + (msg.subject ? ' › ' + msg.subject : '')
 			}
-			return t('integration_zulip', 'DM from {name}', { name: msg.sender_full_name })
+			return t('integration_zulip', 'Direct message from {name}', { name: msg.sender_full_name })
 		},
 
 		getMessageUrl(msg) {
 			if (!this.zulipUrl) {
 				return '#'
 			}
-			const base = this.zulipUrl.replace(/\/$/, '')
 			if (msg.type === 'private') {
 				const userIds = (msg.display_recipient || []).map((r) => r.id).join(',')
-				return base + '/#narrow/dm/' + userIds + '/near/' + msg.id
+				return this.zulipUrl + '/#narrow/dm/' + userIds + '/near/' + msg.id
 			}
-			const topic = encodeURIComponent(msg.subject || '').replace(/%/g, '.')
-			return base + '/#narrow/channel/' + msg.stream_id + '/topic/' + topic + '/near/' + msg.id
+			const subject = msg.subject || ''
+			const isDefaultTopic = subject === '' || subject.toLowerCase() === 'general chat'
+			const base = this.zulipUrl + '/#narrow/channel/' + msg.stream_id
+			if (isDefaultTopic) {
+				return base + '/near/' + msg.id
+			}
+			const topic = encodeURIComponent(subject).replace(/%/g, '.')
+			return base + '/topic/' + topic + '/near/' + msg.id
 		},
 	},
 }

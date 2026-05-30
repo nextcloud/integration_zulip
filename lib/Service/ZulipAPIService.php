@@ -65,14 +65,17 @@ class ZulipAPIService {
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */
-	public function getRecentMessages(string $userId, int $limit = 10): array {
+	public function getRecentMessages(string $userId, int $limit = 7): array {
+		// Fetch own Zulip user ID for reliable own-message filtering
+		$meResult = $this->request($userId, 'users/me');
+		$myZulipId = isset($meResult['user_id']) ? (int)$meResult['user_id'] : null;
+
 		$result = $this->request($userId, 'messages', [
 			'anchor' => 'newest',
-			'num_before' => $limit,
+			'num_before' => $limit * 3,
 			'num_after' => 0,
 			'narrow' => '[]',
 			'client_gravatar' => 'true',
-			'apply_markdown' => 'false',
 		]);
 
 		if (isset($result['error'])) {
@@ -80,7 +83,33 @@ class ZulipAPIService {
 		}
 
 		$messages = array_reverse($result['messages'] ?? []);
-		return array_slice($messages, 0, $limit);
+
+		if ($myZulipId !== null) {
+			$messages = array_values(array_filter(
+				$messages,
+				fn($msg) => ($msg['sender_id'] ?? null) !== $myZulipId
+			));
+		} else {
+			// Fallback: filter by email (case-insensitive)
+			$email = strtolower(trim($this->config->getUserValue($userId, Application::APP_ID, 'email', '')));
+			if ($email !== '') {
+				$messages = array_values(array_filter(
+					$messages,
+					fn($msg) => strtolower(trim($msg['sender_email'] ?? '')) !== $email
+				));
+			}
+		}
+
+		$messages = array_slice($messages, 0, $limit);
+
+		return array_map(function (array $msg): array {
+			if (isset($msg['content'])) {
+				$text = preg_replace('/<[^>]+>/', ' ', $msg['content']);
+				$text = html_entity_decode($text ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+				$msg['content'] = preg_replace('/\s+/', ' ', trim($text));
+			}
+			return $msg;
+		}, $messages);
 	}
 
 	/**
