@@ -12,6 +12,8 @@ OC.L10N.register(
     "View only" : "تنها مشاهده",
     "Edit" : "ویرایش",
     "Files" : "پرونده‌ها",
+    "Remove file from list" : "حذف فایل از فهرست",
+    "Conversation" : "گفت‌وگو",
     "Type" : "نوع",
     "Set expiration date" : "تنظیم تاریخ انقضا",
     "Expires on" : "Expires on",
