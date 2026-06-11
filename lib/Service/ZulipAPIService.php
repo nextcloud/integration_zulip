@@ -61,6 +61,104 @@ class ZulipAPIService {
 
 	/**
 	 * @param string $userId
+	 * @param int $limit
+	 * @return array
+	 * @throws PreConditionNotMetException
+	 */
+	public function getRecentMessages(string $userId, int $limit = 7): array {
+		// Fetch own Zulip user ID for reliable own-message filtering
+		$meResult = $this->request($userId, 'users/me');
+		$myZulipId = isset($meResult['user_id']) ? (int)$meResult['user_id'] : null;
+
+		$result = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => $limit * 3,
+			'num_after' => 0,
+			'narrow' => '[]',
+			'client_gravatar' => 'true',
+		]);
+
+		if (isset($result['error'])) {
+			return (array)$result;
+		}
+
+		$messages = array_reverse($result['messages'] ?? []);
+
+		if ($myZulipId !== null) {
+			$messages = array_values(array_filter(
+				$messages,
+				fn ($msg) => ($msg['sender_id'] ?? null) !== $myZulipId
+			));
+		} else {
+			// Fallback: filter by email (case-insensitive)
+			$email = strtolower(trim($this->config->getUserValue($userId, Application::APP_ID, 'email', '')));
+			if ($email !== '') {
+				$messages = array_values(array_filter(
+					$messages,
+					fn ($msg) => strtolower(trim($msg['sender_email'] ?? '')) !== $email
+				));
+			}
+		}
+
+		$messages = array_slice($messages, 0, $limit);
+
+		return array_map(fn (array $msg) => $this->_cleanMessageContent($msg), $messages);
+	}
+
+	/**
+	 * @param string $userId
+	 * @param int $limit
+	 * @return array
+	 * @throws PreConditionNotMetException
+	 */
+	public function getUnreadMessages(string $userId, int $limit = 7): array {
+		$result = $this->request($userId, 'messages', [
+			'anchor' => 'newest',
+			'num_before' => $limit,
+			'num_after' => 0,
+			'narrow' => '[{"operator": "is", "operand": "unread"}]',
+			'client_gravatar' => 'true',
+		]);
+
+		if (isset($result['error'])) {
+			return (array)$result;
+		}
+
+		$messages = array_reverse($result['messages'] ?? []);
+
+		return array_map(fn (array $msg) => $this->_cleanMessageContent($msg), $messages);
+	}
+
+	/**
+	 * Strip HTML tags from message content and convert emoji spans to Unicode.
+	 */
+	private function _cleanMessageContent(array $msg): array {
+		if (!isset($msg['content'])) {
+			return $msg;
+		}
+		$text = $msg['content'];
+		// Convert standard Zulip emoji spans to Unicode characters.
+		// Zulip renders :emoji: as <span class="emoji emoji-1f603">:emoji:</span>
+		// where the hex code point is in the class name (supports compound emoji like flags: 1f1e8-1f1e6).
+		$text = preg_replace_callback(
+			'/<span\b[^>]*\bemoji-([0-9a-f][0-9a-f-]*)\b[^>]*>.*?<\/span>/si',
+			function (array $m): string {
+				return implode('', array_map(
+					fn (string $hex): string => mb_chr(hexdec($hex), 'UTF-8') ?: '',
+					explode('-', $m[1])
+				));
+			},
+			$text
+		);
+		// Strip remaining HTML (custom emoji <img> tags, markup, etc.)
+		$text = preg_replace('/<[^>]+>/', ' ', $text ?? '');
+		$text = html_entity_decode($text ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+		$msg['content'] = preg_replace('/\s+/', ' ', trim($text));
+		return $msg;
+	}
+
+	/**
+	 * @param string $userId
 	 * @return array
 	 * @throws PreConditionNotMetException
 	 */

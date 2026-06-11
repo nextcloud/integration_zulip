@@ -58,6 +58,11 @@
 					@update:model-value="onCheckboxChanged($event, 'search_messages_enabled')">
 					{{ t('integration_zulip', 'Enable searching for messages') }}
 				</NcFormBoxSwitch>
+				<NcFormBoxSwitch
+					v-model="state.dashboard_show_unread"
+					@update:model-value="onCheckboxChanged($event, 'dashboard_show_unread')">
+					{{ t('integration_zulip', 'Show only unread messages in dashboard widget') }}
+				</NcFormBoxSwitch>
 			</NcFormBox>
 		</div>
 	</div>

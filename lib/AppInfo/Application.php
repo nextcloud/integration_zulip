@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 namespace OCA\Zulip\AppInfo;
 
+use OCA\Zulip\Dashboard\ZulipDashboardWidget;
 use OCA\Zulip\Listener\FilesMenuListener;
 use OCA\Zulip\Search\ZulipSearchMessagesProvider;
 use OCP\AppFramework\App;
@@ -39,6 +40,7 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesMenuListener::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
 		$context->registerSearchProvider(ZulipSearchMessagesProvider::class);
+		$context->registerDashboardWidget(ZulipDashboardWidget::class);
 	}
 
 	public function boot(IBootContext $context): void {
