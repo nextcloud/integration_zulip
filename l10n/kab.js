@@ -2,7 +2,9 @@ OC.L10N.register(
     "integration_zulip",
     {
     "Cancel" : "Cancel",
+    "View only" : "Askan kan",
     "Edit" : "Ẓreg",
+    "Files" : "Ifuyla",
     "Type" : "Anaw",
     "Comment" : "Commentaire",
     "Upload files" : "Azen ifuyla"
