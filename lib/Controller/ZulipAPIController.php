@@ -20,6 +20,7 @@ namespace OCA\Zulip\Controller;
 
 use Exception;
 use OC\User\NoUserException;
+use OCA\Zulip\AppInfo\Application;
 use OCA\Zulip\Service\ZulipAPIService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
@@ -71,6 +72,26 @@ class ZulipAPIController extends Controller {
 			return new RedirectResponse($fallbackAvatarUrl);
 		}
 		return new DataDisplayResponse('', Http::STATUS_NOT_FOUND);
+	}
+
+	/**
+	 * @param int $limit
+	 * @return DataResponse
+	 * @throws Exception
+	 */
+	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/feed')]
+	public function getFeed(int $limit = 7): DataResponse {
+		$showUnread = $this->config->getUserValue($this->userId, Application::APP_ID, 'dashboard_show_unread', '0') === '1';
+		if ($showUnread) {
+			$result = $this->zulipAPIService->getUnreadMessages($this->userId, $limit);
+		} else {
+			$result = $this->zulipAPIService->getRecentMessages($this->userId, min($limit, 50));
+		}
+		if (isset($result['error'])) {
+			return new DataResponse($result, Http::STATUS_BAD_REQUEST);
+		}
+		return new DataResponse($result);
 	}
 
 	/**

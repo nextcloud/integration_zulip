@@ -30,6 +30,7 @@ class Personal implements ISettings {
 		$apiKey = $this->secretService->getEncryptedUserValue($this->userId, 'api_key') ? 'dummyKey' : '';
 		$fileActionEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'file_action_enabled', '1') === '1';
 		$searchMessagesEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_messages_enabled', '0') === '1';
+		$dashboardShowUnread = $this->config->getUserValue($this->userId, Application::APP_ID, 'dashboard_show_unread', '0') === '1';
 
 		$userConfig = [
 			'url' => $url,
@@ -37,6 +38,7 @@ class Personal implements ISettings {
 			'api_key' => $apiKey,
 			'file_action_enabled' => $fileActionEnabled,
 			'search_messages_enabled' => $searchMessagesEnabled,
+			'dashboard_show_unread' => $dashboardShowUnread,
 		];
 		$this->initialStateService->provideInitialState('user-config', $userConfig);
 		return new TemplateResponse(Application::APP_ID, 'personalSettings');
