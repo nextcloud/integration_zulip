@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip" : "Zulip",
     "Zulip messages" : "Zulip iletileri",
     "%s in #%s > %s at %s" : "%s #%s > %s içinde %s zamanda",
     "%s in %s at %s" : "%s, %s içinde %s zamanında",

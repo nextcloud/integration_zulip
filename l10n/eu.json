@@ -1,4 +1,5 @@
 { "translations": {
+    "Zulip" : "Zulip",
     "Bad HTTP method" : "HTTP metodo okerra",
     "Bad credentials" : "Kredentzial okerrak",
     "Connected accounts" : "Konektatutako kontuak",

@@ -1,4 +1,5 @@
 { "translations": {
+    "Zulip" : "Zulip",
     "Zulip messages" : "Mensaxes Zulip",
     "%s in #%s > %s at %s" : "%s en #%s > %s ás %s",
     "%s in %s at %s" : "%s en %s ás %s",
