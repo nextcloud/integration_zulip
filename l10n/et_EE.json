@@ -1,4 +1,12 @@
 { "translations": {
+    "Zulip" : "Zulip",
+    "Connect your Zulip account in the settings" : "Ühenda oma Zulipi kasutajakonto seadistustes",
+    "No unread messages" : "Lugemata sõnumeid pole",
+    "No recent messages" : "Hiljutisi sõnumeid pole",
+    "Failed to load messages" : "Sõnumite laadimine ei õnnestu",
+    "Open Zulip inbox" : "Ava Zulipi saabuvate sõnumite postkast",
+    "Open Zulip feed" : "Ava Zulipi sisuvoog",
+    "Direct message from {name}" : "Otsesõnum kasutajalt {name}",
     "Zulip messages" : "Zulipi sõnumid",
     "%s in #%s > %s at %s" : "%s vestluses #%s > %s - %s",
     "%s in %s at %s" : "%s vestluses %s - %s",
@@ -16,13 +24,14 @@
     "Zulip options saved" : "Zulipi eelistused on salvestatud",
     "Failed to save Zulip options" : "Zulipi eelistuste salvestamine ei õnnestunud",
     "Zulip integration" : "Zulipi lõiming",
-    "You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key." : "Zulipi API võtme saad luua, kui avad „Isiklikud seadistused“ -> „Kasutajakonto ja privaatsus“ -> „APi võti“.",
+    "You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key." : "Zulipi API võtme saad luua, kui avad „Isiklikud seadistused“ -> „Kasutajakonto ja privaatsus“ -> „API võti“.",
     "Then copy the values in the provided zuliprc file into the fields below." : "Seejärel kopeeri näidatud zuliprc faili väärtused järgnevatele väljadele.",
     "Zulip instance address" : "Zulipi serveri aadress",
     "Zulip account email" : "Zulipi kasutajakonto e-posti aadress",
     "Zulip API key" : "Zulipi liidestuse võti",
     "Add file action to send files to Zulip" : "Failide saatmiseks Zulipisse lisa failitoiming",
     "Enable searching for messages" : "Luba sõnumite otsimist",
+    "Show only unread messages in dashboard widget" : "Näita juhtpaneeli vidinas vaid lugemata sõnumeid",
     "password" : "salasõna",
     "Message to send with the files" : "Failidele lisatav sõnum",
     "View only" : "Ainult vaatamine",
@@ -53,6 +62,6 @@
     "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} on saadetud {channelName} kanalisse","Kõik {number} faili on saadetud {channelName} kanalisse"],
     "Upload files" : "Laadi failid üles",
     "Public links" : "Avalikud lingid",
-    "Internal links (Only works for users with access to the files)" : "Sisemine jagamislink (töötab ainult nende kasutajate puhul, kelle on ligipääs nendele failidele)"
+    "Internal links (Only works for users with access to the files)" : "Sisemine jagamislink (töötab ainult nende kasutajate puhul, kellel on ligipääs nendele failidele)"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

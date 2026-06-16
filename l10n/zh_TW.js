@@ -1,6 +1,14 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip" : "Zulip",
+    "Connect your Zulip account in the settings" : "在設定中連線到您的 Zulip 帳號",
+    "No unread messages" : "沒有未讀的訊息",
+    "No recent messages" : "沒有近期訊息",
+    "Failed to load messages" : "載入訊息失敗",
+    "Open Zulip inbox" : "開啟 Zulip 收件匣",
+    "Open Zulip feed" : "開啟 Zulip feed",
+    "Direct message from {name}" : "來自 {name} 的直接訊息",
     "Zulip messages" : "Zulip 訊息",
     "%s in #%s > %s at %s" : "%s 在 #%s > %s 於 %s",
     "%s in %s at %s" : "%s 在 %s 於 %s",
@@ -25,6 +33,7 @@ OC.L10N.register(
     "Zulip API key" : "Zulip API 金鑰",
     "Add file action to send files to Zulip" : "新增傳送檔案至 Zulip 的檔案動作",
     "Enable searching for messages" : "啟用搜尋訊息",
+    "Show only unread messages in dashboard widget" : "在儀表板小工具中僅顯示未讀訊息",
     "password" : "密碼",
     "Message to send with the files" : "與檔案一起傳送的訊息",
     "View only" : "僅供檢視",

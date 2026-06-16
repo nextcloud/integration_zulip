@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip" : "Zulip",
     "Bad HTTP method" : "Mètode HTTP incorrecte",
     "Bad credentials" : "Credencials dolentes",
     "Connected accounts" : "Comptes connectats",

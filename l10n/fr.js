@@ -1,6 +1,13 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Connect your Zulip account in the settings" : "Se connecter à Zulip dans les paramètres",
+    "No unread messages" : "Aucun message non lu",
+    "No recent messages" : "Pas de nouveau message",
+    "Failed to load messages" : "Impossible de charger les messages",
+    "Open Zulip inbox" : "Ouvrir la boite de réception",
+    "Open Zulip feed" : "Ouvrir le fil",
+    "Direct message from {name}" : "Message direct de {name}",
     "Zulip messages" : "Messages Zulip",
     "Bad HTTP method" : "Mauvaise méthode HTTP",
     "Bad credentials" : "Identifiants incorrects",
@@ -23,6 +30,7 @@ OC.L10N.register(
     "Zulip API key" : "Clé d'API Zulip",
     "Add file action to send files to Zulip" : "Ajouter une action de fichier pour envoyer des fichiers sur Zulip",
     "Enable searching for messages" : "Activer la recherche de messages",
+    "Show only unread messages in dashboard widget" : "Afficher uniquement les messages non lus sur le tableau de bord",
     "password" : "mot de passe",
     "Message to send with the files" : "Message à envoyer avec les fichiers",
     "View only" : "Afficher seulement",
