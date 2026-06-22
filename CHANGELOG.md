@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-06-22
+
+### Added
+
+- Dashboard widget displaying latest/unread Zulip messages. #126
+
+### Changed
+
+- Bump max supported Nextcloud version to 35. #135
+- Update npm packages. #110 #111 #112 #113 #117 #118 #119 #122 #124 #125 #127 #129 #134
+
 ## [2.2.0] - 2026-04-13
 
 ### Changed
@@ -146,7 +157,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upload selected Nextcloud files to configured Zulip instance.
 
-[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/nextcloud/integration_zulip/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.3.0
 [2.2.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.2.0
 [2.1.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.1.0
 [2.0.0]: https://github.com/nextcloud/integration_zulip/releases/tag/v2.0.0
