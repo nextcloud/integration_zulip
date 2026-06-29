@@ -1,6 +1,8 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Open Zulip inbox" : "Abrir a caixa de entrada do Zulip",
+    "%s in %s at %s" : "%s em %s em %s",
     "Bad HTTP method" : "Método HTTP incorreto",
     "Bad credentials" : "Credenciais inválidas",
     "Connected accounts" : "Contas conectadas",
@@ -9,10 +11,12 @@ OC.L10N.register(
     "Go to settings" : "Vá para as configurações",
     "View only" : "Visualizar apenas",
     "Edit" : "Editar",
+    "Failed to load Zulip topics" : "Falha ao carregar os temas do Zulip",
     "Files" : "Ficheiros",
     "Type" : "Tipo",
     "Set expiration date" : "Definir a data de expiração",
     "Comment" : "Comentário",
+    "Send files to Zulip" : "Enviar arquivos para Zulip",
     "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Falha ao enviar link interno para {channelName}","Falha ao enviar links internos para {channelName}","Falha ao enviar links internos para {channelName}"],
     "Upload files" : "Carregar ficheiros",
     "Internal links (Only works for users with access to the files)" : "Links internos (Funcionam apenas para utilizadores com acesso aos ficheiros)"
