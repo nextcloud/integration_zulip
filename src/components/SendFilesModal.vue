@@ -152,7 +152,7 @@
 						</span>
 					</span>
 					<div>
-						<NcCheckboxRadioSwitch v-for="(type, key) in SEND_TYPE"
+						<NcCheckboxRadioSwitch v-for="(type, key) in availableSendTypes"
 							:key="key"
 							v-model="sendType"
 							:value="type.id"
@@ -309,12 +309,24 @@ export default {
 		UploadBoxOutlineIcon,
 	},
 
+	props: {
+		adminConfig: {
+			type: Object,
+			default: () => ({
+				send_type_enabled_file: true,
+				send_type_enabled_public_link: true,
+				send_type_enabled_internal_link: true,
+				send_type_default: '',
+			}),
+		},
+	},
+
 	data() {
 		return {
 			SEND_TYPE,
 			show: false,
 			loading: false,
-			sendType: SEND_TYPE.file.id,
+			sendType: this.resolveDefaultSendType(),
 			comment: '',
 			query: '',
 			files: [],
@@ -339,6 +351,11 @@ export default {
 	},
 
 	computed: {
+		availableSendTypes() {
+			return Object.fromEntries(
+				Object.entries(SEND_TYPE).filter(([key]) => this.adminConfig[`send_type_enabled_${key}`] !== false),
+			)
+		},
 		warnAboutSendingDirectories() {
 			return this.sendType === SEND_TYPE.file.id && this.files.findIndex((f) => f.type === 'dir') !== -1
 		},
@@ -359,7 +376,7 @@ export default {
 	},
 
 	watch: {
-		selectedChannel(newChannel, oldChannel) {
+		selectedChannel(newChannel) {
 			if (newChannel?.type === 'channel') {
 				this.updateTopics()
 			}
@@ -371,6 +388,19 @@ export default {
 	},
 
 	methods: {
+		resolveDefaultSendType() {
+			const def = this.adminConfig?.send_type_default
+			if (def && this.adminConfig?.[`send_type_enabled_${def}`] !== false) {
+				return def
+			}
+			// Fall back to first enabled type
+			for (const key of Object.keys(SEND_TYPE)) {
+				if (this.adminConfig?.[`send_type_enabled_${key}`] !== false) {
+					return key
+				}
+			}
+			return SEND_TYPE.file.id
+		},
 		reset() {
 			this.selectedChannel = null
 			this.selectedTopic = null
@@ -379,7 +409,7 @@ export default {
 			this.channels = undefined
 			this.topics = undefined
 			this.comment = ''
-			this.sendType = SEND_TYPE.file.id
+			this.sendType = this.resolveDefaultSendType()
 			this.selectedPermission = 'view'
 			this.expirationEnabled = false
 			this.expirationDate = null
