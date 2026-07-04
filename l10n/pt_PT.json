@@ -1,4 +1,5 @@
 { "translations": {
+    "Zulip" : "Zulip",
     "Connect your Zulip account in the settings" : "Conecte sua conta do Zulip nas configurações",
     "No unread messages" : "Não há mensagens não lidas",
     "No recent messages" : "Não há mensagens recentes",
@@ -24,6 +25,7 @@
     "Zulip integration" : "Integração Zulip",
     "You can generate and access your Zulip API key from Personal settings -> Account & privacy -> API key." : "Você pode gerar e acessar sua chave de API do Zulip em Configurações pessoais -> Conta & privacidade -> Chave API.",
     "Then copy the values in the provided zuliprc file into the fields below." : "Em seguida, copie os valores do arquivo zuliprc fornecido para os campos abaixo.",
+    "Zulip instance address" : "Endereço da instância Zulip",
     "Zulip account email" : "E-mail da conta Zulip",
     "Zulip API key" : "Chave API do Zulip",
     "Add file action to send files to Zulip" : "Adicionar ação de arquivo para enviar arquivos ao Zulip",
@@ -49,6 +51,7 @@
     "Directories will be skipped, they can only be sent as links." : "Os diretórios serão ignorados, eles só podem ser enviados como links.",
     "Send files to Zulip" : "Enviar arquivos para Zulip",
     "Failed to send {name} to {channelName} on Zulip" : "Falha ao enviar {name} para {channelName} em Zulip",
+    "Failed to send links to Zulip" : "Falha ao enviar links para Zulip",
     "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Falha ao enviar link interno para {channelName}","Falha ao enviar links internos para {channelName}","Falha ao enviar links internos para {channelName}"],
     "Upload files" : "Carregar ficheiros",
     "Public links" : "Links públicos",

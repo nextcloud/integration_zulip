@@ -11,6 +11,7 @@ OC.L10N.register(
     "View only" : "Для просмотра",
     "Edit" : "Редактирование",
     "Files" : "Файлы",
+    "Conversation" : "Обсуждение",
     "Type" : "Тип",
     "Set expiration date" : "Установить крайний срок для ответов",
     "Expires on" : "Заканчивается",
