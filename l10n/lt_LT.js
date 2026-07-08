@@ -31,6 +31,9 @@ OC.L10N.register(
     "Directories will be skipped, they can only be sent as links." : "Katalogai bus praleisti; juos galima siųsti tik kaip nuorodas.",
     "_Send file_::_Send files_" : ["Siųsti failą","Siųsti failus","Siųsti failus","Siųsti failus"],
     "_Send link_::_Send links_" : ["Siųsti nuorodą","Siųsti nuorodas","Siųsti nuorodas","Siųsti nuorodas"],
+    "_A link to {fileName} was sent to {channelName}_::_All of the {number} links were sent to {channelName}_" : ["{fileName} nuoroda buvo išsiųsta į {channelName}","Visos ({number}) nuorodos buvo išsiųstos į {channelName}","Visos ({number}) nuorodos buvo išsiųstos į {channelName}","Visos ({number}) nuorodos buvo išsiųstos į {channelName}"],
+    "_Failed to send the internal link to {channelName}_::_Failed to send internal links to {channelName}_" : ["Nepavyko išsiųsti vidinės nuorodos į {channelName}","Nepavyko išsiųsti vidinių nuorodų į {channelName}","Nepavyko išsiųsti vidinių nuorodų į {channelName}","Nepavyko išsiųsti vidinių nuorodų į {channelName}"],
+    "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} failas buvo sėkmingai išsiųstas į {channelName}","Visi ({number}) failai buvo išsiųsti į {channelName}","Visi ({number}) failai buvo išsiųsti į {channelName}","Visi ({number}) failai buvo išsiųsti į {channelName}"],
     "Upload files" : "Įkelti failus",
     "Public links" : "Viešos nuorodos",
     "Internal links (Only works for users with access to the files)" : "Vidinės nuorodos (veikia tik tiems vartotojams, kurie turi prieigą prie failų)"
