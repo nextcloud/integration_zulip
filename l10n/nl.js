@@ -9,6 +9,7 @@ OC.L10N.register(
     "View only" : "Alleen bekijken",
     "Edit" : "Bewerken",
     "Files" : "Bestanden",
+    "Conversation" : "Gesprek",
     "Type" : "Type",
     "Set expiration date" : "Instellen vervaldatum",
     "Comment" : "Notitie",
