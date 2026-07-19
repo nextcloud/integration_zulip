@@ -1,6 +1,14 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip" : "Zulip",
+    "Connect your Zulip account in the settings" : "Connect your Zulip account in the settings",
+    "No unread messages" : "No unread messages",
+    "No recent messages" : "No recent messages",
+    "Failed to load messages" : "Failed to load messages",
+    "Open Zulip inbox" : "Open Zulip inbox",
+    "Open Zulip feed" : "Open Zulip feed",
+    "Direct message from {name}" : "Direct message from {name}",
     "Zulip messages" : "Zulip messages",
     "%s in #%s > %s at %s" : "%s in #%s > %s at %s",
     "%s in %s at %s" : "%s in %s at %s",
@@ -25,6 +33,7 @@ OC.L10N.register(
     "Zulip API key" : "Zulip API key",
     "Add file action to send files to Zulip" : "Add file action to send files to Zulip",
     "Enable searching for messages" : "Enable searching for messages",
+    "Show only unread messages in dashboard widget" : "Show only unread messages in dashboard widget",
     "password" : "password",
     "Message to send with the files" : "Message to send with the files",
     "View only" : "View only",
