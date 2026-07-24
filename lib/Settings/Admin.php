@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace OCA\Zulip\AppInfo;
+namespace OCA\Zulip\Settings;
 
-use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
+use OCA\Zulip\AppInfo\Application;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\EventDispatcher\Event;
-use OCP\EventDispatcher\IEventListener;
 use OCP\IConfig;
+use OCP\Settings\ISettings;
 
-/** @template-implements IEventListener<BeforeTemplateRenderedEvent|Event> */
-class BeforeTemplateRenderedListener implements IEventListener {
+class Admin implements ISettings {
 
 	public function __construct(
 		private IConfig $config,
@@ -19,15 +18,7 @@ class BeforeTemplateRenderedListener implements IEventListener {
 	) {
 	}
 
-	public function handle(Event $event): void {
-		if (!($event instanceof BeforeTemplateRenderedEvent)) {
-			return;
-		}
-		if (!$event->isLoggedIn()) {
-			return;
-		}
-		\OCP\Util::addStyle(Application::APP_ID, 'zulip-search');
-
+	public function getForm(): TemplateResponse {
 		$adminConfig = [
 			'send_type_enabled_file' => $this->config->getAppValue(Application::APP_ID, 'send_type_enabled_file', '1') === '1',
 			'send_type_enabled_public_link' => $this->config->getAppValue(Application::APP_ID, 'send_type_enabled_public_link', '1') === '1',
@@ -35,5 +26,14 @@ class BeforeTemplateRenderedListener implements IEventListener {
 			'send_type_default' => $this->config->getAppValue(Application::APP_ID, 'send_type_default', ''),
 		];
 		$this->initialStateService->provideInitialState('admin-config', $adminConfig);
+		return new TemplateResponse(Application::APP_ID, 'adminSettings');
+	}
+
+	public function getSection(): string {
+		return 'connected-accounts';
+	}
+
+	public function getPriority(): int {
+		return 10;
 	}
 }
