@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_zulip",
     {
+    "Zulip" : "Zulip",
     "Connect your Zulip account in the settings" : "Se connecter à Zulip dans les paramètres",
     "No unread messages" : "Aucun message non lu",
     "No recent messages" : "Pas de nouveau message",
