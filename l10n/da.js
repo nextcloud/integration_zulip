@@ -11,6 +11,7 @@ OC.L10N.register(
     "View only" : "Kun visning",
     "Edit" : "Redigér",
     "Files" : "Filer",
+    "Conversation" : "Samtale",
     "Topic" : "Emne",
     "Select a topic" : "Vælg et emne",
     "Type" : "Type",
