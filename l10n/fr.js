@@ -10,6 +10,8 @@ OC.L10N.register(
     "Open Zulip feed" : "Ouvrir le fil",
     "Direct message from {name}" : "Message direct de {name}",
     "Zulip messages" : "Messages Zulip",
+    "%s in #%s > %s at %s" : "%s dans #%s > %s le %s",
+    "%s in %s at %s" : "%s dans %s le %s",
     "Bad HTTP method" : "Mauvaise méthode HTTP",
     "Bad credentials" : "Identifiants incorrects",
     "Connected accounts" : "Comptes connectés",
