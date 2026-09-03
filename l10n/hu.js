@@ -12,6 +12,7 @@ OC.L10N.register(
     "View only" : "Csak megtekintés",
     "Edit" : "Szerkesztés",
     "Files" : "Fájlok",
+    "Conversation" : "Beszélgetés",
     "Type" : "Típus",
     "Set expiration date" : "Lejárati idő beállítása",
     "Expires on" : "Lejárat:",
