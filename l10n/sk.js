@@ -6,6 +6,7 @@ OC.L10N.register(
     "Connected accounts" : "Prepojené účty",
     "Cancel" : "Zrušiť",
     "Go to settings" : "Prejsť do nastavení",
+    "Enable searching for messages" : "Povoliť vyhľadávanie správ",
     "password" : "heslo",
     "Message to send with the files" : "Správa ktorá bude odoslaná so súbormi",
     "View only" : "Iba pre čítanie",
