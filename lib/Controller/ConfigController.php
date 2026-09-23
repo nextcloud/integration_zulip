@@ -22,6 +22,7 @@ use OCA\Zulip\AppInfo\Application;
 use OCA\Zulip\Service\SecretService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\AuthorizedAdminSetting;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
@@ -75,6 +76,22 @@ class ConfigController extends Controller {
 			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
 		}
 
+		return new DataResponse([]);
+	}
+
+	/**
+	 * @return DataResponse
+	 */
+	#[AuthorizedAdminSetting(settings: \OCA\Zulip\Settings\Admin::class)]
+	#[FrontpageRoute(verb: 'PUT', url: '/admin-config')]
+	public function setAdminConfig(array $values): DataResponse {
+		$allowedKeys = ['send_type_enabled_file', 'send_type_enabled_public_link', 'send_type_enabled_internal_link', 'send_type_default'];
+		foreach ($values as $key => $value) {
+			if (!in_array($key, $allowedKeys, true)) {
+				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			}
+			$this->config->setAppValue(Application::APP_ID, $key, $value);
+		}
 		return new DataResponse([]);
 	}
 
