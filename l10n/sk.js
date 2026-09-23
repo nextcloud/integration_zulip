@@ -8,7 +8,7 @@ OC.L10N.register(
     "Failed to load messages" : "Nepodarilo sa načítať správy",
     "Open Zulip inbox" : "Otvoriť doručenú poštu Zulip",
     "Open Zulip feed" : "Otvoriť kanál Zulip",
-    "Direct message from {name}" : "Priama správa od používateľa {name}",
+    "Direct message from {name}" : "Priama správa od {name}",
     "Zulip messages" : "Správy Zulip",
     "%s in #%s > %s at %s" : "%s v #%s > %s o %s",
     "%s in %s at %s" : "%s v %s o %s",
