@@ -64,6 +64,6 @@ OC.L10N.register(
     "_{fileName} was successfully sent to {channelName}_::_All of the {number} files were sent to {channelName}_" : ["{fileName} súbor bol odoslaný do {channelName}","Všetky {number} súbory boli odoslané do {channelName}","Všetkých {number} súborov bolo odoslaných do {channelName}","Všetkých {number} súborov bolo odoslaných do {channelName}"],
     "Upload files" : "Nahrať súbory",
     "Public links" : "Verejné odkazy",
-    "Internal links (Only works for users with access to the files)" : "Interné odkazy (funguje iba pre užívateľov s prístupom k súborom)"
+    "Internal links (Only works for users with access to the files)" : "Interné odkazy (funguje iba pre používateľov s prístupom k súborom)"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
