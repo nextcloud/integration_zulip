@@ -51,7 +51,7 @@ OC.L10N.register(
     "Expires on" : "Koniec platnosti",
     "Set link password" : "Nastaviť heslo odkazu",
     "Comment" : "Komentár",
-    "Directories will be skipped, they can only be sent as links." : "Adresáre budú preskočené, môžu byť odoslané iba ako odkaz.",
+    "Directories will be skipped, they can only be sent as links." : "Adresáre budú preskočené, môžu byť odoslané iba ako odkazy.",
     "_Send file to Zulip_::_Send files to Zulip_" : ["Odoslať súbor do služby Zulip","Odoslať súbory do služby Zulip","Odoslať súbory do služby Zulip","Odoslať súbory do služby Zulip"],
     "_Send link to Zulip_::_Send links to Zulip_" : ["Odoslať odkaz do služby Zulip","Odoslať odkazy do služby Zulip","Odoslať odkazy do služby Zulip","Odoslať odkazy do služby Zulip"],
     "_Send file_::_Send files_" : ["Odoslať súbor","Odoslať súbory","Odoslať súbory","Odoslať súbory"],
