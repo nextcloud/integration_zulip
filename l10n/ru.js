@@ -12,6 +12,7 @@ OC.L10N.register(
     "Edit" : "Редактирование",
     "Files" : "Файлы",
     "Conversation" : "Обсуждение",
+    "Topic" : "Тема",
     "Type" : "Тип",
     "Set expiration date" : "Установить крайний срок для ответов",
     "Expires on" : "Заканчивается",
