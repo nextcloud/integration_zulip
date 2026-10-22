@@ -8,6 +8,8 @@ OC.L10N.register(
     "View only" : "Numai se vizualizează",
     "Edit" : "Editează",
     "Files" : "Fișiere",
+    "Conversation" : "Conversație",
+    "Topic" : "Subiect",
     "Type" : "Tip",
     "Set expiration date" : "Specifică data expirării",
     "Comment" : "Comentariu",
