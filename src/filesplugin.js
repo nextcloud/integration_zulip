@@ -18,6 +18,7 @@ import moment from '@nextcloud/moment'
 import { generateUrl, linkTo } from '@nextcloud/router'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
+import { loadState } from '@nextcloud/initial-state'
 import { SEND_TYPE } from './utils.js'
 import {
 	registerFileAction, Permission, FileType,
@@ -186,7 +187,19 @@ const modalElement = document.createElement('div')
 modalElement.id = modalId
 document.body.append(modalElement)
 
-const modalApp = createApp(SendFilesModal)
+let adminConfig = {
+	send_type_enabled_file: true,
+	send_type_enabled_public_link: true,
+	send_type_enabled_internal_link: true,
+	send_type_default: '',
+}
+try {
+	adminConfig = loadState('integration_zulip', 'admin-config', adminConfig)
+} catch (e) {
+	// admin-config not available, use defaults
+}
+
+const modalApp = createApp(SendFilesModal, { adminConfig })
 modalApp.mixin({ methods: { t, n } })
 OCA.Zulip.ZulipSendModalVue = modalApp.mount(modalElement)
 
