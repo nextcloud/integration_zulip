@@ -3,6 +3,10 @@
     "Bad credentials" : "Credențiale greșite",
     "Connected accounts" : "Conturile conectate",
     "Cancel" : "Anulare",
+    "Go to settings" : "Mergi la setări",
+    "Enable searching for messages" : "Activează căutarea mesajelor",
+    "password" : "parolă",
+    "Message to send with the files" : "Mesaj de trimis împreună cu fișierele",
     "View only" : "Numai se vizualizează",
     "Edit" : "Editează",
     "Files" : "Fișiere",
@@ -10,8 +14,14 @@
     "Topic" : "Subiect",
     "Type" : "Tip",
     "Set expiration date" : "Specifică data expirării",
+    "Expires on" : "Expiră la",
+    "Set link password" : "Setează parola linkului",
     "Comment" : "Comentariu",
+    "Directories will be skipped, they can only be sent as links." : "Dosarele vor fi omise; acestea pot fi trimise doar ca linkuri.",
+    "_Send file_::_Send files_" : ["Trimite fișierul","Trimite fișierele","Trimite fișierele"],
+    "_Send link_::_Send links_" : ["Trimite linkul","Trimite linkurile","Trimite linkurile"],
     "Upload files" : "Încarcă fișiere",
-    "Public links" : "Linkuri publice"
+    "Public links" : "Linkuri publice",
+    "Internal links (Only works for users with access to the files)" : "Linkuri interne (funcționează doar pentru utilizatorii cu acces la fișiere)"
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }
